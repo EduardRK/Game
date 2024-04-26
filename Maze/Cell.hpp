@@ -6,12 +6,11 @@
 class Cell final
 {
 private:
-    Point &_point;
     MazeTypeCell type;
 
 public:
-    Cell(Point &point, MazeTypeCell type);
-    Cell(Point &point);
+    Cell(MazeTypeCell type);
+    Cell();
 
     ~Cell();
 
@@ -19,6 +18,4 @@ public:
     auto isPassage() -> bool;
 
     auto createPassage() -> void;
-
-    Point &point();
 };

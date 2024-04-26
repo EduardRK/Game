@@ -1,11 +1,11 @@
 #include "Cell.hpp"
 #include "MazeTypeCell.hpp"
 
-Cell::Cell(Point &point, MazeTypeCell type) : _point{point}, type{type}
+Cell::Cell(MazeTypeCell type) : type{type}
 {
 }
 
-Cell::Cell(Point &point) : Cell(point, MazeTypeCell::WALL)
+Cell::Cell() : Cell(MazeTypeCell::WALL)
 {
 }
 
@@ -26,9 +26,4 @@ bool Cell::isPassage()
 void Cell::createPassage()
 {
     type = MazeTypeCell::PASSAGE;
-}
-
-Point &Cell::point()
-{
-    return point;
 }
