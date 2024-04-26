@@ -8,5 +8,5 @@ public:
     DfsMazeSolver();
     ~DfsMazeSolver();
 
-    auto solveMaze(Maze const &maze) -> std::vector<Point>;
+    std::vector<Point> solveMaze(Maze const &maze) override;
 };
