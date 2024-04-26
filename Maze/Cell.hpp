@@ -1,10 +1,12 @@
-#include "point/Point.hpp"
+#pragma once
+
+#include "Point.hpp"
 #include "MazeTypeCell.hpp"
 
-class final Cell
+class Cell final
 {
 private:
-    Point point;
+    Point &_point;
     MazeTypeCell type;
 
 public:
@@ -18,5 +20,5 @@ public:
 
     auto createPassage() -> void;
 
-    auto point() -> Point;
-}
+    Point &point();
+};

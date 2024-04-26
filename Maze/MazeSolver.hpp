@@ -1,7 +1,9 @@
-#include <bits/stdc++.h>
+#pragma once
+
+#include <vector>
 
 #include "Maze.hpp"
-#include "Point/Point.hpp"
+#include "Point.hpp"
 
 class MazeSolver
 {
@@ -9,4 +11,4 @@ class MazeSolver
     virtual ~MazeSolver();
 
     virtual auto solveMaze(Maze const& maze) -> std::vector<Point> = 0;
-}
+};

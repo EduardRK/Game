@@ -1,8 +1,10 @@
-#include <bits/stdc++.h>
+#pragma once
+
+#include <vector>
 
 #include "MazeTypeCell.hpp"
 
-class Maze
+class Maze final
 {
 private:
     std::vector<std::vector<MazeTypeCell>> maze;
