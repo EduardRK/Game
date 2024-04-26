@@ -3,7 +3,12 @@
 #include <math.h>
 
 #include "MainHero.hpp"
-#include "Maze/Maze.hpp"
+#include "maze/Maze.hpp"
+#include "maze/Cell.hpp"
+#include "maze/MazeTypeCell.hpp"
+#include "maze/PrimMazeGenerator.hpp"
+#include "maze/DfsMazeSolver.hpp"
+#include "maze/Point.hpp"
 
 // std::vector<float> heights = {6, 6, 4, 4, 4, 5, -1, -1, -1, -1, 5, 6};
 // float dx = 2.0f / 12.0f;
