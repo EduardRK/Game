@@ -17,3 +17,8 @@ int Point::y()
 {
     return y;
 }
+
+bool Point::equals(Point const &point)
+{
+    return _x == poitn.x() && _y == point.y();
+}

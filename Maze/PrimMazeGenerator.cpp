@@ -3,6 +3,8 @@
 #include <random>
 
 #include "PrimMazeGenerator.hpp"
+#include "Cell.hpp"
+#include "Point.hpp"
 
 PrimMazeGenerator::PrimMazeGenerator()
 {
@@ -12,7 +14,7 @@ PrimMazeGenerator::~PrimMazeGenerator()
 {
 }
 
-Maze PrimMazeGenerator::generateMaze(std::size_t height, std::size_t width)
+Maze PrimMazeGenerator::generateMaze(std::size_t height, std::size_t width) override
 {
     const std::size_t maxVisitedCells = ((height + 1) / 2) * ((width + 1) / 2);
 
@@ -41,7 +43,7 @@ Maze PrimMazeGenerator::generateMaze(std::size_t height, std::size_t width)
         if ((x + 2 >= height || grid.at(x + 2).at(y).isPassage()) && (x - 2 < 0 || grid.at(x - 2).at(y).isPassage()) && (y + 2 >= width || grid.at(x).at(y + 2).isPassage) && (y - 2 < 0 || grid.at(x).at(y - 2).isPassage()))
         {
             finalVisitedCells.push_back(currentCell);
-            visitedCell.remove(cellIndex);
+            visitedCells.erase(visitedCells.begin() + cellIndex);
         }
     }
 
@@ -50,7 +52,7 @@ Maze PrimMazeGenerator::generateMaze(std::size_t height, std::size_t width)
 
 std::vector<std::vector<Cell>> &PrimMazeGenerator::createStartGrid(std::size_t height, std::size_t width)
 {
-    std::vector<std::vector<Cell>> grid;
+    std::vector<std::vector<Cell>> grid(height, std::vector<Cell>(width));
 
     for (std::size_t i = 0; i < width; ++i)
     {
@@ -60,6 +62,8 @@ std::vector<std::vector<Cell>> &PrimMazeGenerator::createStartGrid(std::size_t h
             grid.at(i).at(j) = Cell(point);
         }
     }
+
+    return grid;
 }
 
 void PrimMazeGenerator::createRandomPassageFromCell(std::vector<std::vector<Cell>> &grid, std::vector<char> &directions, std::vector<Cell> &visitedCells, Cell &currentCell)
@@ -81,7 +85,7 @@ void PrimMazeGenerator::createRandomPassageFromCell(std::vector<std::vector<Cell
     }
     else if (currentDirection == 'L')
     {
-        if (yCell - 2 >= 0 && grid, at(xCell).at(yCell - 2).isWall())
+        if (yCell - 2 >= 0 && grid.at(xCell).at(yCell - 2).isWall())
         {
             grid.at(xCell).at(yCell - 1).createPassage();
             grid.at(xCell).at(yCell - 1).createPassage();
@@ -112,7 +116,7 @@ void PrimMazeGenerator::createRandomPassageFromCell(std::vector<std::vector<Cell
 
     if (!directions.empty())
     {
-        directions.remove(directionIndex);
+        directions.erase(directions.begin() + directionIndex);
     }
 }
 

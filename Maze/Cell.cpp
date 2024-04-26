@@ -1,5 +1,6 @@
 #include "Cell.hpp"
 #include "MazeTypeCell.hpp"
+#include "Point.hpp"
 
 Cell::Cell(Point &point, MazeTypeCell type) : _point{point}, type{type}
 {

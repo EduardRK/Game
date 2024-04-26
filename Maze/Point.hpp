@@ -12,4 +12,6 @@ public:
 
     int x();
     int y();
+
+    bool equals(Point const &point);
 };

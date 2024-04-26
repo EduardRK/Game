@@ -15,10 +15,10 @@ public:
 
     ~Cell();
 
-    auto isWall() -> bool;
-    auto isPassage() -> bool;
+    bool isWall();
+    bool isPassage();
 
-    auto createPassage() -> void;
+    void createPassage();
 
     Point &point();
 };

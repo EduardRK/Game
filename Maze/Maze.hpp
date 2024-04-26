@@ -12,7 +12,7 @@ private:
     std::vector<std::vector<Cell>> &_maze;
 
 public:
-    Maze(std::vector<std::vector<Cell>> const &maze);
+    Maze(std::vector<std::vector<Cell>> &maze);
     ~Maze();
 
     Cell &cell(std::size_t x, std::size_t y);
