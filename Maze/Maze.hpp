@@ -9,7 +9,7 @@
 class Maze final
 {
 private:
-    std::vector<std::vector<Cell>> &maze;
+    std::vector<std::vector<Cell>> &_maze;
 
 public:
     Maze(std::vector<std::vector<Cell>> const &maze);

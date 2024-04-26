@@ -4,7 +4,7 @@
 #include "Maze.hpp"
 #include "Cell.hpp"
 
-Maze::Maze(std::vector<std::vector<Cell>> const &maze) : maze{maze}
+Maze::Maze(std::vector<std::vector<Cell>> const &maze) : _maze{maze}
 {
 }
 

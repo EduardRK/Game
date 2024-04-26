@@ -2,11 +2,11 @@
 #include <vector>
 #include <math.h>
 
-#include "MainHero.hpp"
 #include "maze/Maze.hpp"
 #include "maze/Cell.hpp"
 #include "maze/MazeTypeCell.hpp"
 #include "maze/PrimMazeGenerator.hpp"
+#include "maze/MazeGenerator.hpp"
 #include "maze/DfsMazeSolver.hpp"
 #include "maze/Point.hpp"
 
@@ -14,9 +14,9 @@
 // float dx = 2.0f / 12.0f;
 // MainHero mainHero(0, heights, dx);
 
-void myDisp()
-{
-    glClear(GL_COLOR_BUFFER_BIT);
+// void myDisp()
+// {
+//     glClear(GL_COLOR_BUFFER_BIT);
 
     // for (int i = 0; i < heights.size(); ++i)
     // {
@@ -39,11 +39,11 @@ void myDisp()
 
     // mainHero.show();
 
-    glutSwapBuffers();
-}
+//     glutSwapBuffers();
+// }
 
-void myKeyboard(int key, int x, int y)
-{
+// void myKeyboard(int key, int x, int y)
+// {
     // switch (key)
     // {
     // case GLUT_KEY_RIGHT:
@@ -56,22 +56,25 @@ void myKeyboard(int key, int x, int y)
     //     break;
     // }
 
-    glutPostRedisplay();
-}
+//     glutPostRedisplay();
+// }
 
 int main(int argc, char **argv)
 {
-    glutInit(&argc, argv);
-    glutInitWindowPosition(0, 0);
-    glutInitWindowSize(1000, 1000);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+    MazeGenerator *mazeGenerator = new PrimMazeGenerator();
+    Maze maze = mazeGenerator->generateMaze(11, 11);
 
-    glutCreateWindow("Window");
+    // glutInit(&argc, argv);
+    // glutInitWindowPosition(0, 0);
+    // glutInitWindowSize(1000, 1000);
+    // glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 
-    glClearColor(1.0, 1.0, 1.0, 1.0);
-    glutDisplayFunc(myDisp);
-    glutSpecialFunc(myKeyboard);
-    glutMainLoop();
+    // glutCreateWindow("Window");
+
+    // glClearColor(1.0, 1.0, 1.0, 1.0);
+    // glutDisplayFunc(myDisp);
+    // glutSpecialFunc(myKeyboard);
+    // glutMainLoop();
 
     return 0;
 }
