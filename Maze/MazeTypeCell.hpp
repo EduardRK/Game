@@ -3,5 +3,6 @@
 enum MazeTypeCell
 {
     WALL,
+    CRACKED,
     PASSAGE,
 };

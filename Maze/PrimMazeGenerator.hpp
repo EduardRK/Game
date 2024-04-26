@@ -11,5 +11,5 @@ public:
     PrimMazeGenerator();
     ~PrimMazeGenerator();
 
-    auto generateMaze(std::size_t height, std::size_t width) -> Maze const override;
+    Maze generateMaze(std::size_t height, std::size_t width) override;
 };

@@ -10,7 +10,10 @@ PrimMazeGenerator::~PrimMazeGenerator()
 {
 }
 
-auto PrimMazeGenerator::generateMaze(std::size_t height, std::size_t width) -> Maze const override
+Maze PrimMazeGenerator::generateMaze(std::size_t height, std::size_t width)
 {
-    return Maze const override();
+    const std::size_t maxVisitedCells = ((height + 1) / 2) * ((width + 1) / 2);
+
+    std::vector<std::vector<Cell>> grid;
+    return Maze(NULL);
 }
