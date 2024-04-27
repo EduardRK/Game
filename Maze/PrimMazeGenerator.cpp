@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include <random>
+#include <iostream>
 
 #include "PrimMazeGenerator.hpp"
 #include "Cell.hpp"
@@ -17,7 +18,7 @@ PrimMazeGenerator::~PrimMazeGenerator()
 
 std::unique_ptr<Maze> PrimMazeGenerator::generateMaze(std::size_t height, std::size_t width)
 {
-    const std::size_t maxVisitedCells = ((height + 1) / 2) * ((width + 1) / 2);
+    std::size_t maxVisitedCells = ((height + 1) / 2) * ((width + 1) / 2);
 
     std::vector<std::vector<Cell>> grid = createStartGrid(height, width);
 
@@ -54,14 +55,15 @@ std::unique_ptr<Maze> PrimMazeGenerator::generateMaze(std::size_t height, std::s
 
 std::vector<std::vector<Cell>> PrimMazeGenerator::createStartGrid(std::size_t height, std::size_t width)
 {
-    std::vector<std::vector<Cell>> grid(height, std::vector<Cell>(width));
+    std::vector<std::vector<Cell>> grid(height);
 
-    for (std::size_t i = 0; i < width; ++i)
+    for (std::size_t i = 0; i < height; ++i)
     {
-        for (std::size_t j = 0; j < height; ++j)
+        for (std::size_t j = 0; j < width; ++j)
         {
             Point point(i, j);
-            grid.at(i).at(j) = Cell(point);
+            Cell cell(point);
+            grid.at(i).push_back(cell);
         }
     }
 
@@ -90,7 +92,7 @@ void PrimMazeGenerator::createRandomPassageFromCell(std::vector<std::vector<Cell
         if (yCell - 2 >= 0 && grid.at(xCell).at(yCell - 2).isWall())
         {
             grid.at(xCell).at(yCell - 1).createPassage();
-            grid.at(xCell).at(yCell - 1).createPassage();
+            grid.at(xCell).at(yCell - 2).createPassage();
             visitedCells.push_back(grid.at(xCell).at(yCell - 2));
             directions.clear();
         }
@@ -105,7 +107,7 @@ void PrimMazeGenerator::createRandomPassageFromCell(std::vector<std::vector<Cell
             directions.clear();
         }
     }
-    else
+    else if (currentDirection == 'D')
     {
         if (xCell - 2 >= 0 && grid.at(xCell - 2).at(yCell).isWall())
         {
@@ -126,7 +128,7 @@ int PrimMazeGenerator::nextRandomInt(int min, int max)
 {
     std::random_device dev;
     std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> dist6(min, max);
+    std::uniform_int_distribution<std::mt19937::result_type> dist6(min, max - 1);
     return dist6(rng);
 }
 
