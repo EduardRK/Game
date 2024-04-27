@@ -34,9 +34,24 @@ bool Cell::isPassage() const
     return _type == MazeTypeCell::PASSAGE;
 }
 
+bool Cell::isCracked() const
+{
+    return _type == MazeTypeCell::CRACKED;
+}
+
+void Cell::createWall()
+{
+    _type = MazeTypeCell::WALL;
+}
+
 void Cell::createPassage()
 {
     _type = MazeTypeCell::PASSAGE;
+}
+
+void Cell::createCracked()
+{
+    _type = MazeTypeCell::WALL;
 }
 
 const Point &Cell::point() const

@@ -21,8 +21,11 @@ public:
 
     bool isWall() const;
     bool isPassage() const;
+    bool isCracked() const;
 
+    void createWall();
     void createPassage();
+    void createCracked();
 
     const Point &point() const;
 };

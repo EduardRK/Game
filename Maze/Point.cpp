@@ -33,6 +33,11 @@ Point &Point::operator=(const Point &other)
     return *this;
 }
 
+bool Point::operator==(const Point &other) const
+{
+    return _x == other.x() && _y == other.y();
+}
+
 int Point::x() const
 {
     return _x;
@@ -41,9 +46,4 @@ int Point::x() const
 int Point::y() const
 {
     return _y;
-}
-
-bool Point::operator==(const Point &other) const
-{
-    return _x == other.x() && _y == other.y();
 }
