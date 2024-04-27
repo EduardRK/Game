@@ -10,7 +10,7 @@ Point::Point() : Point(0, 0)
 {
 }
 
-Point::Point(const Point &other) : _x{other._x}, _y{other._y}
+Point::Point(const Point &other) : _x{other.x()}, _y{other.y()}
 {
 }
 
@@ -20,6 +20,17 @@ Point::Point(Point &&other) noexcept : _x{std::move(other._x)}, _y{std::move(oth
 
 Point::~Point()
 {
+}
+
+Point &Point::operator=(const Point &other)
+{
+    if (this != &other)
+    {
+        _x = other.x();
+        _y = other.y();
+    }
+
+    return *this;
 }
 
 int Point::x() const

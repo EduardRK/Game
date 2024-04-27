@@ -13,6 +13,8 @@ public:
     Point(Point &&other) noexcept;
     ~Point();
 
+    Point &operator=(const Point &other);
+
     int x() const;
     int y() const;
 
