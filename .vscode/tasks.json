@@ -8,7 +8,7 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
-                "${fileDirname}\\*.cpp",
+                "${fileDirname}\\maze\\*.cpp",
                 "-lfreeglut",
                 "-lopengl32",
                 "-std=c++23",

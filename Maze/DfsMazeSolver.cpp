@@ -12,7 +12,7 @@ DfsMazeSolver::~DfsMazeSolver()
 {
 }
 
-std::vector<Point> DfsMazeSolver::solveMaze(Maze const &maze) override
+std::vector<Point> DfsMazeSolver::solveMaze(Maze const &maze)
 {
     return std::vector<Point>();
 }

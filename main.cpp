@@ -1,5 +1,6 @@
 #include <vector>
 #include <memory>
+#include <utility>
 #include <math.h>
 
 #include "maze/Maze.hpp"
@@ -8,6 +9,7 @@
 #include "maze/PrimMazeGenerator.hpp"
 #include "maze/MazeGenerator.hpp"
 #include "maze/DfsMazeSolver.hpp"
+#include "maze/MazeSolver.hpp"
 #include "maze/Point.hpp"
 
 int main(int argc, char **argv)

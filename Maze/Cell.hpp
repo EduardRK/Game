@@ -7,18 +7,22 @@ class Cell final
 {
 private:
     Point _point;
-    MazeTypeCell type;
+    MazeTypeCell _type;
 
 public:
-    Cell(Point &point, MazeTypeCell type);
-    Cell(Point &point);
+    Cell() = default;
+
+    Cell(Point point, MazeTypeCell type);
+    Cell(const Point &point, MazeTypeCell type);
+    Cell(const Point &point);
+    Cell(Point &&point, MazeTypeCell type);
 
     ~Cell();
 
-    bool isWall();
-    bool isPassage();
+    bool isWall() const;
+    bool isPassage() const;
 
     void createPassage();
 
-    Point &point();
+    const Point &point() const;
 };

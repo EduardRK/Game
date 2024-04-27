@@ -8,10 +8,13 @@ private:
 
 public:
     Point(int x, int y);
+    Point();
+    Point(const Point &other);
+    Point(Point &&other) noexcept;
     ~Point();
 
-    int x();
-    int y();
+    int x() const;
+    int y() const;
 
-    bool equals(Point const &point);
+    bool equals(const Point &point) const;
 };

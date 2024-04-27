@@ -1,12 +1,22 @@
+#include <utility>
+
 #include "Cell.hpp"
 #include "MazeTypeCell.hpp"
 #include "Point.hpp"
 
-Cell::Cell(Point &point, MazeTypeCell type) : _point{point}, type{type}
+Cell::Cell(Point point, MazeTypeCell type) : _point{std::move(point)}, _type{type}
 {
 }
 
-Cell::Cell(Point &point) : Cell(point, MazeTypeCell::WALL)
+Cell::Cell(const Point &point, MazeTypeCell type) : _point{point}, _type{type}
+{
+}
+
+Cell::Cell(const Point &point) : _point{point}, _type{MazeTypeCell::WALL}
+{
+}
+
+Cell::Cell(Point &&point, MazeTypeCell type) : _point{std::move(point)}, _type{type}
 {
 }
 
@@ -14,22 +24,22 @@ Cell::~Cell()
 {
 }
 
-bool Cell::isWall()
+bool Cell::isWall() const
 {
-    return type == MazeTypeCell::WALL;
+    return _type == MazeTypeCell::WALL;
 }
 
-bool Cell::isPassage()
+bool Cell::isPassage() const
 {
-    return type == MazeTypeCell::PASSAGE;
+    return _type == MazeTypeCell::PASSAGE;
 }
 
 void Cell::createPassage()
 {
-    type = MazeTypeCell::PASSAGE;
+    _type = MazeTypeCell::PASSAGE;
 }
 
-Point &Cell::point()
+const Point &Cell::point() const
 {
     return _point;
 }

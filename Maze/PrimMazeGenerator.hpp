@@ -16,7 +16,7 @@ public:
     Maze generateMaze(std::size_t height, std::size_t width) override;
 
 private:
-    std::vector<std::vector<Cell>> &createStartGrid(std::size_t height, std::size_t width);
+    std::vector<std::vector<Cell>> createStartGrid(std::size_t height, std::size_t width);
     void createRandomPassageFromCell(std::vector<std::vector<Cell>> &grid, std::vector<char> &directions, std::vector<Cell> &visitedCells, Cell &currentCell);
 
     int nextRandomInt(int min, int max);

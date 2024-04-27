@@ -14,7 +14,7 @@ PrimMazeGenerator::~PrimMazeGenerator()
 {
 }
 
-Maze PrimMazeGenerator::generateMaze(std::size_t height, std::size_t width) override
+Maze PrimMazeGenerator::generateMaze(std::size_t height, std::size_t width)
 {
     const std::size_t maxVisitedCells = ((height + 1) / 2) * ((width + 1) / 2);
 
@@ -29,7 +29,7 @@ Maze PrimMazeGenerator::generateMaze(std::size_t height, std::size_t width) over
     while ((visitedCells.size() + finalVisitedCells.size()) != maxVisitedCells)
     {
         int cellIndex = nextRandomInt(visitedCells.size());
-        currentCells = visitedCells.at(cellIndex);
+        currentCell = visitedCells.at(cellIndex);
 
         int x = currentCell.point().x();
         int y = currentCell.point().y();
@@ -40,7 +40,7 @@ Maze PrimMazeGenerator::generateMaze(std::size_t height, std::size_t width) over
             createRandomPassageFromCell(grid, directions, visitedCells, currentCell);
         }
 
-        if ((x + 2 >= height || grid.at(x + 2).at(y).isPassage()) && (x - 2 < 0 || grid.at(x - 2).at(y).isPassage()) && (y + 2 >= width || grid.at(x).at(y + 2).isPassage) && (y - 2 < 0 || grid.at(x).at(y - 2).isPassage()))
+        if ((x + 2 >= height || grid.at(x + 2).at(y).isPassage()) && (x - 2 < 0 || grid.at(x - 2).at(y).isPassage()) && (y + 2 >= width || grid.at(x).at(y + 2).isPassage()) && (y - 2 < 0 || grid.at(x).at(y - 2).isPassage()))
         {
             finalVisitedCells.push_back(currentCell);
             visitedCells.erase(visitedCells.begin() + cellIndex);
@@ -50,7 +50,7 @@ Maze PrimMazeGenerator::generateMaze(std::size_t height, std::size_t width) over
     return Maze(grid);
 }
 
-std::vector<std::vector<Cell>> &PrimMazeGenerator::createStartGrid(std::size_t height, std::size_t width)
+std::vector<std::vector<Cell>> PrimMazeGenerator::createStartGrid(std::size_t height, std::size_t width)
 {
     std::vector<std::vector<Cell>> grid(height, std::vector<Cell>(width));
 
@@ -71,7 +71,7 @@ void PrimMazeGenerator::createRandomPassageFromCell(std::vector<std::vector<Cell
     int xCell = currentCell.point().x();
     int yCell = currentCell.point().y();
     int directionIndex = nextRandomInt(directions.size());
-    char currentDirection = directions.at(directionsIndex);
+    char currentDirection = directions.at(directionIndex);
 
     if (currentDirection == 'R')
     {
