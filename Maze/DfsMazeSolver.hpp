@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <unordered_set>
 
 #include "MazeSolver.hpp"
 #include "Maze.hpp"
@@ -8,9 +9,17 @@
 
 class DfsMazeSolver final : public MazeSolver
 {
+private:
+    Maze _maze;
+    std::vector<char> directions{'U', 'D', 'R', 'L'};
+
 public:
-    DfsMazeSolver();
+    DfsMazeSolver(const Maze &maze);
     ~DfsMazeSolver();
 
-    std::vector<Point> solveMaze(const Maze &maze) override;
+    std::vector<Point> solveMaze(const Point &start, const Point &end) override;
+
+private:
+    bool explore(const Point &point, const Point &end, std::vector<Point> &path, std::unordered_set<Point> &visited);
+    bool isValidPoint(const Point &point);
 };

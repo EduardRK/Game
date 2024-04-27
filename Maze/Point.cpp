@@ -43,7 +43,7 @@ int Point::y() const
     return _y;
 }
 
-bool Point::equals(const Point &point) const
+bool Point::operator==(const Point &other) const
 {
-    return this->_x == point.x() && this->_y == point.y();
+    return _x == other.x() && _y == other.y();
 }

@@ -18,5 +18,5 @@ public:
     int x() const;
     int y() const;
 
-    bool equals(const Point &point) const;
+    bool operator==(const Point &other) const;
 };

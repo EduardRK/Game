@@ -10,5 +10,5 @@ class MazeSolver
 public:
     virtual ~MazeSolver();
 
-    virtual std::vector<Point> solveMaze(const Maze &maze) = 0;
+    virtual std::vector<Point> solveMaze(const Point &start, const Point &end) = 0;
 };

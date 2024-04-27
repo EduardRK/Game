@@ -18,6 +18,7 @@ public:
     ~Maze();
 
     const Cell &cell(std::size_t x, std::size_t y) const;
+    const Cell &cell(const Point &point);
     std::size_t height() const;
     std::size_t width() const;
 };
