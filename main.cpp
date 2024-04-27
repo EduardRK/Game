@@ -14,6 +14,10 @@
 #include "maze/DfsMazeSolver.hpp"
 #include "maze/MazeSolver.hpp"
 #include "maze/Point.hpp"
+#include "maze/MazeRenderer.hpp"
+#include "maze/GlutMazeRenderer.hpp"
+#include "maze/CellRenderer.hpp"
+#include "maze/GlutCellRenderer.hpp"
 
 int main(int argc, char **argv)
 {
