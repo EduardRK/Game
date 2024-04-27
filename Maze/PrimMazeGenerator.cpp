@@ -48,7 +48,7 @@ std::unique_ptr<Maze> PrimMazeGenerator::generateMaze(std::size_t height, std::s
         }
     }
 
-    Maze maze(grid);
+    Maze maze(grid, height, width);
     return std::make_unique<Maze>(maze);
 }
 
