@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 {
     std::unique_ptr<MazeGenerator> mazeGenerator = std::make_unique<PrimMazeGenerator>();
     std::unique_ptr<MazeSolver> mazeSolver = std::make_unique<DfsMazeSolver>();
-    Maze maze = mazeGenerator->generateMaze(11, 11);
+    std::unique_ptr<Maze> maze = mazeGenerator->generateMaze(11, 11);
 
     return 0;
 }

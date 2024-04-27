@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <cstdlib>
 #include <vector>
 
@@ -13,7 +14,7 @@ public:
     PrimMazeGenerator();
     ~PrimMazeGenerator();
 
-    Maze generateMaze(std::size_t height, std::size_t width) override;
+    std::unique_ptr<Maze> generateMaze(std::size_t height, std::size_t width) override;
 
 private:
     std::vector<std::vector<Cell>> createStartGrid(std::size_t height, std::size_t width);

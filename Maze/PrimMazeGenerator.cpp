@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <vector>
+#include <memory>
 #include <random>
 
 #include "PrimMazeGenerator.hpp"
@@ -14,7 +15,7 @@ PrimMazeGenerator::~PrimMazeGenerator()
 {
 }
 
-Maze PrimMazeGenerator::generateMaze(std::size_t height, std::size_t width)
+std::unique_ptr<Maze> PrimMazeGenerator::generateMaze(std::size_t height, std::size_t width)
 {
     const std::size_t maxVisitedCells = ((height + 1) / 2) * ((width + 1) / 2);
 
@@ -47,7 +48,8 @@ Maze PrimMazeGenerator::generateMaze(std::size_t height, std::size_t width)
         }
     }
 
-    return Maze(grid);
+    Maze maze(grid);
+    return std::make_unique<Maze>(maze);
 }
 
 std::vector<std::vector<Cell>> PrimMazeGenerator::createStartGrid(std::size_t height, std::size_t width)

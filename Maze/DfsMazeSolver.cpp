@@ -12,7 +12,7 @@ DfsMazeSolver::~DfsMazeSolver()
 {
 }
 
-std::vector<Point> DfsMazeSolver::solveMaze(Maze const &maze)
+std::vector<Point> DfsMazeSolver::solveMaze(const Maze &maze)
 {
     return std::vector<Point>();
 }
