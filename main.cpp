@@ -57,6 +57,9 @@ void renderMaze(const Maze &maze)
 
 int main(int argc, char **argv)
 {
+    std::unique_ptr<Runner> runner = std::make_unique<GameRunner>();
+    runner->run();
+
     std::unique_ptr<CellRenderer> cellRenderer = std::make_unique<GlutCellRenderer>();
     std::unique_ptr<MazeGenerator> mazeGenerator = std::make_unique<PrimMazeGenerator>();
     std::unique_ptr<Maze> maze = mazeGenerator->generateMaze(31, 31);
