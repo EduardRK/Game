@@ -51,7 +51,7 @@ void Cell::createPassage()
 
 void Cell::createCracked()
 {
-    _type = MazeTypeCell::WALL;
+    _type = MazeTypeCell::CRACKED;
 }
 
 const Point &Cell::point() const

@@ -12,14 +12,24 @@ Maze::~Maze()
 {
 }
 
+Cell &Maze::cell(std::size_t x, std::size_t y)
+{
+    return _maze.at(x).at(y);
+}
+
+Cell &Maze::cell(const Point &point)
+{
+    return cell(point.x(), point.y());
+}
+
 const Cell &Maze::cell(std::size_t x, std::size_t y) const
 {
     return _maze.at(x).at(y);
 }
 
-const Cell &Maze::cell(const Point &point)
+const Cell &Maze::cell(const Point &point) const
 {
-    return _maze.at(point.x()).at(point.y());
+    return cell(point.x(), point.y());
 }
 
 std::size_t Maze::height() const

@@ -17,8 +17,12 @@ public:
     Maze(std::vector<std::vector<Cell>> &maze, std::size_t height, std::size_t width);
     ~Maze();
 
+    Cell &cell(std::size_t x, std::size_t y);
+    Cell &cell(const Point &point);
+
     const Cell &cell(std::size_t x, std::size_t y) const;
-    const Cell &cell(const Point &point);
+    const Cell &cell(const Point &point) const;
+
     std::size_t height() const;
     std::size_t width() const;
 };

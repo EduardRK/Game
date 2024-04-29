@@ -50,6 +50,8 @@ std::unique_ptr<Maze> PrimMazeGenerator::generateMaze(std::size_t height, std::s
     }
 
     Maze maze(grid, height, width);
+    postProcessing(maze);
+
     return std::make_unique<Maze>(maze);
 }
 
@@ -121,6 +123,29 @@ void PrimMazeGenerator::createRandomPassageFromCell(std::vector<std::vector<Cell
     if (!directions.empty())
     {
         directions.erase(directions.begin() + directionIndex);
+    }
+}
+
+void PrimMazeGenerator::postProcessing(Maze &maze)
+{
+    for (size_t i = 0; i < maze.height(); ++i)
+    {
+        for (size_t j = 0; j < maze.width(); ++j)
+        {
+            if (maze.cell(i, j).isWall())
+            {
+                int randomNumber = nextRandomInt(100);
+
+                if (randomNumber < 10)
+                {
+                    maze.cell(i, j).createCracked();
+                }
+                else if (randomNumber >= 15 && randomNumber < 20)
+                {
+                    maze.cell(i, j).createPassage();
+                }
+            }
+        }
     }
 }
 
