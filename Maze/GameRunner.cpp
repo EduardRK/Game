@@ -1,6 +1,6 @@
 #include "GameRunner.hpp"
 
-GameRunner::GameRunner()
+GameRunner::GameRunner(int argc, char **argv) : _argc{argc}, _argv{argv}
 {
 }
 

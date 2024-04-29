@@ -16,6 +16,8 @@
 #include "maze/Point.hpp"
 #include "maze/CellRenderer.hpp"
 #include "maze/GlutCellRenderer.hpp"
+#include "maze/Runner.hpp"
+#include "maze/GameRunner.hpp"
 
 std::string wallBorder(int n)
 {
@@ -57,7 +59,7 @@ void renderMaze(const Maze &maze)
 
 int main(int argc, char **argv)
 {
-    std::unique_ptr<Runner> runner = std::make_unique<GameRunner>();
+    std::unique_ptr<Runner> runner = std::make_unique<GameRunner>(argc, argv);
     runner->run();
 
     std::unique_ptr<CellRenderer> cellRenderer = std::make_unique<GlutCellRenderer>();
