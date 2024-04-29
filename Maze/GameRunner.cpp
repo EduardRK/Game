@@ -10,4 +10,5 @@ GameRunner::~GameRunner()
 
 void GameRunner::run()
 {
+    window->init(_argc, _argv);
 }
