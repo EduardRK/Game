@@ -1,77 +1,69 @@
-#include <GL/glut.h>
 #include <vector>
+#include <memory>
+#include <utility>
 #include <math.h>
+#include <iostream>
+#include <string>
+#include <algorithm>
 
-#include "MainHero.hpp"
 #include "maze/Maze.hpp"
 #include "maze/Cell.hpp"
 #include "maze/MazeTypeCell.hpp"
 #include "maze/PrimMazeGenerator.hpp"
+#include "maze/MazeGenerator.hpp"
 #include "maze/DfsMazeSolver.hpp"
+#include "maze/MazeSolver.hpp"
 #include "maze/Point.hpp"
+#include "maze/CellRenderer.hpp"
+#include "maze/GlutCellRenderer.hpp"
 
-// std::vector<float> heights = {6, 6, 4, 4, 4, 5, -1, -1, -1, -1, 5, 6};
-// float dx = 2.0f / 12.0f;
-// MainHero mainHero(0, heights, dx);
-
-void myDisp()
+std::string wallBorder(int n)
 {
-    glClear(GL_COLOR_BUFFER_BIT);
+    std::string string;
 
-    // for (int i = 0; i < heights.size(); ++i)
-    // {
-    //     if (heights.at(i) >= 0)
-    //     {
-    //         glColor3f(0.0, 1.0, 0.0);
-    //     }
-    //     else
-    //     {
-    //         glColor3f(0.0, 0.0, 1.0);
-    //     }
+    for (size_t i = 0; i < n + 2; ++i)
+    {
+        string += "##";
+    }
 
-    //     glBegin(GL_QUADS);
-    //     glVertex3f(i * dx - 1, -1, 0.0);
-    //     glVertex3f((i + 1) * dx - 1, -1, 0.0);
-    //     glVertex3f((i + 1) * dx - 1, -1 + dx * std::abs(heights.at(i)), 0.0);
-    //     glVertex3f(i * dx - 1, -1 + dx * std::abs(heights.at(i)), 0.0);
-    //     glEnd();
-    // }
-
-    // mainHero.show();
-
-    glutSwapBuffers();
+    return string;
 }
 
-void myKeyboard(int key, int x, int y)
+void renderMaze(const Maze &maze)
 {
-    // switch (key)
-    // {
-    // case GLUT_KEY_RIGHT:
-    //     mainHero.currentPositionIncrement();
-    //     break;
-    // case GLUT_KEY_LEFT:
-    //     mainHero.currentPositionDecrement();
-    //     break;
-    // default:
-    //     break;
-    // }
-
-    glutPostRedisplay();
+    std::cout << wallBorder(maze.width()) << std::endl;
+    for (size_t i = 0; i < maze.height(); ++i)
+    {
+        std::cout << "##";
+        for (size_t j = 0; j < maze.width(); ++j)
+        {
+            if (maze.cell(i, j).isWall())
+            {
+                std::cout << "##";
+            }
+            else if (maze.cell(i, j).isPassage())
+            {
+                std::cout << "  ";
+            }
+            else if (maze.cell(i, j).isCracked())
+            {
+                std::cout << "&&";
+            }
+        }
+        std::cout << "##" << std::endl;
+    }
+    std::cout << wallBorder(maze.width()) << std::endl;
 }
 
 int main(int argc, char **argv)
 {
-    glutInit(&argc, argv);
-    glutInitWindowPosition(0, 0);
-    glutInitWindowSize(1000, 1000);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+    std::unique_ptr<CellRenderer> cellRenderer = std::make_unique<GlutCellRenderer>();
+    std::unique_ptr<MazeGenerator> mazeGenerator = std::make_unique<PrimMazeGenerator>();
+    std::unique_ptr<Maze> maze = mazeGenerator->generateMaze(31, 31);
+    std::unique_ptr<MazeSolver> mazeSolver = std::make_unique<DfsMazeSolver>(*maze);
 
-    glutCreateWindow("Window");
+    renderMaze(*maze);
 
-    glClearColor(1.0, 1.0, 1.0, 1.0);
-    glutDisplayFunc(myDisp);
-    glutSpecialFunc(myKeyboard);
-    glutMainLoop();
-
+    system("pause");
     return 0;
 }
