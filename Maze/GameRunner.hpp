@@ -10,7 +10,7 @@ class GameRunner final : public Runner
 {
 private:
     static constexpr std::size_t HEIGHT = 1000;
-    static constexpr std::size_t WIDTH = 800;
+    static constexpr std::size_t WIDTH = 1000;
 
     int _argc;
     char **_argv;

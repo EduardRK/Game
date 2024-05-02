@@ -19,3 +19,18 @@ void Window::init(int argc, char **argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
     glutCreateWindow("Maze game");
 }
+
+void Window::keyboardFunc(void (*keyboardFunc)(unsigned char, int, int))
+{
+    glutKeyboardFunc(keyboardFunc);
+}
+
+void Window::displayFunc(void (*displayFunc)())
+{
+    glutDisplayFunc(displayFunc);
+}
+
+void Window::mainLoop()
+{
+    glutMainLoop();
+}

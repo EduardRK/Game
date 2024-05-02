@@ -13,4 +13,7 @@ public:
     ~Window();
 
     void init(int argc, char **argv);
+    void keyboardFunc(void (*keyboardFunc)(unsigned char, int, int));
+    void displayFunc(void (*displayFunc)());
+    void mainLoop();
 };

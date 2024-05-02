@@ -23,7 +23,7 @@ void GlutCellRenderer::render(const Cell &cell)
 {
     if (cell.isWall())
     {
-        glColor3f(0.0f, 0.0f, 1.0f);
+        glColor3f(0.0f, 0.0f, 0.8f);
     }
     else if (cell.isPassage())
     {
@@ -34,10 +34,13 @@ void GlutCellRenderer::render(const Cell &cell)
         glColor3f(66.0f / 255.0f, 170.0f / 255.0f, 1.0f);
     }
 
+    float left = static_cast<float>(cell.point().x()) / 17 - 1.f;
+    float top = -static_cast<float>(cell.point().y()) / 17 + 1.f;
+
     glBegin(GL_QUADS);
-    glVertex2f((float)cell.point().x() - _width / 2, (float)cell.point().y() - _height / 2);
-    glVertex2f((float)cell.point().x() - _width / 2, (float)cell.point().y() + _height / 2);
-    glVertex2f((float)cell.point().x() + _width / 2, (float)cell.point().y() + _height / 2);
-    glVertex2f((float)cell.point().x() + _width / 2, (float)cell.point().y() - _height / 2);
+    glVertex2f(left, top);
+    glVertex2f(left, top - _height / 17);
+    glVertex2f(left + _width / 17, top - _height / 17);
+    glVertex2f(left + _width / 17, top);
     glEnd();
 }
