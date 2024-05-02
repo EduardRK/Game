@@ -11,9 +11,9 @@
 #include "MazeSolver.hpp"
 #include "DfsMazeSolver.hpp"
 
-std::unique_ptr<CellRenderer> cellRenderer = std::make_unique<GlutCellRenderer>();
 std::unique_ptr<MazeGenerator> mazeGenerator = std::make_unique<PrimMazeGenerator>();
-std::unique_ptr<Maze> maze = mazeGenerator->generateMaze(32, 32);
+std::unique_ptr<Maze> maze = mazeGenerator->generateMaze(31, 31);
+std::unique_ptr<CellRenderer> cellRenderer = std::make_unique<GlutCellRenderer>(maze->height(), maze->width());
 std::unique_ptr<MazeSolver> mazeSolver = std::make_unique<DfsMazeSolver>(*maze);
 
 void displayFunc()
