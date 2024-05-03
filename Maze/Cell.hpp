@@ -12,10 +12,14 @@ private:
 public:
     Cell() = default;
 
+    Cell(int x, int y, MazeTypeCell type);
+    Cell(int x, int y);
     Cell(Point point, MazeTypeCell type);
     Cell(const Point &point, MazeTypeCell type);
+    Cell(const Point& point, const MazeTypeCell& type);
     Cell(const Point &point);
     Cell(Point &&point, MazeTypeCell type);
+    Cell(const Cell& cell);
 
     ~Cell();
 
@@ -27,5 +31,9 @@ public:
     void createPassage();
     void createCracked();
 
+    Point &point();
     const Point &point() const;
+
+    MazeTypeCell type();
+    const MazeTypeCell type() const;
 };

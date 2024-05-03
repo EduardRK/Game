@@ -16,54 +16,13 @@
 #include "maze/Point.hpp"
 #include "maze/CellRenderer.hpp"
 #include "maze/GlutCellRenderer.hpp"
-
-std::string wallBorder(int n)
-{
-    std::string string;
-
-    for (size_t i = 0; i < n + 2; ++i)
-    {
-        string += "##";
-    }
-
-    return string;
-}
-
-void renderMaze(const Maze &maze)
-{
-    std::cout << wallBorder(maze.width()) << std::endl;
-    for (size_t i = 0; i < maze.height(); ++i)
-    {
-        std::cout << "##";
-        for (size_t j = 0; j < maze.width(); ++j)
-        {
-            if (maze.cell(i, j).isWall())
-            {
-                std::cout << "##";
-            }
-            else if (maze.cell(i, j).isPassage())
-            {
-                std::cout << "  ";
-            }
-            else if (maze.cell(i, j).isCracked())
-            {
-                std::cout << "&&";
-            }
-        }
-        std::cout << "##" << std::endl;
-    }
-    std::cout << wallBorder(maze.width()) << std::endl;
-}
+#include "maze/Runner.hpp"
+#include "maze/GameRunner.hpp"
 
 int main(int argc, char **argv)
 {
-    std::unique_ptr<CellRenderer> cellRenderer = std::make_unique<GlutCellRenderer>();
-    std::unique_ptr<MazeGenerator> mazeGenerator = std::make_unique<PrimMazeGenerator>();
-    std::unique_ptr<Maze> maze = mazeGenerator->generateMaze(31, 31);
-    std::unique_ptr<MazeSolver> mazeSolver = std::make_unique<DfsMazeSolver>(*maze);
+    std::unique_ptr<Runner> runner = std::make_unique<GameRunner>(argc, argv);
+    runner->run();
 
-    renderMaze(*maze);
-
-    system("pause");
     return 0;
 }

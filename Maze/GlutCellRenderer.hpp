@@ -6,7 +6,7 @@
 class GlutCellRenderer final : public CellRenderer
 {
 private:
-    static constexpr float BASE_WIDTH = 0.5f;
+    static constexpr float SIDE = 1.f;
 
     float _height;
     float _width;
@@ -14,7 +14,6 @@ private:
 public:
     GlutCellRenderer(float height, float width);
     GlutCellRenderer(float width);
-    GlutCellRenderer();
     ~GlutCellRenderer();
 
     void render(const Cell &cell) override;

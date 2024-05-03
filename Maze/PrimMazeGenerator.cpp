@@ -4,6 +4,7 @@
 #include <random>
 #include <iostream>
 
+#include "MazeTypeCell.hpp"
 #include "PrimMazeGenerator.hpp"
 #include "Cell.hpp"
 #include "Point.hpp"
@@ -49,7 +50,8 @@ std::unique_ptr<Maze> PrimMazeGenerator::generateMaze(std::size_t height, std::s
         }
     }
 
-    Maze maze(grid, height, width);
+    createBorders(grid, height, width);
+    Maze maze(grid, height + 2, width + 2);
     postProcessing(maze);
 
     return std::make_unique<Maze>(maze);
@@ -128,9 +130,9 @@ void PrimMazeGenerator::createRandomPassageFromCell(std::vector<std::vector<Cell
 
 void PrimMazeGenerator::postProcessing(Maze &maze)
 {
-    for (size_t i = 0; i < maze.height(); ++i)
+    for (size_t i = 1; i < maze.height() - 1; ++i)
     {
-        for (size_t j = 0; j < maze.width(); ++j)
+        for (size_t j = 1; j < maze.width() - 1; ++j)
         {
             if (maze.cell(i, j).isWall())
             {
@@ -147,6 +149,41 @@ void PrimMazeGenerator::postProcessing(Maze &maze)
             }
         }
     }
+}
+
+void PrimMazeGenerator::createBorders(std::vector<std::vector<Cell>> &grid, std::size_t height, std::size_t width)
+{
+    std::vector<Cell> upBorder;
+    std::vector<Cell> downBorder;
+
+    for (size_t i = 0; i < width + 2; ++i)
+    {
+        Cell upCell(0, i);
+        upBorder.push_back(upCell);
+
+        Cell downCell(height + 1, i);
+        downBorder.push_back(downCell);
+    }
+
+    for (size_t i = 0; i < height; ++i)
+    {
+        for (size_t j = 0; j < width; ++j)
+        {
+            grid.at(i).at(j) = Cell(grid.at(i).at(j).point().x() + 1, grid.at(i).at(j).point().y() + 1, grid.at(i).at(j).type());
+        }
+    }
+
+    for (size_t i = 0; i < height; ++i)
+    {
+        Cell leftCell(i + 1, 0);
+        grid.at(i).insert(grid.at(i).begin(), 1, leftCell);
+
+        Cell rightCell(i + 1, height + 1);
+        grid.at(i).push_back(rightCell);
+    }
+
+    grid.insert(grid.begin(), 1, upBorder);
+    grid.push_back(downBorder);
 }
 
 int PrimMazeGenerator::nextRandomInt(int min, int max)
