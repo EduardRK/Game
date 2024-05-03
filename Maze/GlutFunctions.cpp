@@ -10,11 +10,13 @@
 #include "Maze.hpp"
 #include "MazeSolver.hpp"
 #include "DfsMazeSolver.hpp"
+#include "Player.hpp"
 
 std::unique_ptr<MazeGenerator> mazeGenerator = std::make_unique<PrimMazeGenerator>();
 std::unique_ptr<Maze> maze = mazeGenerator->generateMaze(31, 31);
 std::unique_ptr<CellRenderer> cellRenderer = std::make_unique<GlutCellRenderer>(maze->height(), maze->width());
 std::unique_ptr<MazeSolver> mazeSolver = std::make_unique<DfsMazeSolver>(*maze);
+std::unique_ptr<Player> player = std::make_unique<Player>(1, 1, *maze);
 
 void displayFunc()
 {
@@ -28,9 +30,34 @@ void displayFunc()
         }
     }
 
+    player->draw();
+
     glutSwapBuffers();
 }
 
 void keyboardFunc(unsigned char key, int x, int y)
 {
+    switch (key)
+    {
+    case 'w':
+        player->moveUp();
+        break;
+
+    case 's':
+        player->moveDown();
+        break;
+
+    case 'a':
+        player->moveLeft();
+        break;
+
+    case 'd':
+        player->moveRight();
+        break;
+
+    default:
+        break;
+    }
+
+    glutPostRedisplay();
 }

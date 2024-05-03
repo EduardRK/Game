@@ -6,16 +6,6 @@
 #include <string>
 #include <algorithm>
 
-#include "maze/Maze.hpp"
-#include "maze/Cell.hpp"
-#include "maze/MazeTypeCell.hpp"
-#include "maze/PrimMazeGenerator.hpp"
-#include "maze/MazeGenerator.hpp"
-#include "maze/DfsMazeSolver.hpp"
-#include "maze/MazeSolver.hpp"
-#include "maze/Point.hpp"
-#include "maze/CellRenderer.hpp"
-#include "maze/GlutCellRenderer.hpp"
 #include "maze/Runner.hpp"
 #include "maze/GameRunner.hpp"
 
