@@ -54,6 +54,21 @@ void Player::moveRight()
     }
 }
 
+int Player::radiusView() const
+{
+    return _radiusView;
+}
+
+int Player::radiusView()
+{
+    return _radiusView;
+}
+
+void Player::newRadiusView(unsigned int newRadiusView)
+{
+    _radiusView = newRadiusView;
+}
+
 void Player::draw()
 {
     glColor3f(0.8f, 0.f, 0.f);
@@ -70,4 +85,14 @@ void Player::draw()
     glVertex2f(left + SIDE / (width / 2), top - SIDE / (height / 2));
     glVertex2f(left + SIDE / (width / 2), top);
     glEnd();
+}
+
+Point Player::currentPosition()
+{
+    return _currentPosition;
+}
+
+const Point Player::currentPosition() const
+{
+    return _currentPosition;
 }
