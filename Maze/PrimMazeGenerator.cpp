@@ -142,7 +142,7 @@ void PrimMazeGenerator::postProcessing(Maze &maze)
                 {
                     maze.cell(i, j).createCracked();
                 }
-                else if (randomNumber >= 15 && randomNumber < 20)
+                else if (randomNumber >= 15 && randomNumber < 23)
                 {
                     maze.cell(i, j).createPassage();
                 }

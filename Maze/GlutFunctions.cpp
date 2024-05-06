@@ -11,24 +11,20 @@
 #include "MazeSolver.hpp"
 #include "DfsMazeSolver.hpp"
 #include "Player.hpp"
+#include "MazeRenderer.hpp"
+#include "GlutMazeRenderer.hpp"
 
 std::unique_ptr<MazeGenerator> mazeGenerator = std::make_unique<PrimMazeGenerator>();
 std::unique_ptr<Maze> maze = mazeGenerator->generateMaze(31, 31);
-std::unique_ptr<CellRenderer> cellRenderer = std::make_unique<GlutCellRenderer>(maze->height(), maze->width());
 std::unique_ptr<MazeSolver> mazeSolver = std::make_unique<DfsMazeSolver>(*maze);
 std::unique_ptr<Player> player = std::make_unique<Player>(1, 1, *maze);
+std::unique_ptr<MazeRenderer> mazeRenderer = std::make_unique<GlutMazeRenderer>(*player, *maze);
 
 void displayFunc()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    for (size_t i = 0; i < maze->height(); ++i)
-    {
-        for (size_t j = 0; j < maze->width(); ++j)
-        {
-            cellRenderer->render(maze->cell(i, j));
-        }
-    }
+    mazeRenderer->render();
 
     player->draw();
 

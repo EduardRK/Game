@@ -11,6 +11,7 @@ private:
 
     Point _currentPosition;
     Maze _maze;
+    int _radiusView = 4;
 
 public:
     Player(const Point &startPosition, const Maze &maze);
@@ -23,5 +24,13 @@ public:
     void moveLeft();
     void moveRight();
 
+    int radiusView() const;
+    int radiusView();
+
+    void newRadiusView(unsigned int newRadiusView);
+
     void draw() override;
+
+    Point currentPosition();
+    const Point currentPosition() const;
 };
