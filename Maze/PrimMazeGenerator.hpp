@@ -11,8 +11,8 @@
 class PrimMazeGenerator final : public MazeGenerator
 {
 public:
-    PrimMazeGenerator();
-    ~PrimMazeGenerator();
+    PrimMazeGenerator() = default;
+    ~PrimMazeGenerator() = default;
 
     std::unique_ptr<Maze> generateMaze(std::size_t height, std::size_t width) override;
 

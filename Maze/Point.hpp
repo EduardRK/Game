@@ -11,7 +11,7 @@ public:
     Point();
     Point(const Point &other);
     Point(Point &&other) noexcept;
-    ~Point();
+    ~Point() = default;
 
     Point &operator=(const Point &other);
     bool operator==(const Point &other) const;

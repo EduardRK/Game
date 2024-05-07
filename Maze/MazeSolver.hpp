@@ -8,7 +8,7 @@
 class MazeSolver
 {
 public:
-    virtual ~MazeSolver();
+    virtual ~MazeSolver() = default;
 
     virtual std::vector<Point> solveMaze(const Point &start, const Point &end) = 0;
 };

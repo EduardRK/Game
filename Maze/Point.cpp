@@ -18,10 +18,6 @@ Point::Point(Point &&other) noexcept : _x{std::move(other._x)}, _y{std::move(oth
 {
 }
 
-Point::~Point()
-{
-}
-
 Point &Point::operator=(const Point &other)
 {
     if (this != &other)

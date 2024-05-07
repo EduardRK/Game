@@ -17,7 +17,7 @@ public:
     Player(const Point &startPosition, const Maze &maze);
     Player(Point startPosition, const Maze &maze);
     Player(int x, int y, const Maze &maze);
-    ~Player();
+    ~Player() = default;
 
     void moveUp();
     void moveDown();

@@ -5,7 +5,7 @@
 class CellRenderer
 {
 public:
-    virtual ~CellRenderer();
+    virtual ~CellRenderer() = default;
 
     virtual void render(const Cell &cell) = 0;
 };

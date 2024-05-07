@@ -3,7 +3,7 @@
 class Runner
 {
 public:
-    virtual ~Runner();
+    virtual ~Runner() = default;
 
     virtual void run() = 0;
 };

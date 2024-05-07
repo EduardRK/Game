@@ -16,7 +16,7 @@ private:
 
 public:
     GlutMazeRenderer(const Player &player, const Maze &maze);
-    ~GlutMazeRenderer();
+    ~GlutMazeRenderer() = default;
 
     void render() override;
 };

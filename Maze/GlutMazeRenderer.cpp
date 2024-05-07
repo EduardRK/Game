@@ -8,10 +8,6 @@ GlutMazeRenderer::GlutMazeRenderer(const Player &player, const Maze &maze) : _pl
 {
 }
 
-GlutMazeRenderer::~GlutMazeRenderer()
-{
-}
-
 void GlutMazeRenderer::render()
 {
     int startX = (_player.currentPosition().x() - _player.radiusView()) <= 0 ? 0 : (_player.currentPosition().x() - _player.radiusView());
