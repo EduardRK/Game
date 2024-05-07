@@ -17,8 +17,8 @@ private:
     std::unique_ptr<Window> window = std::make_unique<Window>(HEIGHT, WIDTH);
 
 public:
-    ~GameRunner();
     GameRunner(int argc, char **argv);
+    ~GameRunner() = default;
 
     void run() override;
 };

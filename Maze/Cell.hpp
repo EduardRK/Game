@@ -11,7 +11,6 @@ private:
 
 public:
     Cell() = default;
-
     Cell(int x, int y, MazeTypeCell type);
     Cell(int x, int y);
     Cell(Point point, MazeTypeCell type);
@@ -21,7 +20,7 @@ public:
     Cell(Point &&point, MazeTypeCell type);
     Cell(const Cell& cell);
 
-    ~Cell();
+    ~Cell() = default;
 
     bool isWall() const;
     bool isPassage() const;

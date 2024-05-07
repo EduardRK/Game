@@ -14,7 +14,7 @@ private:
 public:
     GlutCellRenderer(float height, float width);
     GlutCellRenderer(float width);
-    ~GlutCellRenderer();
+    ~GlutCellRenderer() = default;
 
     void render(const Cell &cell) override;
 };

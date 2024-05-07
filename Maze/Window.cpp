@@ -7,10 +7,6 @@ Window::Window(std::size_t height, std::size_t width) : _height{height}, _width{
 {
 }
 
-Window::~Window()
-{
-}
-
 void Window::init(int argc, char **argv)
 {
     glutInit(&argc, argv);

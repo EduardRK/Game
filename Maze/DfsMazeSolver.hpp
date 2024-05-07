@@ -15,7 +15,7 @@ private:
 
 public:
     DfsMazeSolver(const Maze &maze);
-    ~DfsMazeSolver();
+    ~DfsMazeSolver() = default;
 
     std::vector<Point> solveMaze(const Point &start, const Point &end) override;
 

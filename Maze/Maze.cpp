@@ -8,10 +8,6 @@ Maze::Maze(std::vector<std::vector<Cell>> &maze, std::size_t height, std::size_t
 {
 }
 
-Maze::~Maze()
-{
-}
-
 Cell &Maze::cell(std::size_t x, std::size_t y)
 {
     return _maze.at(x).at(y);

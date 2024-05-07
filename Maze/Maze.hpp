@@ -15,7 +15,7 @@ private:
 
 public:
     Maze(std::vector<std::vector<Cell>> &maze, std::size_t height, std::size_t width);
-    ~Maze();
+    ~Maze() = default;
 
     Cell &cell(std::size_t x, std::size_t y);
     Cell &cell(const Point &point);

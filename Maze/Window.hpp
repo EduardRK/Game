@@ -10,7 +10,7 @@ private:
 
 public:
     Window(std::size_t height, std::size_t width);
-    ~Window();
+    ~Window() = default;
 
     void init(int argc, char **argv);
     void keyboardFunc(void (*keyboardFunc)(unsigned char, int, int));

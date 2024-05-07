@@ -18,10 +18,6 @@ Player::Player(int x, int y, const Maze &maze) : _maze{maze}
     _currentPosition = startPosition;
 }
 
-Player::~Player()
-{
-}
-
 void Player::moveUp()
 {
     if (!(_currentPosition.y() - 1 < 0 || _maze.cell(_currentPosition.x(), _currentPosition.y() - 1).isWall() || _maze.cell(_currentPosition.x(), _currentPosition.y() - 1).isCracked()))

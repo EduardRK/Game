@@ -39,10 +39,6 @@ Cell::Cell(const Cell &cell) : _point{cell.point()}, _type{cell.type()}
 {
 }
 
-Cell::~Cell()
-{
-}
-
 bool Cell::isWall() const
 {
     return _type == MazeTypeCell::WALL;

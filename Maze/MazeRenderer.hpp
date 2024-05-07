@@ -3,7 +3,7 @@
 class MazeRenderer
 {
 public:
-    virtual ~MazeRenderer();
+    virtual ~MazeRenderer() = default;
 
     virtual void render() = 0;
 };

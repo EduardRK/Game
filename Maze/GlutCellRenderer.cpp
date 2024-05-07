@@ -11,9 +11,6 @@ GlutCellRenderer::GlutCellRenderer(float width) : GlutCellRenderer(width, width)
 {
 }
 
-GlutCellRenderer::~GlutCellRenderer()
-{
-}
 
 void GlutCellRenderer::render(const Cell &cell)
 {

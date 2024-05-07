@@ -10,10 +10,6 @@ DfsMazeSolver::DfsMazeSolver(const Maze &maze) : _maze{maze}
 {
 }
 
-DfsMazeSolver::~DfsMazeSolver()
-{
-}
-
 std::vector<Point> DfsMazeSolver::solveMaze(const Point &start, const Point &end)
 {
     if (_maze.cell(start).isWall())

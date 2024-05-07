@@ -9,14 +9,6 @@
 #include "Cell.hpp"
 #include "Point.hpp"
 
-PrimMazeGenerator::PrimMazeGenerator()
-{
-}
-
-PrimMazeGenerator::~PrimMazeGenerator()
-{
-}
-
 std::unique_ptr<Maze> PrimMazeGenerator::generateMaze(std::size_t height, std::size_t width)
 {
     std::size_t maxVisitedCells = ((height + 1) / 2) * ((width + 1) / 2);
