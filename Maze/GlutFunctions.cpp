@@ -13,20 +13,24 @@
 #include "Player.hpp"
 #include "MazeRenderer.hpp"
 #include "GlutMazeRenderer.hpp"
+#include "Game.hpp"
+#include "Enemy.hpp"
+#include "Spawner.hpp"
+#include "EnemiesSpawner.hpp"
 
 std::unique_ptr<MazeGenerator> mazeGenerator = std::make_unique<PrimMazeGenerator>();
-std::unique_ptr<Maze> maze = mazeGenerator->generateMaze(31, 31);
+std::unique_ptr<Maze> maze = mazeGenerator->generateMaze(45, 45);
 std::unique_ptr<MazeSolver> mazeSolver = std::make_unique<DfsMazeSolver>(*maze);
 std::unique_ptr<Player> player = std::make_unique<Player>(1, 1, *maze);
-std::unique_ptr<MazeRenderer> mazeRenderer = std::make_unique<GlutMazeRenderer>(*player, *maze);
+std::unique_ptr<Spawner<std::shared_ptr<Enemy>>> spawner = std::make_unique<EnemiesSpawner>();
+std::vector<std::shared_ptr<Enemy>> enemies = spawner->spawn(*maze);
+Game game(*player, *maze, enemies);
 
 void displayFunc()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    mazeRenderer->render();
-
-    player->draw();
+    game.draw();
 
     glutSwapBuffers();
 }
@@ -36,19 +40,27 @@ void keyboardFunc(unsigned char key, int x, int y)
     switch (key)
     {
     case 'w':
-        player->moveUp();
+        game.player().moveUp();
+        game.nextTurn();
         break;
 
     case 's':
-        player->moveDown();
+        game.player().moveDown();
+        game.nextTurn();
         break;
 
     case 'a':
-        player->moveLeft();
+        game.player().moveLeft();
+        game.nextTurn();
         break;
 
     case 'd':
-        player->moveRight();
+        game.player().moveRight();
+        game.nextTurn();
+        break;
+
+    case ' ':
+        game.nextTurn();
         break;
 
     default:

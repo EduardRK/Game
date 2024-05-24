@@ -65,6 +65,16 @@ void Player::newRadiusView(unsigned int newRadiusView)
     _radiusView = newRadiusView;
 }
 
+Point Player::currentPosition()
+{
+    return _currentPosition;
+}
+
+const Point Player::currentPosition() const
+{
+    return _currentPosition;
+}
+
 void Player::draw()
 {
     glColor3f(0.8f, 0.f, 0.f);
@@ -83,12 +93,6 @@ void Player::draw()
     glEnd();
 }
 
-Point Player::currentPosition()
+void Player::nextTurn()
 {
-    return _currentPosition;
-}
-
-const Point Player::currentPosition() const
-{
-    return _currentPosition;
 }

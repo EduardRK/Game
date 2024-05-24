@@ -1,10 +1,4 @@
-#include <vector>
 #include <memory>
-#include <utility>
-#include <math.h>
-#include <iostream>
-#include <string>
-#include <algorithm>
 
 #include "maze/Runner.hpp"
 #include "maze/GameRunner.hpp"
