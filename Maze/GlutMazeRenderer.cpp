@@ -11,14 +11,14 @@ GlutMazeRenderer::GlutMazeRenderer(const Player &player, const Maze &maze) : _pl
 void GlutMazeRenderer::render()
 {
     int startX = (_player.currentPosition().x() - _player.radiusView()) <= 0 ? 0 : (_player.currentPosition().x() - _player.radiusView());
-    int endX = (_player.currentPosition().x() + _player.radiusView()) >= _maze.height() ? _maze.height() : (_player.currentPosition().x() + _player.radiusView());
+    int endX = (_player.currentPosition().x() + _player.radiusView()) >= _maze.height() ? (_maze.height() - 1) : (_player.currentPosition().x() + _player.radiusView());
 
     int startY = (_player.currentPosition().y() - _player.radiusView()) <= 0 ? 0 : (_player.currentPosition().y() - _player.radiusView());
-    int endY = (_player.currentPosition().y() + _player.radiusView()) >= _maze.width() ? _maze.width() : (_player.currentPosition().y() + _player.radiusView());
+    int endY = (_player.currentPosition().y() + _player.radiusView()) >= _maze.width() ? (_maze.width() - 1) : (_player.currentPosition().y() + _player.radiusView());
 
-    for (int i = startX; i < endX; ++i)
+    for (int i = startX; i <= endX; ++i)
     {
-        for (int j = startY; j < endY; ++j)
+        for (int j = startY; j <= endY; ++j)
         {
             _glutCellRenderer->render(_maze.cell(i, j));
         }

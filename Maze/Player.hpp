@@ -3,14 +3,15 @@
 #include "Point.hpp"
 #include "Maze.hpp"
 #include "Drawable.hpp"
+#include "Turnable.hpp"
 
-class Player final : public Drawable
+class Player final : public Drawable, public Turnable
 {
 private:
     static constexpr float SIDE = 1.f;
 
     Point _currentPosition;
-    Maze _maze;
+    const Maze &_maze;
     int _radiusView = 4;
 
 public:
@@ -29,8 +30,9 @@ public:
 
     void newRadiusView(unsigned int newRadiusView);
 
-    void draw() override;
-
     Point currentPosition();
     const Point currentPosition() const;
+
+    void draw() override;
+    void nextTurn() override;
 };

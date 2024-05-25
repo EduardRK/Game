@@ -34,6 +34,11 @@ bool Point::operator==(const Point &other) const
     return _x == other.x() && _y == other.y();
 }
 
+bool Point::operator!=(const Point &other) const
+{
+    return _x != other.x() || _y != other.y();
+}
+
 int Point::x() const
 {
     return _x;

@@ -12,12 +12,12 @@ DfsMazeSolver::DfsMazeSolver(const Maze &maze) : _maze{maze}
 
 std::vector<Point> DfsMazeSolver::solveMaze(const Point &start, const Point &end)
 {
-    if (_maze.cell(start).isWall())
+    if (_maze.cell(start).isWall() || _maze.cell(start).isCracked())
     {
         return std::vector<Point>();
     }
 
-    if (_maze.cell(end).isWall())
+    if (_maze.cell(end).isWall() || _maze.cell(start).isCracked())
     {
         return std::vector<Point>();
     }
@@ -35,7 +35,7 @@ std::vector<Point> DfsMazeSolver::solveMaze(const Point &start, const Point &end
 
 bool DfsMazeSolver::explore(const Point &point, const Point &end, std::vector<Point> &path, std::unordered_set<Point> &visited)
 {
-    if (!isValidPoint(point) || _maze.cell(point.x(), point.y()).isWall() || visited.contains(point))
+    if (!isValidPoint(point) || _maze.cell(point).isWall() || _maze.cell(point).isCracked() || visited.contains(point))
     {
         return false;
     }
