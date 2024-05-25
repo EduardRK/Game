@@ -15,6 +15,7 @@ public:
 
     Point &operator=(const Point &other);
     bool operator==(const Point &other) const;
+    bool operator!=(const Point& other) const;
 
     int x() const;
     int y() const;

@@ -22,7 +22,7 @@ std::unique_ptr<MazeGenerator> mazeGenerator = std::make_unique<PrimMazeGenerato
 std::unique_ptr<Maze> maze = mazeGenerator->generateMaze(45, 45);
 std::unique_ptr<MazeSolver> mazeSolver = std::make_unique<DfsMazeSolver>(*maze);
 std::unique_ptr<Player> player = std::make_unique<Player>(1, 1, *maze);
-std::unique_ptr<Spawner<std::shared_ptr<Enemy>>> spawner = std::make_unique<EnemiesSpawner>();
+std::unique_ptr<Spawner<std::shared_ptr<Enemy>>> spawner = std::make_unique<EnemiesSpawner>(*player);
 std::vector<std::shared_ptr<Enemy>> enemies = spawner->spawn(*maze);
 Game game(*player, *maze, enemies);
 
