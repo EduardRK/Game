@@ -12,7 +12,7 @@ private:
 
     Point _currentPosition;
     const Maze &_maze;
-    int _radiusView = 4;
+    int _radiusView = 100;
 
 public:
     Player(const Point &startPosition, const Maze &maze);

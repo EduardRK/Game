@@ -10,7 +10,7 @@ TrollEnemy::TrollEnemy(const Maze &maze, Point &currentPosition, const Player &p
 
 void TrollEnemy::draw()
 {
-    glColor3f(0.8f, 0.f, 0.8f);
+    glColor3f(0.f, 0.8f, 0.f);
 
     float width = _maze.width();
     float height = _maze.height();

@@ -1,5 +1,6 @@
 #include <vector>
 #include <unordered_set>
+#include <random>
 
 #include "PointHash.hpp"
 #include "Maze.hpp"
@@ -48,9 +49,10 @@ bool DfsMazeSolver::explore(const Point &point, const Point &end, std::vector<Po
         return true;
     }
 
-    for (auto &&direction : directions)
+    for (auto &&direction : _directions)
     {
         Point nextPoint;
+
         if (direction == 'U')
         {
             nextPoint = Point(point.x() + 1, point.y());
@@ -81,4 +83,22 @@ bool DfsMazeSolver::explore(const Point &point, const Point &end, std::vector<Po
 bool DfsMazeSolver::isValidPoint(const Point &point)
 {
     return point.x() >= 0 && point.y() < _maze.height() && point.y() >= 0 && point.x() < _maze.width();
+}
+
+int DfsMazeSolver::nextRandomInt(int min, int max)
+{
+    if (min == max)
+    {
+        return min;
+    }
+
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> dist6(min, max - 1);
+    return dist6(rng);
+}
+
+int DfsMazeSolver::nextRandomInt(int max)
+{
+    return nextRandomInt(0, max);
 }
