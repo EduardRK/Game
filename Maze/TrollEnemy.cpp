@@ -4,7 +4,7 @@
 #include "TrollEnemy.hpp"
 #include "DfsMazeSolver.hpp"
 
-TrollEnemy::TrollEnemy(const Maze &maze, Point &currentPosition, Player &player) : _maze{maze}, _currentPosition{currentPosition}, _player{player}, _mazeSolver{std::make_unique<DfsMazeSolver>(maze)}
+TrollEnemy::TrollEnemy(const Maze &maze, Point &currentPosition, const Player &player) : _maze{maze}, _currentPosition{currentPosition}, _player{player}, _mazeSolver{std::make_unique<DfsMazeSolver>(maze)}
 {
 }
 

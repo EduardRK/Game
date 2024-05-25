@@ -11,8 +11,8 @@ private:
     static constexpr float SIDE = 1.f;
 
     Point _currentPosition;
-    Maze _maze;
-    int _radiusView = 100;
+    const Maze &_maze;
+    int _radiusView = 4;
 
 public:
     Player(const Point &startPosition, const Maze &maze);

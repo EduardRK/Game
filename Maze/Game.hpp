@@ -10,7 +10,7 @@
 #include "Enemy.hpp"
 #include "MazeRenderer.hpp"
 
-class Game : public Turnable, public Drawable
+class Game final : public Turnable, public Drawable
 {
 private:
     Player &_player;

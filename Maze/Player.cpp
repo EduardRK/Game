@@ -12,10 +12,8 @@ Player::Player(Point startPosition, const Maze &maze) : _currentPosition{startPo
 {
 }
 
-Player::Player(int x, int y, const Maze &maze) : _maze{maze}
+Player::Player(int x, int y, const Maze &maze) : _maze{maze}, _currentPosition{Point(x, y)}
 {
-    Point startPosition(x, y);
-    _currentPosition = startPosition;
 }
 
 void Player::moveUp()

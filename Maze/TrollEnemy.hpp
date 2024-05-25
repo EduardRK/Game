@@ -8,14 +8,14 @@
 #include "Player.hpp"
 #include "MazeSolver.hpp"
 
-class TrollEnemy : public Enemy
+class TrollEnemy final : public Enemy
 {
 private:
     static constexpr float SIDE = 1.f;
 
-    Maze _maze;
     Point _currentPosition;
-    Player& _player;
+    const Maze &_maze;
+    const Player& _player;
     std::unique_ptr<MazeSolver> _mazeSolver;
 
     int _radiusView = 3;
@@ -24,7 +24,7 @@ private:
     std::vector<Point> _route;
 
 public:
-    TrollEnemy(const Maze &maze, Point &currentPosition, Player& player);
+    TrollEnemy(const Maze &maze, Point &currentPosition, const Player& player);
     ~TrollEnemy() = default;
 
     void draw() override;

@@ -6,7 +6,7 @@
 #include "GhostEnemy.hpp"
 #include "TrollEnemy.hpp"
 
-EnemiesSpawner::EnemiesSpawner(Player &player) : _player{player}
+EnemiesSpawner::EnemiesSpawner(const Player &player) : _player{player}
 {
 }
 
