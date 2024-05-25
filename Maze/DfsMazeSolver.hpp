@@ -11,7 +11,7 @@ class DfsMazeSolver final : public MazeSolver
 {
 private:
     Maze _maze;
-    std::vector<char> directions{'U', 'D', 'R', 'L'};
+    std::vector<char> _directions{'U', 'D', 'R', 'L'};
 
 public:
     DfsMazeSolver(const Maze &maze);
@@ -22,4 +22,7 @@ public:
 private:
     bool explore(const Point &point, const Point &end, std::vector<Point> &path, std::unordered_set<Point> &visited);
     bool isValidPoint(const Point &point);
+
+    int nextRandomInt(int min, int max);
+    int nextRandomInt(int max);
 };

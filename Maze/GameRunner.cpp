@@ -7,8 +7,8 @@ GameRunner::GameRunner(int argc, char **argv) : _argc{argc}, _argv{argv}
 
 void GameRunner::run()
 {
-    window->init(_argc, _argv);
-    window->keyboardFunc(keyboardFunc);
-    window->displayFunc(displayFunc);
-    window->mainLoop();
+    _window->init(_argc, _argv);
+    _window->keyboardFunc(keyboardFunc);
+    _window->displayFunc(displayFunc);
+    _window->mainLoop();
 }
