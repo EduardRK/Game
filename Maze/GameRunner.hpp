@@ -14,7 +14,7 @@ private:
 
     int _argc;
     char **_argv;
-    std::unique_ptr<Window> window = std::make_unique<Window>(HEIGHT, WIDTH);
+    std::unique_ptr<Window> _window = std::make_unique<Window>(HEIGHT, WIDTH);
 
 public:
     GameRunner(int argc, char **argv);
