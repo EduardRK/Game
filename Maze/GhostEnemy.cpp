@@ -55,3 +55,8 @@ void GhostEnemy::nextTurn()
         }
     }
 }
+
+Point &GhostEnemy::currentPosition()
+{
+    return _route.at(_currentPosition);
+}

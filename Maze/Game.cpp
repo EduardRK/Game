@@ -5,6 +5,16 @@ Game::Game(Player &player, Maze &maze, std::vector<std::shared_ptr<Enemy>> &enem
 {
 }
 
+Player &Game::player()
+{
+    return _player;
+}
+
+Maze &Game::maze()
+{
+    return _maze;
+}
+
 void Game::draw()
 {
     _mazeRenderer->render();
@@ -13,7 +23,10 @@ void Game::draw()
 
     for (auto &&enemy : _enemies)
     {
-        enemy->draw();
+        if (isEnemyInRadiusOfView(enemy))
+        {
+            enemy->draw();
+        }
     }
 }
 
@@ -25,4 +38,11 @@ void Game::nextTurn()
     {
         enemy->nextTurn();
     }
+}
+
+bool Game::isEnemyInRadiusOfView(std::shared_ptr<Enemy> enemy)
+{
+    bool flagX = (enemy->currentPosition().x() <= (_player.currentPosition().x() + _player.radiusView())) && (enemy->currentPosition().x() >= (_player.currentPosition().x() - _player.radiusView()));
+    bool flagY = (enemy->currentPosition().y() <= (_player.currentPosition().y() + _player.radiusView())) && (enemy->currentPosition().y() >= (_player.currentPosition().y() - _player.radiusView()));
+    return flagX && flagY;
 }

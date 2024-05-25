@@ -22,16 +22,12 @@ public:
     Game(Player &player, Maze &maze, std::vector<std::shared_ptr<Enemy>> &enemy);
     ~Game() = default;
 
-    Player &player()
-    {
-        return _player;
-    }
-
-    Maze &maze()
-    {
-        return _maze;
-    }
+    Player &player();
+    Maze &maze();
 
     void draw() override;
     void nextTurn() override;
+
+private:
+    bool isEnemyInRadiusOfView(std::shared_ptr<Enemy> enemy);
 };
