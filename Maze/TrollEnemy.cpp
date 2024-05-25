@@ -30,7 +30,7 @@ void TrollEnemy::nextTurn()
 {
     if (_chase)
     {
-        if (_turnCounter < 5)
+        if (_turnCounter < 3 && _turnCounter < _route.size())
         {
             _currentPosition = _route.at(_turnCounter);
             ++_turnCounter;
@@ -47,9 +47,16 @@ void TrollEnemy::nextTurn()
         if (_currentPosition != _player.currentPosition())
         {
             _route = _mazeSolver->solveMaze(_currentPosition, _player.currentPosition());
-            _currentPosition = _route.at(0);
+            _turnCounter = 0;
+
+            if (_player.currentPosition() != _currentPosition)
+            {
+                _turnCounter = 1;
+            }
+
+            _currentPosition = _route.at(_turnCounter);
+            ++_turnCounter;
             _chase = true;
-            _turnCounter = 1;
         }
     }
 }
