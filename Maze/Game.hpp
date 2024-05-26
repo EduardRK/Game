@@ -30,4 +30,5 @@ public:
 
 private:
     bool isEnemyInRadiusOfView(std::shared_ptr<Enemy> enemy);
+    void calculateDamage();
 };
