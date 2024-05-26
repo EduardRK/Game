@@ -4,15 +4,15 @@
 #include "Point.hpp"
 #include "Maze.hpp"
 
-Player::Player(const Point &startPosition, const Maze &maze) : _currentPosition{startPosition}, _maze{maze}
+Player::Player(const Point &startPosition, const Maze &maze) : _currentPosition{startPosition}, _maze{maze}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}
 {
 }
 
-Player::Player(Point startPosition, const Maze &maze) : _currentPosition{startPosition}, _maze{maze}
+Player::Player(Point startPosition, const Maze &maze) : _currentPosition{startPosition}, _maze{maze}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}
 {
 }
 
-Player::Player(int x, int y, const Maze &maze) : _maze{maze}, _currentPosition{Point(x, y)}
+Player::Player(int x, int y, const Maze &maze) : _currentPosition{Point(x, y)}, _maze{maze}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}
 {
 }
 

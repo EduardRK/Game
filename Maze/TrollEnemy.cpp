@@ -4,7 +4,7 @@
 #include "TrollEnemy.hpp"
 #include "DfsMazeSolver.hpp"
 
-TrollEnemy::TrollEnemy(const Maze &maze, Point &currentPosition, const Player &player) : _maze{maze}, _currentPosition{currentPosition}, _player{player}, _mazeSolver{std::make_unique<DfsMazeSolver>(maze)}
+TrollEnemy::TrollEnemy(const Maze &maze, Point &currentPosition, const Player &player) : _maze{maze}, _currentPosition{currentPosition}, _player{player}, _mazeSolver{std::make_unique<DfsMazeSolver>(maze)}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}
 {
 }
 
@@ -30,7 +30,7 @@ void TrollEnemy::nextTurn()
 {
     if (_chase)
     {
-        if (_turnCounter < 5 && _turnCounter < _route.size())
+        if (playerInRadiusOfView() && _turnCounter < _route.size())
         {
             _currentPosition = _route.at(_turnCounter);
             ++_turnCounter;

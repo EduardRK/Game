@@ -4,14 +4,17 @@
 #include "Maze.hpp"
 #include "Drawable.hpp"
 #include "Turnable.hpp"
+#include "HealthPoints.hpp"
 
 class Player final : public Drawable, public Turnable
 {
 private:
+    static constexpr int DEFAULT_MAX_HP = 3;
     static constexpr float SIDE = 1.f;
 
     Point _currentPosition;
     const Maze &_maze;
+    HealthPoints _healthPoints;
     int _radiusView = 100;
 
 public:

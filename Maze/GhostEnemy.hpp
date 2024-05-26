@@ -5,14 +5,18 @@
 #include "Enemy.hpp"
 #include "Point.hpp"
 #include "Maze.hpp"
+#include "HealthPoints.hpp"
 
 class GhostEnemy final : public Enemy
 {
 private:
+    static constexpr int DEFAULT_MAX_HP = 1;
     static constexpr float SIDE = 1.f;
+
     bool _goAhead = true;
 
-    const Maze& _maze;
+    const Maze &_maze;
+    HealthPoints _healthPoints;
     int _currentPosition;
     std::vector<Point> _route;
 

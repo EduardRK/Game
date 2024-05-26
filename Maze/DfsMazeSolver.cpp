@@ -50,9 +50,14 @@ bool DfsMazeSolver::explore(const Point &point, const Point &end, std::vector<Po
         return true;
     }
 
-    for (auto &&direction : _directions)
+    // for (auto &&direction : _directions)
+    std::vector<char> directions { 'U', 'D', 'R', 'L' };
+    for (int i = 0; i < 4; ++i)
     {
         Point nextPoint;
+        int index = nextRandomInt(directions.size());
+        char direction = directions.at(index);
+        directions.erase(directions.begin() + index);
 
         if (direction == 'U')
         {

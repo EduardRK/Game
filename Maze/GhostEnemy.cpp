@@ -2,7 +2,7 @@
 
 #include "GhostEnemy.hpp"
 
-GhostEnemy::GhostEnemy(const Maze &maze, const std::vector<Point> &route, int startPosition) : _maze{maze}, _route{route}, _currentPosition{startPosition}
+GhostEnemy::GhostEnemy(const Maze &maze, const std::vector<Point> &route, int startPosition) : _maze{maze}, _route{route}, _currentPosition{startPosition}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}
 {
 }
 
