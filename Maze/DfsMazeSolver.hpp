@@ -22,7 +22,4 @@ public:
 private:
     bool explore(const Point &point, const Point &end, std::vector<Point> &path, std::unordered_set<Point> &visited);
     bool isValidPoint(const Point &point);
-
-    int nextRandomInt(int min, int max);
-    int nextRandomInt(int max);
 };

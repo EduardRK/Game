@@ -3,8 +3,9 @@
 #include "GlutMazeRenderer.hpp"
 #include "Player.hpp"
 #include "Maze.hpp"
+#include "GlutCellRenderer.hpp"
 
-GlutMazeRenderer::GlutMazeRenderer(const Player &player, const Maze &maze) : _player{player}, _maze{maze}, _glutCellRenderer{std::make_unique<GlutCellRenderer>(_maze.height(), _maze.width())}
+GlutMazeRenderer::GlutMazeRenderer(const Player &player, const Maze &maze) : _player{player}, _maze{maze}, _cellRenderer{std::make_unique<GlutCellRenderer>(_maze.height(), _maze.width())}
 {
 }
 
@@ -20,7 +21,7 @@ void GlutMazeRenderer::render()
     {
         for (int j = startY; j <= endY; ++j)
         {
-            _glutCellRenderer->render(_maze.cell(i, j));
+            _cellRenderer->render(_maze.cell(i, j));
         }
     }
 }

@@ -8,6 +8,7 @@
 #include "PrimMazeGenerator.hpp"
 #include "Cell.hpp"
 #include "Point.hpp"
+#include "RandomFunctions.hpp"
 
 std::unique_ptr<Maze> PrimMazeGenerator::generateMaze(std::size_t height, std::size_t width)
 {
@@ -176,17 +177,4 @@ void PrimMazeGenerator::createBorders(std::vector<std::vector<Cell>> &grid, std:
 
     grid.insert(grid.begin(), 1, upBorder);
     grid.push_back(downBorder);
-}
-
-int PrimMazeGenerator::nextRandomInt(int min, int max)
-{
-    std::random_device dev;
-    std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> dist6(min, max - 1);
-    return dist6(rng);
-}
-
-int PrimMazeGenerator::nextRandomInt(int max)
-{
-    return nextRandomInt(0, max);
 }

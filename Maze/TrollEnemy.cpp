@@ -30,7 +30,7 @@ void TrollEnemy::nextTurn()
 {
     if (_chase)
     {
-        if (_turnCounter < 3 && _turnCounter < _route.size())
+        if (_turnCounter < 5 && _turnCounter < _route.size())
         {
             _currentPosition = _route.at(_turnCounter);
             ++_turnCounter;

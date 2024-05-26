@@ -17,7 +17,6 @@
 #include "Enemy.hpp"
 #include "Spawner.hpp"
 #include "EnemiesSpawner.hpp"
-#include "BossEnemy.hpp"
 
 std::unique_ptr<MazeGenerator> mazeGenerator = std::make_unique<PrimMazeGenerator>();
 std::unique_ptr<Maze> maze = mazeGenerator->generateMaze(45, 45);

@@ -27,5 +27,4 @@ private:
 
     Point randomPassagePoint(const Maze &maze);
     Point randomPoint(const Maze &maze);
-    int nextRandomInt(int min, int max);
 };
