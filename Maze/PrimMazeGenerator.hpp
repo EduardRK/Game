@@ -22,7 +22,4 @@ private:
 
     void postProcessing(Maze &maze);
     void createBorders(std::vector<std::vector<Cell>> &grid, std::size_t height, std::size_t width);
-
-    int nextRandomInt(int min, int max);
-    int nextRandomInt(int max);
 };

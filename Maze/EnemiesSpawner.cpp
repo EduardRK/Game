@@ -5,6 +5,7 @@
 #include "DfsMazeSolver.hpp"
 #include "GhostEnemy.hpp"
 #include "TrollEnemy.hpp"
+#include "RandomFunctions.hpp"
 
 EnemiesSpawner::EnemiesSpawner(const Player &player) : _player{player}
 {
@@ -92,12 +93,4 @@ Point EnemiesSpawner::randomPassagePoint(const Maze &maze)
 Point EnemiesSpawner::randomPoint(const Maze &maze)
 {
     return Point(nextRandomInt(1, maze.height() - 2), nextRandomInt(1, maze.width() - 2));
-}
-
-int EnemiesSpawner::nextRandomInt(int min, int max)
-{
-    std::random_device dev;
-    std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> dist6(min, max - 1);
-    return dist6(rng);
 }

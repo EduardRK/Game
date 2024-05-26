@@ -38,6 +38,8 @@ void Game::nextTurn()
     {
         enemy->nextTurn();
     }
+
+    calculateDamage();
 }
 
 bool Game::isEnemyInRadiusOfView(std::shared_ptr<Enemy> enemy)
@@ -45,4 +47,28 @@ bool Game::isEnemyInRadiusOfView(std::shared_ptr<Enemy> enemy)
     bool flagX = (enemy->currentPosition().x() <= (_player.currentPosition().x() + _player.radiusView())) && (enemy->currentPosition().x() >= (_player.currentPosition().x() - _player.radiusView()));
     bool flagY = (enemy->currentPosition().y() <= (_player.currentPosition().y() + _player.radiusView())) && (enemy->currentPosition().y() >= (_player.currentPosition().y() - _player.radiusView()));
     return flagX && flagY;
+}
+
+void Game::calculateDamage()
+{
+    for (size_t i = 0; i < _enemies.size(); ++i)
+    {
+        if (_player.currentPosition() == _enemies.at(i)->currentPosition())
+        {
+            Damage &playerDamage = _player.deal();
+            Damage &enemyDamage = _enemies.at(i)->deal();
+
+            _player.hit(enemyDamage);
+            _enemies.at(i)->hit(playerDamage);
+
+            if (!_enemies.at(i)->isAlive())
+            {
+                _enemies.erase(_enemies.begin() + i);
+            }
+
+            if (!_player.isAlive())
+            {
+            }
+        }
+    }
 }

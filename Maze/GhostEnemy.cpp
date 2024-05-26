@@ -2,7 +2,7 @@
 
 #include "GhostEnemy.hpp"
 
-GhostEnemy::GhostEnemy(const Maze &maze, const std::vector<Point> &route, int startPosition) : _maze{maze}, _route{route}, _currentPosition{startPosition}
+GhostEnemy::GhostEnemy(const Maze &maze, const std::vector<Point> &route, int startPosition) : _maze{maze}, _route{route}, _currentPosition{startPosition}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _damage{Damage(DEFAULT_DAMAGE, DEFAULT_CRIT_CHANCE, DEFAULT_CRIT_MULTIPLIER)}
 {
 }
 
@@ -59,4 +59,19 @@ void GhostEnemy::nextTurn()
 Point &GhostEnemy::currentPosition()
 {
     return _route.at(_currentPosition);
+}
+
+void GhostEnemy::hit(Damage &damage)
+{
+    _healthPoints.decreaseHealth(damage);
+}
+
+Damage &GhostEnemy::deal()
+{
+    return _damage;
+}
+
+bool GhostEnemy::isAlive()
+{
+    return _healthPoints.isAlive();
 }

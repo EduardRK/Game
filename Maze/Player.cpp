@@ -1,18 +1,19 @@
 #include <GL/glut.h>
+#include <iostream>
 
 #include "Player.hpp"
 #include "Point.hpp"
 #include "Maze.hpp"
 
-Player::Player(const Point &startPosition, const Maze &maze) : _currentPosition{startPosition}, _maze{maze}
+Player::Player(const Point &startPosition, const Maze &maze) : _currentPosition{startPosition}, _maze{maze}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _damage{Damage(DEFAULT_DAMAGE, DEFAULT_CRIT_CHANCE, DEFAULT_CRIT_MULTIPLIER)}
 {
 }
 
-Player::Player(Point startPosition, const Maze &maze) : _currentPosition{startPosition}, _maze{maze}
+Player::Player(Point startPosition, const Maze &maze) : _currentPosition{startPosition}, _maze{maze}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _damage{Damage(DEFAULT_DAMAGE, DEFAULT_CRIT_CHANCE, DEFAULT_CRIT_MULTIPLIER)}
 {
 }
 
-Player::Player(int x, int y, const Maze &maze) : _maze{maze}, _currentPosition{Point(x, y)}
+Player::Player(int x, int y, const Maze &maze) : _currentPosition{Point(x, y)}, _maze{maze}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _damage{Damage(DEFAULT_DAMAGE, DEFAULT_CRIT_CHANCE, DEFAULT_CRIT_MULTIPLIER)}
 {
 }
 
@@ -93,4 +94,25 @@ void Player::draw()
 
 void Player::nextTurn()
 {
+    std::cout << _healthPoints.currentHealth() << std::endl;
+}
+
+void Player::hit(Damage &damage)
+{
+    _healthPoints.decreaseHealth(damage);
+}
+
+void Player::heal(Heal &heal)
+{
+    _healthPoints.increaseHealth(heal);
+}
+
+Damage &Player::deal()
+{
+    return _damage;
+}
+
+bool Player::isAlive()
+{
+    return _healthPoints.isAlive();
 }

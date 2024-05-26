@@ -6,6 +6,7 @@
 #include "Maze.hpp"
 #include "Point.hpp"
 #include "DfsMazeSolver.hpp"
+#include "RandomFunctions.hpp"
 
 DfsMazeSolver::DfsMazeSolver(const Maze &maze) : _maze{maze}
 {
@@ -49,9 +50,14 @@ bool DfsMazeSolver::explore(const Point &point, const Point &end, std::vector<Po
         return true;
     }
 
-    for (auto &&direction : _directions)
+    // for (auto &&direction : _directions)
+    std::vector<char> directions { 'U', 'D', 'R', 'L' };
+    for (int i = 0; i < 4; ++i)
     {
         Point nextPoint;
+        int index = nextRandomInt(directions.size());
+        char direction = directions.at(index);
+        directions.erase(directions.begin() + index);
 
         if (direction == 'U')
         {
@@ -83,22 +89,4 @@ bool DfsMazeSolver::explore(const Point &point, const Point &end, std::vector<Po
 bool DfsMazeSolver::isValidPoint(const Point &point)
 {
     return point.x() >= 0 && point.y() < _maze.height() && point.y() >= 0 && point.x() < _maze.width();
-}
-
-int DfsMazeSolver::nextRandomInt(int min, int max)
-{
-    if (min == max)
-    {
-        return min;
-    }
-
-    std::random_device dev;
-    std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> dist6(min, max - 1);
-    return dist6(rng);
-}
-
-int DfsMazeSolver::nextRandomInt(int max)
-{
-    return nextRandomInt(0, max);
 }

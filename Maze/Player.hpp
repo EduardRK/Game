@@ -4,14 +4,29 @@
 #include "Maze.hpp"
 #include "Drawable.hpp"
 #include "Turnable.hpp"
+#include "HealthPoints.hpp"
+#include "Damage.hpp"
+#include "Heal.hpp"
+#include "Hitable.hpp"
+#include "Healable.hpp"
+#include "Living.hpp"
+#include "Dealer.hpp"
 
-class Player final : public Drawable, public Turnable
+class Player final : public Drawable, public Turnable, public Hitable, public Healable, public Dealer<Damage>, public Living
 {
 private:
+    static constexpr int DEFAULT_DAMAGE = 2;
+    static constexpr float DEFAULT_CRIT_CHANCE = 0.25f;
+    static constexpr int DEFAULT_CRIT_MULTIPLIER = 2;
+
+    static constexpr int DEFAULT_MAX_HP = 3;
     static constexpr float SIDE = 1.f;
 
     Point _currentPosition;
     const Maze &_maze;
+    HealthPoints _healthPoints;
+    Damage _damage;
+
     int _radiusView = 100;
 
 public:
@@ -35,4 +50,8 @@ public:
 
     void draw() override;
     void nextTurn() override;
+    void hit(Damage &damage) override;
+    void heal(Heal &heal) override;
+    Damage &deal() override;
+    bool isAlive() override;
 };
