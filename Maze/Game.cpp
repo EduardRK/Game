@@ -39,7 +39,7 @@ void Game::nextTurn()
         enemy->nextTurn();
     }
 
-    calculateDamage();
+    damageExchange();
 }
 
 bool Game::isEnemyInRadiusOfView(std::shared_ptr<Enemy> enemy)
@@ -49,7 +49,7 @@ bool Game::isEnemyInRadiusOfView(std::shared_ptr<Enemy> enemy)
     return flagX && flagY;
 }
 
-void Game::calculateDamage()
+void Game::damageExchange()
 {
     for (size_t i = 0; i < _enemies.size(); ++i)
     {

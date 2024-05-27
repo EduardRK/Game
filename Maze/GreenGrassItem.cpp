@@ -4,6 +4,6 @@ void GreenGrassItem::draw()
 {
 }
 
-void GreenGrassItem::useItem(const Player &player)
+void GreenGrassItem::useItem()
 {
 }

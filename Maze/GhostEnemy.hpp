@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <vector>
 
 #include "Enemy.hpp"
@@ -7,6 +8,7 @@
 #include "Maze.hpp"
 #include "HealthPoints.hpp"
 #include "Damage.hpp"
+#include "Player.hpp"
 
 class GhostEnemy final : public Enemy
 {
@@ -21,14 +23,15 @@ private:
     bool _goAhead = true;
 
     const Maze &_maze;
+    const Player &_player;
     HealthPoints _healthPoints;
     int _currentPosition;
     std::vector<Point> _route;
     Damage _damage;
 
 public:
-    GhostEnemy(const Maze &maze, const std::vector<Point> &route, int startPosition);
-    GhostEnemy(const Maze &maze, const std::vector<Point> &route);
+    GhostEnemy(const Maze &maze, const Player &player, const std::vector<Point> &route, int startPosition);
+    GhostEnemy(const Maze &maze, const Player &player, const std::vector<Point> &route);
     ~GhostEnemy() = default;
 
     void draw() override;
@@ -37,4 +40,5 @@ public:
     void hit(Damage &damage) override;
     Damage &deal() override;
     bool isAlive() override;
+    std::shared_ptr<Item> deathRattle() override;
 };

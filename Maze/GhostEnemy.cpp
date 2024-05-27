@@ -1,12 +1,15 @@
 #include "GL/glut.h"
+#include <memory>
 
 #include "GhostEnemy.hpp"
+#include "Selector.hpp"
+#include "ItemSelector.hpp"
 
-GhostEnemy::GhostEnemy(const Maze &maze, const std::vector<Point> &route, int startPosition) : _maze{maze}, _route{route}, _currentPosition{startPosition}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _damage{Damage(DEFAULT_DAMAGE, DEFAULT_CRIT_CHANCE, DEFAULT_CRIT_MULTIPLIER)}
+GhostEnemy::GhostEnemy(const Maze &maze, const Player &player, const std::vector<Point> &route, int startPosition) : _maze{maze}, _player{player}, _route{route}, _currentPosition{startPosition}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _damage{Damage(DEFAULT_DAMAGE, DEFAULT_CRIT_CHANCE, DEFAULT_CRIT_MULTIPLIER)}
 {
 }
 
-GhostEnemy::GhostEnemy(const Maze &maze, const std::vector<Point> &route) : GhostEnemy(maze, route, 0)
+GhostEnemy::GhostEnemy(const Maze &maze, const Player &player, const std::vector<Point> &route) : GhostEnemy(maze, player, route, 0)
 {
 }
 
@@ -74,4 +77,10 @@ Damage &GhostEnemy::deal()
 bool GhostEnemy::isAlive()
 {
     return _healthPoints.isAlive();
+}
+
+std::shared_ptr<Item> GhostEnemy::deathRattle()
+{
+    std::unique_ptr<Selector<Item>> selector = std::make_unique<ItemSelector>();
+    return selector->randomSelect();
 }

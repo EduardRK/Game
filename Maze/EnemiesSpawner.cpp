@@ -35,7 +35,7 @@ std::shared_ptr<Enemy> EnemiesSpawner::standartGhostEnemy(const Maze &maze, Maze
     Point endPosition(1, maze.width() - 2);
     std::vector<Point> route = mazeSolver.solveMaze(startPosition, endPosition);
 
-    return std::make_shared<GhostEnemy>(maze, route);
+    return std::make_shared<GhostEnemy>(maze, _player, route);
 }
 
 std::shared_ptr<Enemy> EnemiesSpawner::randomGhostEnemy(const Maze &maze, MazeSolver &mazeSolver)
@@ -44,7 +44,7 @@ std::shared_ptr<Enemy> EnemiesSpawner::randomGhostEnemy(const Maze &maze, MazeSo
     Point endPosition = randomPassagePoint(maze);
     std::vector<Point> route = mazeSolver.solveMaze(startPosition, endPosition);
 
-    return std::make_shared<GhostEnemy>(maze, route);
+    return std::make_shared<GhostEnemy>(maze, _player, route);
 }
 
 std::vector<std::shared_ptr<Enemy>> EnemiesSpawner::standartTrollEnemy(const Maze &maze, MazeSolver &mazeSolver)

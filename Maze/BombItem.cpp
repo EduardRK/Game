@@ -6,6 +6,6 @@ void BombItem::draw()
 }
 
 
-void BombItem::useItem(const Player &player)
+void BombItem::useItem()
 {
 }

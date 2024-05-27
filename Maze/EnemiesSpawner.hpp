@@ -8,16 +8,16 @@
 #include "MazeSolver.hpp"
 #include "Player.hpp"
 
-class EnemiesSpawner final : public Spawner<std::shared_ptr<Enemy>>
+class EnemiesSpawner final : public Spawner<Enemy>
 {
 private:
     const Player &_player;
 
 public:
-    EnemiesSpawner(const Player& player);
+    EnemiesSpawner(const Player &player);
     ~EnemiesSpawner() = default;
 
-    std::vector<std::shared_ptr<Enemy>> spawn(const Maze &maze);
+    std::vector<std::shared_ptr<Enemy>> spawn(const Maze &maze) override;
 
 private:
     std::shared_ptr<Enemy> standartGhostEnemy(const Maze &maze, MazeSolver &mazeSolver);

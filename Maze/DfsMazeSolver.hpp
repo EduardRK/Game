@@ -11,7 +11,6 @@ class DfsMazeSolver final : public MazeSolver
 {
 private:
     Maze _maze;
-    // std::vector<char> _directions{'U', 'D', 'R', 'L'};
 
 public:
     DfsMazeSolver(const Maze &maze);

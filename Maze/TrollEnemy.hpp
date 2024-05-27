@@ -43,6 +43,7 @@ public:
     void hit(Damage &damage) override;
     Damage &deal() override;
     bool isAlive() override;
+    std::shared_ptr<Item> deathRattle() override;
 
 private:
     bool playerInRadiusOfView();
