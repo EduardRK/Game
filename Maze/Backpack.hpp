@@ -18,6 +18,6 @@ public:
     Backpack();
     ~Backpack() = default;
 
-    bool peekItem(std::shared_ptr<Item> item);
+    bool saveItem(std::shared_ptr<Item> item);
     std::shared_ptr<Item> getItem(int index);
 };

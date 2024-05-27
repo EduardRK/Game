@@ -8,17 +8,15 @@ Backpack::Backpack() : Backpack(DEFAULT_CAPACITY)
 {
 }
 
-bool Backpack::peekItem(std::shared_ptr<Item> item)
+bool Backpack::saveItem(std::shared_ptr<Item> item)
 {
     if (_backpack.size() >= _capacity)
     {
         return false;
     }
-    else
-    {
-        _backpack.push_back(item);
-        return true;
-    }
+
+    _backpack.push_back(item);
+    return true;
 }
 
 std::shared_ptr<Item> Backpack::getItem(int index)

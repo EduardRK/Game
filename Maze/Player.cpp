@@ -64,14 +64,44 @@ void Player::newRadiusView(unsigned int newRadiusView)
     _radiusView = newRadiusView;
 }
 
-Point Player::currentPosition()
+bool Player::peekItem(std::shared_ptr<Item> item)
+{
+    return _backpack.saveItem(item);
+}
+
+void Player::useItem(int index)
+{
+    _backpack.getItem(index)->useItem();
+}
+
+Point &Player::currentPosition()
 {
     return _currentPosition;
 }
 
-const Point Player::currentPosition() const
+const Point &Player::currentPosition() const
 {
     return _currentPosition;
+}
+
+HealthPoints &Player::healthPoints()
+{
+    return _healthPoints;
+}
+
+const HealthPoints &Player::healthPoints() const
+{
+    return _healthPoints;
+}
+
+Damage &Player::damage()
+{
+    return _damage;
+}
+
+const Damage &Player::damage() const
+{
+    return _damage;
 }
 
 void Player::draw()

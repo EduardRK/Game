@@ -42,13 +42,21 @@ public:
     void moveLeft();
     void moveRight();
 
-    int radiusView() const;
-    int radiusView();
-
     void newRadiusView(unsigned int newRadiusView);
+    bool peekItem(std::shared_ptr<Item> item);
+    void useItem(int index);
 
-    Point currentPosition();
-    const Point currentPosition() const;
+    int radiusView();
+    int radiusView() const;
+
+    Point &currentPosition();
+    const Point &currentPosition() const;
+
+    HealthPoints &healthPoints();
+    const HealthPoints &healthPoints() const;
+
+    Damage &damage();
+    const Damage &damage() const;
 
     void draw() override;
     void nextTurn() override;
