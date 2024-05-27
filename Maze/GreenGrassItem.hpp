@@ -9,5 +9,5 @@ public:
     ~GreenGrassItem() = default;
 
     void draw() override;
-    void useItem(const Player &player) override;
+    void useItem() override;
 };

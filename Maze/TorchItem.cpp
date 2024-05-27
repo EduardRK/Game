@@ -4,6 +4,6 @@ void TorchItem::draw()
 {
 }
 
-void TorchItem::useItem(const Player &player)
+void TorchItem::useItem()
 {
 }

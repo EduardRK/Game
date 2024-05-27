@@ -6,8 +6,9 @@
 #include "Hitable.hpp"
 #include "Dealer.hpp"
 #include "Living.hpp"
+#include "DeathRattlable.hpp"
 
-class Enemy : public Drawable, public Turnable, public Hitable, public Dealer<Damage>, public Living
+class Enemy : public Drawable, public Turnable, public Hitable, public Dealer<Damage>, public Living, public DeathRattlable
 {
 public:
     virtual ~Enemy() = default;

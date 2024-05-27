@@ -24,6 +24,12 @@ std::vector<Point> DfsMazeSolver::solveMaze(const Point &start, const Point &end
         return std::vector<Point>();
     }
 
+    if (start == end)
+    {
+        return std::vector<Point>();
+    }
+    
+
     std::vector<Point> path;
     std::unordered_set<Point> visited;
 
@@ -50,8 +56,7 @@ bool DfsMazeSolver::explore(const Point &point, const Point &end, std::vector<Po
         return true;
     }
 
-    // for (auto &&direction : _directions)
-    std::vector<char> directions { 'U', 'D', 'R', 'L' };
+    std::vector<char> directions{'U', 'D', 'R', 'L'};
     for (int i = 0; i < 4; ++i)
     {
         Point nextPoint;
@@ -59,21 +64,22 @@ bool DfsMazeSolver::explore(const Point &point, const Point &end, std::vector<Po
         char direction = directions.at(index);
         directions.erase(directions.begin() + index);
 
-        if (direction == 'U')
+        switch (direction)
         {
+        case 'U':
             nextPoint = Point(point.x() + 1, point.y());
-        }
-        else if (direction == 'D')
-        {
+            break;
+        case 'D':
             nextPoint = Point(point.x() - 1, point.y());
-        }
-        else if (direction == 'R')
-        {
+            break;
+        case 'R':
             nextPoint = Point(point.x(), point.y() + 1);
-        }
-        else if (direction == 'L')
-        {
+            break;
+        case 'L':
             nextPoint = Point(point.x(), point.y() - 1);
+            break;
+        default:
+            break;
         }
 
         if (explore(nextPoint, end, path, visited))

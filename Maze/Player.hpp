@@ -11,11 +11,12 @@
 #include "Healable.hpp"
 #include "Living.hpp"
 #include "Dealer.hpp"
+#include "Backpack.hpp"
 
 class Player final : public Drawable, public Turnable, public Hitable, public Healable, public Dealer<Damage>, public Living
 {
 private:
-    static constexpr int DEFAULT_DAMAGE = 2;
+    static constexpr int DEFAULT_DAMAGE = 0;
     static constexpr float DEFAULT_CRIT_CHANCE = 0.25f;
     static constexpr int DEFAULT_CRIT_MULTIPLIER = 2;
 
@@ -24,6 +25,7 @@ private:
 
     Point _currentPosition;
     const Maze &_maze;
+    Backpack _backpack;
     HealthPoints _healthPoints;
     Damage _damage;
 
@@ -40,13 +42,21 @@ public:
     void moveLeft();
     void moveRight();
 
-    int radiusView() const;
-    int radiusView();
-
     void newRadiusView(unsigned int newRadiusView);
+    bool peekItem(std::shared_ptr<Item> item);
+    void useItem(int index);
 
-    Point currentPosition();
-    const Point currentPosition() const;
+    int radiusView();
+    int radiusView() const;
+
+    Point &currentPosition();
+    const Point &currentPosition() const;
+
+    HealthPoints &healthPoints();
+    const HealthPoints &healthPoints() const;
+
+    Damage &damage();
+    const Damage &damage() const;
 
     void draw() override;
     void nextTurn() override;

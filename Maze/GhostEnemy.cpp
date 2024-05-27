@@ -1,12 +1,15 @@
 #include "GL/glut.h"
+#include <memory>
 
 #include "GhostEnemy.hpp"
+#include "Selector.hpp"
+#include "ItemSelector.hpp"
 
-GhostEnemy::GhostEnemy(const Maze &maze, const std::vector<Point> &route, int startPosition) : _maze{maze}, _route{route}, _currentPosition{startPosition}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _damage{Damage(DEFAULT_DAMAGE, DEFAULT_CRIT_CHANCE, DEFAULT_CRIT_MULTIPLIER)}
+GhostEnemy::GhostEnemy(const Maze &maze, const Player &player, const std::vector<Point> &route, int startPosition) : _maze{maze}, _player{player}, _route{route}, _currentPosition{startPosition}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _damage{Damage(DEFAULT_DAMAGE, DEFAULT_CRIT_CHANCE, DEFAULT_CRIT_MULTIPLIER)}
 {
 }
 
-GhostEnemy::GhostEnemy(const Maze &maze, const std::vector<Point> &route) : GhostEnemy(maze, route, 0)
+GhostEnemy::GhostEnemy(const Maze &maze, const Player &player, const std::vector<Point> &route) : GhostEnemy(maze, player, route, 0)
 {
 }
 
@@ -30,6 +33,21 @@ void GhostEnemy::draw()
 
 void GhostEnemy::nextTurn()
 {
+    if (_skipTurn)
+    {
+        _route.at(_currentPosition) = _previusPosition;
+        _skipTurn = false;
+        return;
+    }
+
+    if (playerInRadiusOfView())
+    {
+        _previusPosition = _route.at(_currentPosition);
+        _route.at(_currentPosition) = _player.currentPosition();
+        _skipTurn = true;
+        return;
+    }
+
     if (_goAhead)
     {
         if (_currentPosition + 1 >= _route.size())
@@ -74,4 +92,17 @@ Damage &GhostEnemy::deal()
 bool GhostEnemy::isAlive()
 {
     return _healthPoints.isAlive();
+}
+
+std::shared_ptr<Item> GhostEnemy::deathRattle()
+{
+    std::unique_ptr<Selector<Item>> selector = std::make_unique<ItemSelector>();
+    return selector->randomSelect();
+}
+
+bool GhostEnemy::playerInRadiusOfView()
+{
+    bool flagX = _player.currentPosition().x() >= (_route.at(_currentPosition).x() - _radiusView) && _player.currentPosition().x() <= (_route.at(_currentPosition).x() + _radiusView);
+    bool flagY = _player.currentPosition().y() >= (_route.at(_currentPosition).y() - _radiusView) && _player.currentPosition().y() <= (_route.at(_currentPosition).y() + _radiusView);
+    return flagX && flagY;
 }

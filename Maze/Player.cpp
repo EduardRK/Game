@@ -5,15 +5,15 @@
 #include "Point.hpp"
 #include "Maze.hpp"
 
-Player::Player(const Point &startPosition, const Maze &maze) : _currentPosition{startPosition}, _maze{maze}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _damage{Damage(DEFAULT_DAMAGE, DEFAULT_CRIT_CHANCE, DEFAULT_CRIT_MULTIPLIER)}
+Player::Player(const Point &startPosition, const Maze &maze) : _currentPosition{startPosition}, _maze{maze}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _damage{Damage(DEFAULT_DAMAGE, DEFAULT_CRIT_CHANCE, DEFAULT_CRIT_MULTIPLIER)}, _backpack{Backpack()}
 {
 }
 
-Player::Player(Point startPosition, const Maze &maze) : _currentPosition{startPosition}, _maze{maze}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _damage{Damage(DEFAULT_DAMAGE, DEFAULT_CRIT_CHANCE, DEFAULT_CRIT_MULTIPLIER)}
+Player::Player(Point startPosition, const Maze &maze) : _currentPosition{startPosition}, _maze{maze}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _damage{Damage(DEFAULT_DAMAGE, DEFAULT_CRIT_CHANCE, DEFAULT_CRIT_MULTIPLIER)}, _backpack{Backpack()}
 {
 }
 
-Player::Player(int x, int y, const Maze &maze) : _currentPosition{Point(x, y)}, _maze{maze}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _damage{Damage(DEFAULT_DAMAGE, DEFAULT_CRIT_CHANCE, DEFAULT_CRIT_MULTIPLIER)}
+Player::Player(int x, int y, const Maze &maze) : _currentPosition{Point(x, y)}, _maze{maze}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _damage{Damage(DEFAULT_DAMAGE, DEFAULT_CRIT_CHANCE, DEFAULT_CRIT_MULTIPLIER)}, _backpack{Backpack()}
 {
 }
 
@@ -64,14 +64,44 @@ void Player::newRadiusView(unsigned int newRadiusView)
     _radiusView = newRadiusView;
 }
 
-Point Player::currentPosition()
+bool Player::peekItem(std::shared_ptr<Item> item)
+{
+    return _backpack.saveItem(item);
+}
+
+void Player::useItem(int index)
+{
+    _backpack.getItem(index)->useItem();
+}
+
+Point &Player::currentPosition()
 {
     return _currentPosition;
 }
 
-const Point Player::currentPosition() const
+const Point &Player::currentPosition() const
 {
     return _currentPosition;
+}
+
+HealthPoints &Player::healthPoints()
+{
+    return _healthPoints;
+}
+
+const HealthPoints &Player::healthPoints() const
+{
+    return _healthPoints;
+}
+
+Damage &Player::damage()
+{
+    return _damage;
+}
+
+const Damage &Player::damage() const
+{
+    return _damage;
 }
 
 void Player::draw()
