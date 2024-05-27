@@ -16,7 +16,7 @@
 class Player final : public Drawable, public Turnable, public Hitable, public Healable, public Dealer<Damage>, public Living
 {
 private:
-    static constexpr int DEFAULT_DAMAGE = 1;
+    static constexpr int DEFAULT_DAMAGE = 0;
     static constexpr float DEFAULT_CRIT_CHANCE = 0.25f;
     static constexpr int DEFAULT_CRIT_MULTIPLIER = 2;
 

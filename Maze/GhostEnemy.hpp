@@ -29,6 +29,10 @@ private:
     std::vector<Point> _route;
     Damage _damage;
 
+    int _radiusView = 1;
+    bool _skipTurn = false;
+    Point _previusPosition;
+
 public:
     GhostEnemy(const Maze &maze, const Player &player, const std::vector<Point> &route, int startPosition);
     GhostEnemy(const Maze &maze, const Player &player, const std::vector<Point> &route);
@@ -41,4 +45,7 @@ public:
     Damage &deal() override;
     bool isAlive() override;
     std::shared_ptr<Item> deathRattle() override;
+
+private:
+    bool playerInRadiusOfView();
 };

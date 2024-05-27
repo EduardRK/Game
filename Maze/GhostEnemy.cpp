@@ -33,6 +33,21 @@ void GhostEnemy::draw()
 
 void GhostEnemy::nextTurn()
 {
+    if (_skipTurn)
+    {
+        _route.at(_currentPosition) = _previusPosition;
+        _skipTurn = false;
+        return;
+    }
+
+    if (playerInRadiusOfView())
+    {
+        _previusPosition = _route.at(_currentPosition);
+        _route.at(_currentPosition) = _player.currentPosition();
+        _skipTurn = true;
+        return;
+    }
+
     if (_goAhead)
     {
         if (_currentPosition + 1 >= _route.size())
@@ -83,4 +98,11 @@ std::shared_ptr<Item> GhostEnemy::deathRattle()
 {
     std::unique_ptr<Selector<Item>> selector = std::make_unique<ItemSelector>();
     return selector->randomSelect();
+}
+
+bool GhostEnemy::playerInRadiusOfView()
+{
+    bool flagX = _player.currentPosition().x() >= (_route.at(_currentPosition).x() - _radiusView) && _player.currentPosition().x() <= (_route.at(_currentPosition).x() + _radiusView);
+    bool flagY = _player.currentPosition().y() >= (_route.at(_currentPosition).y() - _radiusView) && _player.currentPosition().y() <= (_route.at(_currentPosition).y() + _radiusView);
+    return flagX && flagY;
 }

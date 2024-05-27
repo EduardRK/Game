@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Player.hpp"
 #include "Drawable.hpp"
 
 class Item : public Drawable
