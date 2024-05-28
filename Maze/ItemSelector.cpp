@@ -6,26 +6,30 @@
 #include "RandomFunctions.hpp"
 #include "KeyItem.hpp"
 
-std::shared_ptr<Item> ItemSelector::seedSelect(int seed)
+ItemSelector::ItemSelector(Player &player, const Maze &maze) : _player{player}, _maze{maze}
+{
+}
+
+std::shared_ptr<Item> ItemSelector::seedSelect(int seed, Point point)
 {
     std::shared_ptr<Item> item;
 
     switch (seed)
     {
     case GREEN_GRASS_SEED:
-        item = std::make_shared<GreenGrassItem>();
+        item = std::make_shared<GreenGrassItem>(_player, _maze, point);
         break;
     case YELLOW_GRASS_SEED:
-        item = std::make_shared<YellowGrassItem>();
+        item = std::make_shared<YellowGrassItem>(_player, _maze, point);
         break;
     case BOMB_SEED:
-        item = std::make_shared<BombItem>();
+        item = std::make_shared<BombItem>(_player, _maze, point);
         break;
     case TORCH_SEED:
-        item = std::make_shared<TorchItem>();
+        item = std::make_shared<TorchItem>(_player, _maze, point);
         break;
     case KEY_SEED:
-        item = std::shared_ptr<KeyItem>();
+        item = std::make_shared<KeyItem>(_player, _maze, point);
         break;
     default:
         break;
@@ -34,7 +38,7 @@ std::shared_ptr<Item> ItemSelector::seedSelect(int seed)
     return item;
 }
 
-std::shared_ptr<Item> ItemSelector::randomSelect()
+std::shared_ptr<Item> ItemSelector::randomSelect(const Point &point)
 {
-    return seedSelect(nextRandomInt(3));
+    return seedSelect(nextRandomInt(3), point);
 }

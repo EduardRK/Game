@@ -1,5 +1,7 @@
 #include "Backpack.hpp"
 
+#include <iostream>
+
 Backpack::Backpack(int capacity) : _capacity{capacity}
 {
 }
@@ -12,6 +14,7 @@ bool Backpack::saveItem(std::shared_ptr<Item> item)
 {
     if (_backpack.size() >= _capacity)
     {
+        std::cout << _backpack.size() << std::endl;
         return false;
     }
 

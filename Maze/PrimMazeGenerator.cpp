@@ -1,7 +1,6 @@
 #include <cstdlib>
 #include <vector>
 #include <memory>
-#include <random>
 #include <iostream>
 
 #include "MazeTypeCell.hpp"

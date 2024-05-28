@@ -23,7 +23,7 @@ private:
 
     Point _currentPosition;
     const Maze &_maze;
-    const Player &_player;
+    Player &_player;
     HealthPoints _healthPoints;
     std::unique_ptr<MazeSolver> _mazeSolver;
     Damage _damage;
@@ -34,7 +34,7 @@ private:
     std::vector<Point> _route;
 
 public:
-    TrollEnemy(const Maze &maze, Point &currentPosition, const Player &player);
+    TrollEnemy(const Maze &maze, Point &currentPosition, Player &player);
     ~TrollEnemy() = default;
 
     void draw() override;

@@ -8,13 +8,13 @@
 #include "ItemSelector.hpp"
 #include "Item.hpp"
 
-TrollEnemy::TrollEnemy(const Maze &maze, Point &currentPosition, const Player &player) : _maze{maze}, _currentPosition{currentPosition}, _player{player}, _mazeSolver{std::make_unique<DfsMazeSolver>(maze)}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _damage{Damage(DEFAULT_DAMAGE, DEFAULT_CRIT_CHANCE, DEFAULT_CRIT_MULTIPLIER)}
+TrollEnemy::TrollEnemy(const Maze &maze, Point &currentPosition, Player &player) : _maze{maze}, _currentPosition{currentPosition}, _player{player}, _mazeSolver{std::make_unique<DfsMazeSolver>(maze)}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _damage{Damage(DEFAULT_DAMAGE, DEFAULT_CRIT_CHANCE, DEFAULT_CRIT_MULTIPLIER)}
 {
 }
 
 void TrollEnemy::draw()
 {
-    glColor3f(0.f, 0.8f, 0.f);
+    glColor3f(0.f, 100.f / 255.f, 0.f);
 
     float width = _maze.width();
     float height = _maze.height();
@@ -87,8 +87,8 @@ bool TrollEnemy::isAlive()
 
 std::shared_ptr<Item> TrollEnemy::deathRattle()
 {
-    std::unique_ptr<Selector<Item>> selector = std::make_unique<ItemSelector>();
-    return selector->seedSelect(ItemSelector::KEY_SEED);
+    std::unique_ptr<Selector<Item>> selector = std::make_unique<ItemSelector>(_player, _maze);
+    return selector->seedSelect(ItemSelector::KEY_SEED, _currentPosition);
 }
 
 bool TrollEnemy::playerInRadiusOfView()

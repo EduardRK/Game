@@ -11,10 +11,10 @@
 class EnemiesSpawner final : public Spawner<Enemy>
 {
 private:
-    const Player &_player;
+    Player &_player;
 
 public:
-    EnemiesSpawner(const Player &player);
+    EnemiesSpawner(Player &player);
     ~EnemiesSpawner() = default;
 
     std::vector<std::shared_ptr<Enemy>> spawn(const Maze &maze) override;

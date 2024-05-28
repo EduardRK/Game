@@ -1,14 +1,14 @@
 #include <GL/glut.h>
 
-#include "TorchItem.hpp"
+#include "KeyItem.hpp"
 
-TorchItem::TorchItem(Player &player, const Maze &maze, Point currentPosition) : _player{player}, _maze{maze}, _currentPosition{currentPosition}
+KeyItem::KeyItem(Player &player, const Maze &maze, Point currentPosition) : _player{player}, _maze{maze}, _currentPosition{currentPosition}
 {
 }
 
-void TorchItem::draw()
+void KeyItem::draw()
 {
-    glColor3f(1.f, 144.f / 255.f, 0.f);
+    glColor3f(0.8f, 0.8f, 0.8f);
 
     float width = _maze.width();
     float height = _maze.height();
@@ -24,11 +24,11 @@ void TorchItem::draw()
     glEnd();
 }
 
-void TorchItem::useItem()
+void KeyItem::useItem()
 {
 }
 
-const Point &TorchItem::currentPosition()
+const Point &KeyItem::currentPosition()
 {
     return _currentPosition;
 }

@@ -23,7 +23,7 @@ private:
     bool _goAhead = true;
 
     const Maze &_maze;
-    const Player &_player;
+    Player &_player;
     HealthPoints _healthPoints;
     int _currentPosition;
     std::vector<Point> _route;
@@ -34,8 +34,8 @@ private:
     Point _previusPosition;
 
 public:
-    GhostEnemy(const Maze &maze, const Player &player, const std::vector<Point> &route, int startPosition);
-    GhostEnemy(const Maze &maze, const Player &player, const std::vector<Point> &route);
+    GhostEnemy(const Maze &maze, Player &player, const std::vector<Point> &route, int startPosition);
+    GhostEnemy(const Maze &maze, Player &player, const std::vector<Point> &route);
     ~GhostEnemy() = default;
 
     void draw() override;

@@ -17,14 +17,17 @@
 #include "Enemy.hpp"
 #include "Spawner.hpp"
 #include "EnemiesSpawner.hpp"
+#include "ItemsSpawner.hpp"
 
 std::unique_ptr<MazeGenerator> mazeGenerator = std::make_unique<PrimMazeGenerator>();
 std::unique_ptr<Maze> maze = mazeGenerator->generateMaze(45, 45);
 std::unique_ptr<MazeSolver> mazeSolver = std::make_unique<DfsMazeSolver>(*maze);
 std::unique_ptr<Player> player = std::make_unique<Player>(1, 1, *maze);
-std::unique_ptr<Spawner<Enemy>> spawner = std::make_unique<EnemiesSpawner>(*player);
-std::vector<std::shared_ptr<Enemy>> enemies = spawner->spawn(*maze);
-std::unique_ptr<Game> game = std::make_unique<Game>(*player, *maze, enemies);
+std::unique_ptr<Spawner<Enemy>> enemiesSpawner = std::make_unique<EnemiesSpawner>(*player);
+std::vector<std::shared_ptr<Enemy>> enemies = enemiesSpawner->spawn(*maze);
+std::unique_ptr<Spawner<Item>> itemsSpawner = std::make_unique<ItemsSpawner>(*player);
+std::vector<std::shared_ptr<Item>> items = itemsSpawner->spawn(*maze);
+std::unique_ptr<Game> game = std::make_unique<Game>(*player, *maze, enemies, items);
 
 void displayFunc()
 {
@@ -37,46 +40,7 @@ void displayFunc()
 
 void keyboardFunc(unsigned char key, int x, int y)
 {
-    switch (key)
-    {
-    case 'w':
-        game->player().moveUp();
-        game->nextTurn();
-        break;
-
-    case 's':
-        game->player().moveDown();
-        game->nextTurn();
-        break;
-
-    case 'a':
-        game->player().moveLeft();
-        game->nextTurn();
-        break;
-
-    case 'd':
-        game->player().moveRight();
-        game->nextTurn();
-        break;
-
-    case ' ':
-        game->nextTurn();
-        break;
-
-    case '1':
-    case '2':
-    case '3':
-    case '4':
-    case '5':
-    case '6':
-    case '7':
-    case '8':
-    case '9':
-    case '0':
-
-    default:
-        break;
-    }
+    game->useKeyboardKey(key);
 
     glutPostRedisplay();
 }
