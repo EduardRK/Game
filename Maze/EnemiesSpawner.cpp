@@ -7,7 +7,7 @@
 #include "TrollEnemy.hpp"
 #include "RandomFunctions.hpp"
 
-EnemiesSpawner::EnemiesSpawner(const Player &player) : _player{player}
+EnemiesSpawner::EnemiesSpawner(Player &player) : _player{player}
 {
 }
 

@@ -1,5 +1,4 @@
 #include <GL/glut.h>
-#include <iostream>
 
 #include "Player.hpp"
 #include "Point.hpp"
@@ -124,7 +123,6 @@ void Player::draw()
 
 void Player::nextTurn()
 {
-    std::cout << _healthPoints.currentHealth() << std::endl;
 }
 
 void Player::hit(Damage &damage)
