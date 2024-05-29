@@ -73,6 +73,16 @@ void Player::useItem(int index)
     _backpack.getItem(index)->useItem();
 }
 
+void Player::increaseMaxHealth(int bonusHealthPoints)
+{
+    _healthPoints.increaseMaxHealth(bonusHealthPoints);
+}
+
+void Player::decreaseMaxHealth(int bonusHealthPoints)
+{
+    _healthPoints.decreaseMaxHealth(bonusHealthPoints);
+}
+
 Point &Player::currentPosition()
 {
     return _currentPosition;
@@ -81,26 +91,6 @@ Point &Player::currentPosition()
 const Point &Player::currentPosition() const
 {
     return _currentPosition;
-}
-
-HealthPoints &Player::healthPoints()
-{
-    return _healthPoints;
-}
-
-const HealthPoints &Player::healthPoints() const
-{
-    return _healthPoints;
-}
-
-Damage &Player::damage()
-{
-    return _damage;
-}
-
-const Damage &Player::damage() const
-{
-    return _damage;
 }
 
 void Player::draw()
@@ -125,12 +115,12 @@ void Player::nextTurn()
 {
 }
 
-void Player::hit(Damage &damage)
+void Player::hit(Damage damage)
 {
     _healthPoints.decreaseHealth(damage);
 }
 
-void Player::heal(Heal &heal)
+void Player::heal(Heal heal)
 {
     _healthPoints.increaseHealth(heal);
 }

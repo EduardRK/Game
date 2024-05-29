@@ -44,7 +44,17 @@ int Point::x() const
     return _x;
 }
 
+int Point::x()
+{
+    return _x;
+}
+
 int Point::y() const
+{
+    return _y;
+}
+
+int Point::y()
 {
     return _y;
 }

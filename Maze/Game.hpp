@@ -31,7 +31,9 @@ public:
     Game(Player &player, Maze &maze, std::vector<std::shared_ptr<Enemy>> &enemy, std::vector<std::shared_ptr<Item>> &items);
     ~Game() = default;
 
+    const Player &player() const;
     Player &player();
+    const Maze &maze() const;
     Maze &maze();
 
     void useKeyboardKey(unsigned char key);

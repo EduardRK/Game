@@ -1,4 +1,5 @@
 #include "Backpack.hpp"
+#include "EmptyItem.hpp"
 
 Backpack::Backpack(int capacity) : _capacity{capacity}
 {
@@ -21,10 +22,12 @@ bool Backpack::saveItem(std::shared_ptr<Item> item)
 
 std::shared_ptr<Item> Backpack::getItem(int index)
 {
-    if (_backpack.size() < index)
+    if (index < _backpack.size())
     {
-        return _backpack.at(index);
+        std::shared_ptr<Item> item = _backpack.at(index);
+        _backpack.erase(_backpack.begin() + index);
+        return item;
     }
 
-    return std::shared_ptr<Item>();
+    return std::make_shared<EmptyItem>();
 }

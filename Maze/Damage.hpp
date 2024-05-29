@@ -13,6 +13,7 @@ private:
 public:
     Damage(int damageValue, float critChance, int critMultiplier);
     Damage(int damageValue);
+    Damage();
     ~Damage() = default;
 
     int damage();

@@ -7,5 +7,5 @@ class Healable
 public:
     virtual ~Healable() = default;
 
-    virtual void heal(Heal &heal) = 0;
+    virtual void heal(Heal heal) = 0;
 };

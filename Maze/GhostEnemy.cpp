@@ -79,7 +79,7 @@ Point &GhostEnemy::currentPosition()
     return _route.at(_currentPosition);
 }
 
-void GhostEnemy::hit(Damage &damage)
+void GhostEnemy::hit(Damage damage)
 {
     _healthPoints.decreaseHealth(damage);
 }

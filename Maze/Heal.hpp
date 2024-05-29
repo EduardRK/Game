@@ -13,6 +13,7 @@ private:
 public:
     Heal(int healValue, float critChance, int critMultiplier);
     Heal(int healValue);
+    Heal();
     ~Heal() = default;
 
     int heal();

@@ -7,9 +7,19 @@ Game::Game(Player &player, Maze &maze, std::vector<std::shared_ptr<Enemy>> &enem
 {
 }
 
+const Player &Game::player() const
+{
+    return _player;
+}
+
 Player &Game::player()
 {
     return _player;
+}
+
+const Maze &Game::maze() const
+{
+    return _maze;
 }
 
 Maze &Game::maze()
@@ -94,6 +104,7 @@ void Game::damageExchange()
 
             if (!_enemies.at(i)->isAlive())
             {
+                _items.push_back(_enemies.at(i)->deathRattle());
                 _enemies.erase(_enemies.begin() + i);
             }
 
@@ -181,15 +192,54 @@ void Game::gamePhaseKeybordFunc(unsigned char key)
         break;
 
     case '1':
+        _player.useItem(0);
+        nextTurn();
+        break;
+
     case '2':
+        _player.useItem(1);
+        nextTurn();
+        break;
+
     case '3':
+        _player.useItem(2);
+        nextTurn();
+        break;
+
     case '4':
+        _player.useItem(3);
+        nextTurn();
+        break;
+
     case '5':
+        _player.useItem(4);
+        nextTurn();
+        break;
+
     case '6':
+        _player.useItem(5);
+        nextTurn();
+        break;
+
     case '7':
+        _player.useItem(6);
+        nextTurn();
+        break;
+
     case '8':
+        _player.useItem(7);
+        nextTurn();
+        break;
+
     case '9':
+        _player.useItem(8);
+        nextTurn();
+        break;
+
     case '0':
+        _player.useItem(9);
+        nextTurn();
+        break;
 
     default:
         break;

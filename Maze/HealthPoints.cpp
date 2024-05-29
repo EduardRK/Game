@@ -8,6 +8,11 @@ HealthPoints::HealthPoints(int healPoints) : HealthPoints(healPoints, healPoints
 {
 }
 
+bool HealthPoints::isAlive() const
+{
+    return _healthPoints > 0;
+}
+
 bool HealthPoints::isAlive()
 {
     return _healthPoints > 0;
@@ -33,7 +38,22 @@ void HealthPoints::increaseMaxHealth(int increaseMaxHealth)
     _maxHealthPoints += increaseMaxHealth;
 }
 
+int HealthPoints::currentHealth() const
+{
+    return _healthPoints;
+}
+
 int HealthPoints::currentHealth()
 {
     return _healthPoints;
+}
+
+int HealthPoints::maxHealthPoints() const
+{
+    return _maxHealthPoints;
+}
+
+int HealthPoints::maxHealthPoints()
+{
+    return _maxHealthPoints;
 }

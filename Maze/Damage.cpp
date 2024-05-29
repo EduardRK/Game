@@ -11,6 +11,10 @@ Damage::Damage(int damageValue) : Damage(damageValue, 0.1f, 2)
 {
 }
 
+Damage::Damage() : Damage(0, 0.f, 0)
+{
+}
+
 int Damage::damage()
 {
     if (_damageCalculated)

@@ -70,7 +70,7 @@ Point &TrollEnemy::currentPosition()
     return _currentPosition;
 }
 
-void TrollEnemy::hit(Damage &damage)
+void TrollEnemy::hit(Damage damage)
 {
     _healthPoints.decreaseHealth(damage);
 }

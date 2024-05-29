@@ -2,7 +2,7 @@
 
 #include "GreenGrassItem.hpp"
 
-GreenGrassItem::GreenGrassItem(Player &player, const Maze &maze, Point currentPosition) : _player{player}, _maze{maze}, _currentPosition{currentPosition}
+GreenGrassItem::GreenGrassItem(Player &player, const Maze &maze, Point currentPosition) : _player{player}, _maze{maze}, _currentPosition{currentPosition}, _heal{Heal(DEFAULT_HEAL)}
 {
 }
 
@@ -26,6 +26,7 @@ void GreenGrassItem::draw()
 
 void GreenGrassItem::useItem()
 {
+    _player.heal(_heal);
 }
 
 const Point &GreenGrassItem::currentPosition()

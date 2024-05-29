@@ -82,12 +82,19 @@ Point EnemiesSpawner::randomPassagePoint(const Maze &maze)
 {
     Point point = randomPoint(maze);
 
-    while (!maze.cell(point).isPassage())
+    while (!maze.cell(point).isPassage() && !isPointCloseToPlayer(point))
     {
         point = randomPoint(maze);
     }
 
     return point;
+}
+
+bool EnemiesSpawner::isPointCloseToPlayer(const Point &point)
+{
+    bool flagX = (point.x() < (_player.currentPosition().x() + CLOSE_DISTANCE)) && (point.x() > (_player.currentPosition().x() - CLOSE_DISTANCE));
+    bool flagY = (point.y() < (_player.currentPosition().y() + CLOSE_DISTANCE)) && (point.y() > (_player.currentPosition().y() - CLOSE_DISTANCE));
+    return flagX && flagY;
 }
 
 Point EnemiesSpawner::randomPoint(const Maze &maze)
