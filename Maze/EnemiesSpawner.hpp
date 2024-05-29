@@ -11,6 +11,8 @@
 class EnemiesSpawner final : public Spawner<Enemy>
 {
 private:
+    static constexpr int CLOSE_DISTANCE = 4;
+    
     Player &_player;
 
 public:
@@ -26,5 +28,6 @@ private:
     std::vector<std::shared_ptr<Enemy>> standartTrollEnemy(const Maze &maze, MazeSolver &mazeSolver);
 
     Point randomPassagePoint(const Maze &maze);
+    bool isPointCloseToPlayer(const Point &point);
     Point randomPoint(const Maze &maze);
 };
