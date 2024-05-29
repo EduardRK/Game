@@ -5,6 +5,7 @@
 #include "TorchItem.hpp"
 #include "RandomFunctions.hpp"
 #include "KeyItem.hpp"
+#include "EmptyItem.hpp"
 
 ItemSelector::ItemSelector(Player &player, const Maze &maze) : _player{player}, _maze{maze}
 {
@@ -32,6 +33,7 @@ std::shared_ptr<Item> ItemSelector::seedSelect(int seed, Point point)
         item = std::make_shared<KeyItem>(_player, _maze, point);
         break;
     default:
+        item = std::make_shared<EmptyItem>();
         break;
     }
 

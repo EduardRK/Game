@@ -1,4 +1,5 @@
 #include "Backpack.hpp"
+#include "EmptyItem.hpp"
 
 Backpack::Backpack(int capacity) : _capacity{capacity}
 {
@@ -26,5 +27,5 @@ std::shared_ptr<Item> Backpack::getItem(int index)
         return _backpack.at(index);
     }
 
-    return std::shared_ptr<Item>();
+    return std::make_shared<EmptyItem>();
 }
