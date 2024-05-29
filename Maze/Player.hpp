@@ -17,11 +17,11 @@
 class Player final : public Drawable, public Turnable, public Hitable, public Healable, public Dealer<Damage>, public Living, public Moveable
 {
 private:
-    static constexpr int DEFAULT_DAMAGE = 0;
+    static constexpr int DEFAULT_DAMAGE = 2;
     static constexpr float DEFAULT_CRIT_CHANCE = 0.25f;
     static constexpr int DEFAULT_CRIT_MULTIPLIER = 2;
 
-    static constexpr int DEFAULT_MAX_HP = 3;
+    static constexpr int DEFAULT_MAX_HP = 5;
     static constexpr float SIDE = 1.f;
 
     Point _currentPosition;
