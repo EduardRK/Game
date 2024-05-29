@@ -22,8 +22,11 @@ public:
 
     ~Cell() = default;
 
+    bool isWall();
     bool isWall() const;
+    bool isPassage();
     bool isPassage() const;
+    bool isCracked();
     bool isCracked() const;
 
     void createWall();

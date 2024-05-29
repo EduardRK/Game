@@ -39,14 +39,29 @@ Cell::Cell(const Cell &cell) : _point{cell.point()}, _type{cell.type()}
 {
 }
 
+bool Cell::isWall()
+{
+    return _type == MazeTypeCell::WALL;
+}
+
 bool Cell::isWall() const
 {
     return _type == MazeTypeCell::WALL;
 }
 
+bool Cell::isPassage()
+{
+    return _type == MazeTypeCell::PASSAGE;
+}
+
 bool Cell::isPassage() const
 {
     return _type == MazeTypeCell::PASSAGE;
+}
+
+bool Cell::isCracked()
+{
+    return _type == MazeTypeCell::CRACKED;
 }
 
 bool Cell::isCracked() const

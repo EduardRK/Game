@@ -18,5 +18,7 @@ public:
     bool operator!=(const Point& other) const;
 
     int x() const;
+    int x();
     int y() const;
+    int y();
 };
