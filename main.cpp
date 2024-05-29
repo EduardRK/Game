@@ -1,11 +1,11 @@
 #include <memory>
 
-#include "maze/Runner.hpp"
 #include "maze/GameRunner.hpp"
+#include "maze/MazeGameRunner.hpp"
 
 int main(int argc, char **argv)
 {
-    std::unique_ptr<Runner> runner = std::make_unique<GameRunner>(argc, argv);
+    std::unique_ptr<GameRunner> runner = std::make_unique<MazeGameRunner>(argc, argv);
     runner->run();
 
     return 0;
