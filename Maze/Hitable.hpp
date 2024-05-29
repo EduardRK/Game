@@ -7,5 +7,5 @@ class Hitable
 public:
     virtual ~Hitable() = default;
 
-    virtual void hit(Damage &damage) = 0;
+    virtual void hit(Damage damage) = 0;
 };

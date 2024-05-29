@@ -11,6 +11,10 @@ Heal::Heal(int healValue) : Heal(healValue, 0.1f, 2)
 {
 }
 
+Heal::Heal() : Heal(0, 0.f, 0)
+{
+}
+
 int Heal::heal()
 {
     if (_healCalculated)

@@ -2,7 +2,7 @@
 
 #include "YellowGrassItem.hpp"
 
-YellowGrassItem::YellowGrassItem(Player &player, const Maze &maze, Point currentPosition) : _player{player}, _maze{maze}, _currentPosition{currentPosition}
+YellowGrassItem::YellowGrassItem(Player &player, const Maze &maze, Point currentPosition) : _player{player}, _maze{maze}, _currentPosition{currentPosition}, _heal{Heal(DEFAULT_HEAL)}
 {
 }
 
@@ -26,6 +26,8 @@ void YellowGrassItem::draw()
 
 void YellowGrassItem::useItem()
 {
+    _player.increaseMaxHealth(DEFAULT_MAX_HEALTH_INCREASE);
+    _player.heal(_heal);
 }
 
 const Point &YellowGrassItem::currentPosition()
