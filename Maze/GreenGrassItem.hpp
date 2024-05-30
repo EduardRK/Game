@@ -5,6 +5,7 @@
 #include "Point.hpp"
 #include "Maze.hpp"
 #include "Heal.hpp"
+#include "Explosion.hpp"
 
 class GreenGrassItem final : public Item
 {
@@ -24,6 +25,7 @@ public:
     ~GreenGrassItem() = default;
 
     void draw() override;
+    std::shared_ptr<ActivatingItem<Explosion>> getActivatingItem() override;
     void useItem() override;
-    const Point &currentPosition() override;
+    Point currentPosition() override;
 };

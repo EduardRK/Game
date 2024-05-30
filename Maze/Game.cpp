@@ -2,6 +2,7 @@
 
 #include "Game.hpp"
 #include "GlutMazeRenderer.hpp"
+#include "Explosion.hpp"
 
 Game::Game(Player &player, Maze &maze, std::vector<std::shared_ptr<Enemy>> &enemies, std::vector<std::shared_ptr<Item>> &items) : _player{player}, _maze{maze}, _enemies{enemies}, _items{items}, _mazeRenderer{std::make_unique<GlutMazeRenderer>(player, maze)}, _exit{Exit(maze)}
 {
@@ -78,9 +79,25 @@ void Game::nextTurn()
         enemy->nextTurn();
     }
 
-    for (auto &&activatingItem : _atcivatingItems)
+    std::vector<Explosion> explosions;
+
+    for (size_t i = 0; i < _atcivatingItems.size(); ++i)
     {
-        activatingItem->nextTurn();
+        if (_atcivatingItems.at(i)->complete())
+        {
+            explosions.push_back(_atcivatingItems.at(i)->result());
+            _atcivatingItems.erase(_atcivatingItems.begin() + i);
+        }
+        else
+        {
+            _atcivatingItems.at(i)->nextTurn();
+        }
+    }
+
+    for (auto &&explosion : explosions)
+    {
+        explosionCalculate(explosion);
+        explosionDraw(explosion);
     }
 
     damageExchange();
@@ -102,7 +119,7 @@ bool Game::isItemInRadiusOfView(std::shared_ptr<Item> &item)
     return flagX && flagY;
 }
 
-bool Game::isActivatingItemInRadiusOfView(std::shared_ptr<ActivatingItem> &activatingItem)
+bool Game::isActivatingItemInRadiusOfView(std::shared_ptr<ActivatingItem<Explosion>> &activatingItem)
 {
     bool flagX = (activatingItem->currentPosition().x() <= (_player.currentPosition().x() + _player.radiusView())) && (activatingItem->currentPosition().x() >= (_player.currentPosition().x() - _player.radiusView()));
     bool flagY = (activatingItem->currentPosition().y() <= (_player.currentPosition().y() + _player.radiusView())) && (activatingItem->currentPosition().y() >= (_player.currentPosition().y() - _player.radiusView()));
@@ -190,10 +207,95 @@ bool Game::isEnemyInRadiusOfAttack(std::shared_ptr<Enemy> &enemy)
     return flagX && flagY;
 }
 
-bool Game::isActivatingItemInRadiusOfAttack(std::shared_ptr<ActivatingItem> &activatingItem)
+bool Game::isActivatingItemInRadiusOfAttack(std::shared_ptr<ActivatingItem<Explosion>> &activatingItem)
 {
     bool flagX = (activatingItem->currentPosition().x() <= (_player.currentPosition().x() + _player.stats().radiusAttack())) && (activatingItem->currentPosition().x() >= (_player.currentPosition().x() - _player.stats().radiusAttack()));
     bool flagY = (activatingItem->currentPosition().y() <= (_player.currentPosition().y() + _player.stats().radiusAttack())) && (activatingItem->currentPosition().y() >= (_player.currentPosition().y() - _player.stats().radiusAttack()));
+    return flagX && flagY;
+}
+
+void Game::explosionCalculate(Explosion &explosion)
+{
+    if (isPlayerInExlosionRadius(explosion))
+    {
+        _player.hit(explosion.damage());
+
+        if (!_player.isAlive())
+        {
+            _phase = GamePhase::DEFEAT_PHASE;
+            return;
+        }
+    }
+
+    for (size_t i = 0; i < _enemies.size(); ++i)
+    {
+        if (isEnemyInExplosionRadius(explosion, _enemies.at(i)))
+        {
+            _enemies.at(i)->hit(explosion.damage());
+
+            if (!_enemies.at(i)->isAlive())
+            {
+                _items.push_back(_enemies.at(i)->deathRattle());
+                _enemies.erase(_enemies.begin() + i);
+            }
+        }
+    }
+
+    for (size_t i = (explosion.center().x() - explosion.radius()); i <= (explosion.center().x() + explosion.radius()); ++i)
+    {
+        for (size_t j = (explosion.center().y() - explosion.radius()); j <= (explosion.center().x() + explosion.radius()); ++j)
+        {
+            if (_maze.cell(i, j).isCracked())
+            {
+                _maze.cell(i, j).createPassage();
+            }
+        }
+    }
+}
+
+void Game::explosionDraw(Explosion &explosion)
+{
+    glColor3f(1.f, 0.f, 0.f);
+
+    float width = _maze.width();
+    float height = _maze.height();
+
+    float side = 1.f;
+
+    float left = 0.f;
+    float top = 0.f;
+
+    for (size_t i = (explosion.center().x() - explosion.radius()); i < (explosion.center().x() + explosion.radius()); ++i)
+    {
+        for (size_t j = (explosion.center().y() - explosion.radius()); j < (explosion.center().y() + explosion.radius()); ++j)
+        {
+            left = static_cast<float>(i) / (width / 2) - 1.f;
+            top = -static_cast<float>(j) / (height / 2) + 1.f;
+
+            glBegin(GL_QUADS);
+            glVertex2f(left, top);
+            glVertex2f(left, top - side / (height / 2));
+            glVertex2f(left + side / (width / 2), top - side / (height / 2));
+            glVertex2f(left + side / (width / 2), top);
+            glEnd();
+
+            left = 0.f;
+            top = 0.f;
+        }
+    }
+}
+
+bool Game::isPlayerInExlosionRadius(Explosion &explosion)
+{
+    bool flagX = (_player.currentPosition().x() <= (explosion.center().x() + explosion.radius())) && (_player.currentPosition().x() >= (explosion.center().x() - explosion.radius()));
+    bool flagY = (_player.currentPosition().y() <= (explosion.center().y() + explosion.radius())) && (_player.currentPosition().y() >= (explosion.center().y() - explosion.radius()));
+    return flagX && flagY;
+}
+
+bool Game::isEnemyInExplosionRadius(Explosion &explosion, std::shared_ptr<Enemy> &enemy)
+{
+    bool flagX = (enemy->currentPosition().x() <= (explosion.center().x() + explosion.radius())) && (enemy->currentPosition().x() >= (explosion.center().x() - explosion.radius()));
+    bool flagY = (enemy->currentPosition().y() <= (explosion.center().y() + explosion.radius())) && (enemy->currentPosition().y() >= (explosion.center().y() - explosion.radius()));
     return flagX && flagY;
 }
 
@@ -231,52 +333,52 @@ void Game::gamePhaseKeybordFunc(unsigned char key)
         break;
 
     case '1':
-        _player.useItem(0);
+        _atcivatingItems.push_back(_player.useItem(0));
         nextTurn();
         break;
 
     case '2':
-        _player.useItem(1);
+        _atcivatingItems.push_back(_player.useItem(1));
         nextTurn();
         break;
 
     case '3':
-        _player.useItem(2);
+        _atcivatingItems.push_back(_player.useItem(2));
         nextTurn();
         break;
 
     case '4':
-        _player.useItem(3);
+        _atcivatingItems.push_back(_player.useItem(3));
         nextTurn();
         break;
 
     case '5':
-        _player.useItem(4);
+        _atcivatingItems.push_back(_player.useItem(4));
         nextTurn();
         break;
 
     case '6':
-        _player.useItem(5);
+        _atcivatingItems.push_back(_player.useItem(5));
         nextTurn();
         break;
 
     case '7':
-        _player.useItem(6);
+        _atcivatingItems.push_back(_player.useItem(6));
         nextTurn();
         break;
 
     case '8':
-        _player.useItem(7);
+        _atcivatingItems.push_back(_player.useItem(7));
         nextTurn();
         break;
 
     case '9':
-        _player.useItem(8);
+        _atcivatingItems.push_back(_player.useItem(8));
         nextTurn();
         break;
 
     case '0':
-        _player.useItem(9);
+        _atcivatingItems.push_back(_player.useItem(9));
         nextTurn();
         break;
 
@@ -394,6 +496,14 @@ void Game::drawGamePhase()
         if (isItemInRadiusOfView(item))
         {
             item->draw();
+        }
+    }
+
+    for (auto &&activatingItem : _atcivatingItems)
+    {
+        if (isActivatingItemInRadiusOfView(activatingItem))
+        {
+            activatingItem->draw();
         }
     }
 

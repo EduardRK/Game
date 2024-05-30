@@ -4,11 +4,15 @@
 #include "Point.hpp"
 #include "Maze.hpp"
 #include "Player.hpp"
+#include "Explosion.hpp"
 
-class BombActivatinItem final : public ActivatingItem
+class BombActivatingItem final : public ActivatingItem<Explosion>
 {
 private:
     static constexpr float SIDE = 1.f;
+
+    static constexpr int DEFAULT_DAMAGE = 2;
+    static constexpr int DEFAULT_RADIUS = 1;
 
     const Maze &_maze;
     Player &_player;
@@ -18,13 +22,15 @@ private:
     int _phase = 1;
 
 public:
-    BombActivatinItem(Point currentPosition, Player &player, const Maze &maze);
-    ~BombActivatinItem() = default;
+    BombActivatingItem(Point currentPosition, Player &player, const Maze &maze);
+    BombActivatingItem(Player &player, const Maze &maze);
+    ~BombActivatingItem() = default;
 
     void draw() override;
     void nextTurn() override;
     void activate() override;
     bool complete() override;
+    Explosion result() override;
     Point currentPosition() override;
 
 private:

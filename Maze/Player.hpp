@@ -21,6 +21,8 @@
 #include "Attacker.hpp"
 #include "Buff.hpp"
 #include "Buffable.hpp"
+#include "ActivatingItem.hpp"
+#include "Explosion.hpp"
 
 class Player final : public Drawable, public Turnable, public Hitable, public Healable, public Dealer<Damage>, public Living, public Moveable, public Attacker, public Buffable
 {
@@ -54,7 +56,7 @@ public:
     void moveRight() override;
 
     bool peekItem(std::shared_ptr<Item> item);
-    void useItem(int index);
+    std::shared_ptr<ActivatingItem<Explosion>> useItem(int index);
 
     void increaseMaxHealth(int bonusHealthPoints);
     void decreaseMaxHealth(int bonusHealthPoints);

@@ -1,18 +1,20 @@
 #include "EmptyItem.hpp"
-
-EmptyItem::EmptyItem() : _currentPosition{Point()}
-{
-}
+#include "EmptyActivatingItem.hpp"
 
 void EmptyItem::draw()
 {
+}
+
+std::shared_ptr<ActivatingItem<Explosion>> EmptyItem::getActivatingItem()
+{
+   return std::make_shared<EmptyActivatingItem>();
 }
 
 void EmptyItem::useItem()
 {
 }
 
-const Point &EmptyItem::currentPosition()
+Point EmptyItem::currentPosition()
 {
-   return _currentPosition;
+   return Point();
 }

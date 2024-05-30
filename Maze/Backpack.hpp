@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "Item.hpp"
+#include "ActivatingItem.hpp"
 
 class Backpack final
 {

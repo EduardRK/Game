@@ -60,9 +60,11 @@ bool Player::peekItem(std::shared_ptr<Item> item)
     return _backpack.saveItem(item);
 }
 
-void Player::useItem(int index)
+std::shared_ptr<ActivatingItem<Explosion>> Player::useItem(int index)
 {
-    _backpack.getItem(index)->useItem();
+    std::shared_ptr<Item> item = _backpack.getItem(index);
+    item->useItem();
+    return item->getActivatingItem();
 }
 
 void Player::increaseMaxHealth(int bonusHealthPoints)

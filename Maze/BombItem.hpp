@@ -4,6 +4,7 @@
 #include "Player.hpp"
 #include "Maze.hpp"
 #include "Point.hpp"
+#include "Explosion.hpp"
 
 class BombItem final : public Item
 {
@@ -19,6 +20,7 @@ public:
     ~BombItem() = default;
 
     void draw() override;
+    std::shared_ptr<ActivatingItem<Explosion>> getActivatingItem() override;
     void useItem() override;
-    const Point &currentPosition() override;
+    Point currentPosition() override;
 };
