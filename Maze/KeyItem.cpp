@@ -1,6 +1,7 @@
 #include <GL/glut.h>
 
 #include "KeyItem.hpp"
+#include "EmptyActivatingItem.hpp"
 
 KeyItem::KeyItem(Player &player, const Maze &maze, Point currentPosition) : _player{player}, _maze{maze}, _currentPosition{currentPosition}
 {
@@ -24,12 +25,17 @@ void KeyItem::draw()
     glEnd();
 }
 
+std::shared_ptr<ActivatingItem<Explosion>> KeyItem::getActivatingItem()
+{
+    return std::make_shared<EmptyActivatingItem>();
+}
+
 void KeyItem::useItem()
 {
     _player.statuses().addKeyStatus();
 }
 
-const Point &KeyItem::currentPosition()
+Point KeyItem::currentPosition()
 {
     return _currentPosition;
 }

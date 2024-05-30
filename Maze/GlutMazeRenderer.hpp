@@ -11,11 +11,11 @@ class GlutMazeRenderer final : public MazeRenderer
 {
 private:
     const Player &_player;
-    const Maze &_maze;
+    Maze &_maze;
     std::unique_ptr<CellRenderer> _cellRenderer;
 
 public:
-    GlutMazeRenderer(const Player &player, const Maze &maze);
+    GlutMazeRenderer(const Player &player, Maze &maze);
     ~GlutMazeRenderer() = default;
 
     void render() override;

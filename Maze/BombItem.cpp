@@ -1,6 +1,8 @@
 #include <GL/glut.h>
 
 #include "BombItem.hpp"
+#include "BombActivatingItem.hpp"
+#include "Explosion.hpp"
 
 BombItem::BombItem(Player &player, const Maze &maze, Point currentPosition) : _player{player}, _maze{maze}, _currentPosition{currentPosition}
 {
@@ -24,11 +26,16 @@ void BombItem::draw()
     glEnd();
 }
 
+std::shared_ptr<ActivatingItem<Explosion>> BombItem::getActivatingItem()
+{
+    return std::make_shared<BombActivatingItem>(_player, _maze);
+}
+
 void BombItem::useItem()
 {
 }
 
-const Point &BombItem::currentPosition()
+Point BombItem::currentPosition()
 {
     return _currentPosition;
 }

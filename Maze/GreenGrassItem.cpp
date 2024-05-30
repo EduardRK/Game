@@ -1,6 +1,7 @@
 #include <GL/glut.h>
 
 #include "GreenGrassItem.hpp"
+#include "EmptyActivatingItem.hpp"
 
 GreenGrassItem::GreenGrassItem(Player &player, const Maze &maze, Point currentPosition) : _player{player}, _maze{maze}, _currentPosition{currentPosition}, _heal{Heal(DEFAULT_HEAL)}
 {
@@ -24,12 +25,17 @@ void GreenGrassItem::draw()
     glEnd();
 }
 
+std::shared_ptr<ActivatingItem<Explosion>> GreenGrassItem::getActivatingItem()
+{
+    return std::make_shared<EmptyActivatingItem>();
+}
+
 void GreenGrassItem::useItem()
 {
     _player.heal(_heal);
 }
 
-const Point &GreenGrassItem::currentPosition()
+Point GreenGrassItem::currentPosition()
 {
     return _currentPosition;
 }

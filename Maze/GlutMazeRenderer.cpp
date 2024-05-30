@@ -5,7 +5,7 @@
 #include "Maze.hpp"
 #include "GlutCellRenderer.hpp"
 
-GlutMazeRenderer::GlutMazeRenderer(const Player &player, const Maze &maze) : _player{player}, _maze{maze}, _cellRenderer{std::make_unique<GlutCellRenderer>(_maze.height(), _maze.width())}
+GlutMazeRenderer::GlutMazeRenderer(const Player &player, Maze &maze) : _player{player}, _maze{maze}, _cellRenderer{std::make_unique<GlutCellRenderer>(_maze.height(), _maze.width())}
 {
 }
 

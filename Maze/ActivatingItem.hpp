@@ -4,6 +4,7 @@
 #include "Turnable.hpp"
 #include "Point.hpp"
 
+template <class T>
 class ActivatingItem : public Drawable, public Turnable
 {
 public:
@@ -11,5 +12,6 @@ public:
 
     virtual void activate() = 0;
     virtual bool complete() = 0;
+    virtual T result() = 0;
     virtual Point currentPosition() = 0;
 };

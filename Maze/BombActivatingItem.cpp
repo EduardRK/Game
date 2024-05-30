@@ -2,29 +2,38 @@
 
 #include "BombActivatingItem.hpp"
 
-BombActivatinItem::BombActivatinItem(Point currentPosition, Player &player, const Maze &maze) : _currentPosition{currentPosition}, _player{player}, _maze{maze}
+BombActivatingItem::BombActivatingItem(Point currentPosition, Player &player, const Maze &maze) : _currentPosition{currentPosition}, _player{player}, _maze{maze}
 {
 }
 
-void BombActivatinItem::draw()
+BombActivatingItem::BombActivatingItem(Player &player, const Maze &maze) : BombActivatingItem(player.currentPosition(), player, maze)
+{
+}
+
+void BombActivatingItem::draw()
 {
     switch (_phase)
     {
     case 1:
         drawDefaultPhase();
         break;
+
     case 2:
         drawActivePhase();
         break;
+
     case 3:
         drawPreExplosionPhase();
         break;
+
     default:
         break;
     }
+
+    drawBomb();
 }
 
-void BombActivatinItem::nextTurn()
+void BombActivatingItem::nextTurn()
 {
     if (_active)
     {
@@ -32,7 +41,7 @@ void BombActivatinItem::nextTurn()
     }
 }
 
-void BombActivatinItem::activate()
+void BombActivatingItem::activate()
 {
     if (!_active && _player.statuses().fireStatus())
     {
@@ -41,32 +50,37 @@ void BombActivatinItem::activate()
     }
 }
 
-bool BombActivatinItem::complete()
+bool BombActivatingItem::complete()
 {
     return _phase == 4;
 }
 
-Point BombActivatinItem::currentPosition()
+Explosion BombActivatingItem::result()
+{
+    return Explosion(_currentPosition, DEFAULT_RADIUS, DEFAULT_DAMAGE);
+}
+
+Point BombActivatingItem::currentPosition()
 {
     return _currentPosition;
 }
 
-void BombActivatinItem::drawDefaultPhase()
+void BombActivatingItem::drawDefaultPhase()
 {
     glColor3f(192.f / 255.f, 192.f / 255.f, 192.f / 255.f);
 }
 
-void BombActivatinItem::drawActivePhase()
+void BombActivatingItem::drawActivePhase()
 {
-    glColor3f(205.f / 255.f, 92.f / 255.f, 13.f / 255.f);
+    glColor3f(178.f / 255.f, 92.f / 255.f, 13.f / 255.f);
 }
 
-void BombActivatinItem::drawPreExplosionPhase()
+void BombActivatingItem::drawPreExplosionPhase()
 {
-    glColor3f(178.f / 255.f, 34.f / 255.f, 34.f / 255.f);
+    glColor3f(205.f / 255.f, 34.f / 255.f, 34.f / 255.f);
 }
 
-void BombActivatinItem::drawBomb()
+void BombActivatingItem::drawBomb()
 {
     float width = _maze.width();
     float height = _maze.height();

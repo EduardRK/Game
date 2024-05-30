@@ -13,6 +13,7 @@
 #include "ActivatingItem.hpp"
 #include "Exit.hpp"
 #include "GamePhase.hpp"
+#include "Explosion.hpp"
 
 class Game final : public Turnable, public Drawable
 {
@@ -24,7 +25,7 @@ private:
     Exit _exit;
     std::vector<std::shared_ptr<Enemy>> _enemies;
     std::vector<std::shared_ptr<Item>> _items;
-    std::vector<std::shared_ptr<ActivatingItem>> _atcivatingItems;
+    std::vector<std::shared_ptr<ActivatingItem<Explosion>>> _atcivatingItems;
     std::unique_ptr<MazeRenderer> _mazeRenderer;
 
     GamePhase _phase = GamePhase::LOAD_PHASE;
@@ -46,7 +47,7 @@ public:
 private:
     bool isEnemyInRadiusOfView(std::shared_ptr<Enemy> &enemy);
     bool isItemInRadiusOfView(std::shared_ptr<Item> &item);
-    bool isActivatingItemInRadiusOfView(std::shared_ptr<ActivatingItem> &activatingItem);
+    bool isActivatingItemInRadiusOfView(std::shared_ptr<ActivatingItem<Explosion>> &activatingItem);
 
     bool isExitInRadiusOfView();
 
@@ -57,7 +58,13 @@ private:
     void attack();
 
     bool isEnemyInRadiusOfAttack(std::shared_ptr<Enemy> &enemy);
-    bool isActivatingItemInRadiusOfAttack(std::shared_ptr<ActivatingItem> &activatingItem);
+    bool isActivatingItemInRadiusOfAttack(std::shared_ptr<ActivatingItem<Explosion>> &activatingItem);
+
+    void explosionCalculate(Explosion &explosion);
+    void explosionDraw(Explosion &explosion);
+
+    bool isPlayerInExlosionRadius(Explosion &explosion);
+    bool isEnemyInExplosionRadius(Explosion &explosion, std::shared_ptr<Enemy> &enemy);
 
     void gamePhaseKeybordFunc(unsigned char key);
 

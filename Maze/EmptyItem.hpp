@@ -2,17 +2,16 @@
 
 #include "Item.hpp"
 #include "Point.hpp"
+#include "Explosion.hpp"
 
 class EmptyItem final : public Item
 {
-private:
-    Point _currentPosition;
-
 public:
-    EmptyItem();
+    EmptyItem() = default;
     ~EmptyItem() = default;
 
     void draw() override;
+    std::shared_ptr<ActivatingItem<Explosion>> getActivatingItem() override;
     void useItem() override;
-    const Point &currentPosition() override;
+    Point currentPosition() override;
 };

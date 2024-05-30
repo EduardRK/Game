@@ -2,6 +2,7 @@
 
 #include "TorchItem.hpp"
 #include "TorchBuff.hpp"
+#include "EmptyActivatingItem.hpp"
 
 TorchItem::TorchItem(Player &player, const Maze &maze, Point currentPosition) : _player{player}, _maze{maze}, _currentPosition{currentPosition}
 {
@@ -25,12 +26,17 @@ void TorchItem::draw()
     glEnd();
 }
 
+std::shared_ptr<ActivatingItem<Explosion>> TorchItem::getActivatingItem()
+{
+    return std::make_shared<EmptyActivatingItem>();
+}
+
 void TorchItem::useItem()
 {
     _player.buff(std::make_shared<TorchBuff>(_player));
 }
 
-const Point &TorchItem::currentPosition()
+Point TorchItem::currentPosition()
 {
     return _currentPosition;
 }
