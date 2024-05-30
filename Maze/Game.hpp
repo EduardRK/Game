@@ -14,6 +14,8 @@
 class Game final : public Turnable, public Drawable
 {
 private:
+    static constexpr float LINE_WIDTH = 7.f;
+
     static constexpr int LOAD_PHASE = 1;
     static constexpr int GAME_PHASE = 2;
     static constexpr int WIN_PHASE = 3;

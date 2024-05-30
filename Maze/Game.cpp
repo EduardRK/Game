@@ -130,6 +130,92 @@ void Game::itemTake()
 
 void Game::drawLoadPhase()
 {
+
+    glLineWidth(LINE_WIDTH);
+
+    glColor3f(0.0f, 0.1f, 0.5f);
+
+    glBegin(GL_LINES);
+    glVertex2f(-0.7f, -0.25f);
+    glVertex2f(-0.7f, 0.25f);
+    glEnd();
+
+    glBegin(GL_LINES);
+    glVertex2f(-0.7f, -0.25f);
+    glVertex2f(-0.5f, -0.25f);
+    glEnd();
+
+    glBegin(GL_LINES);
+    glVertex2f(-0.7f, 0.f);
+    glVertex2f(-0.5f, 0.f);
+    glEnd();
+
+    glBegin(GL_LINES);
+    glVertex2f(-0.7f, 0.25f);
+    glVertex2f(-0.5f, 0.25f);
+    glEnd();
+
+    glBegin(GL_LINES);
+    glVertex2f(-0.4f, -0.25f);
+    glVertex2f(-0.4f, 0.25f);
+    glEnd();
+
+    glBegin(GL_LINES);
+    glVertex2f(-0.4f, 0.25f);
+    glVertex2f(-0.2f, -0.25f);
+    glEnd();
+
+    glBegin(GL_LINES);
+    glVertex2f(-0.2f, 0.25f);
+    glVertex2f(-0.2f, -0.25f);
+    glEnd();
+
+    glBegin(GL_LINES);
+    glVertex2f(-0.1f, 0.25f);
+    glVertex2f(0.1f, 0.25f);
+    glEnd();
+
+    glBegin(GL_LINES);
+    glVertex2f(0.f, -0.25f);
+    glVertex2f(0.f, 0.25f);
+    glEnd();
+
+    glBegin(GL_LINES);
+    glVertex2f(0.2f, -0.25f);
+    glVertex2f(0.2f, 0.25f);
+    glEnd();
+
+    glBegin(GL_LINES);
+    glVertex2f(0.2f, 0.25f);
+    glVertex2f(0.4f, 0.25f);
+    glEnd();
+
+    glBegin(GL_LINES);
+    glVertex2f(0.2f, -0.25f);
+    glVertex2f(0.4f, -0.25f);
+    glEnd();
+
+    glBegin(GL_LINES);
+    glVertex2f(0.2f, 0.f);
+    glVertex2f(0.4f, 0.f);
+    glEnd();
+
+    glBegin(GL_LINES);
+    glVertex2f(0.5f, -0.25f);
+    glVertex2f(0.5f, 0.25f);
+    glEnd();
+
+    glBegin(GL_LINE_LOOP);
+    glVertex2f(0.5f, 0.25f);
+    glVertex2f(0.7f, 0.25f);
+    glVertex2f(0.7f, 0.1f);
+    glVertex2f(0.5f, 0.1f);
+    glEnd();
+
+    glBegin(GL_LINES);
+    glVertex2f(0.5f, 0.1f);
+    glVertex2f(0.7f, -0.25f);
+    glEnd();
 }
 
 void Game::drawGamePhase()
@@ -157,10 +243,95 @@ void Game::drawGamePhase()
 
 void Game::drawDefeatPhase()
 {
+    glLineWidth(LINE_WIDTH);
+
+    glColor3f(1.f, 0.f, 0.2f);
+
+    glBegin(GL_LINES);
+    glVertex2f(-0.5f, 0.25f);
+    glVertex2f(-0.5f, -0.25f);
+    glVertex2f(-0.5f, -0.25f);
+    glVertex2f(-0.3f, -0.25f);
+    glVertex2f(-0.2f, 0.23f);
+    glVertex2f(-0.2f, -0.23f);
+    glVertex2f(-0.2f, 0.23f);
+    glVertex2f(-0.18f, 0.25f);
+    glVertex2f(-0.2f, -0.23f);
+    glVertex2f(-0.18f, -0.25f);
+    glVertex2f(-0.02f, 0.25f);
+    glVertex2f(0.f, 0.23f);
+    glVertex2f(0.f, -0.23f);
+    glVertex2f(-0.02f, -0.25f);
+    glVertex2f(0.f, 0.23f);
+    glVertex2f(0.f, -0.23f);
+    glVertex2f(-0.18f, -0.25f);
+    glVertex2f(-0.02f, -0.25f);
+    glVertex2f(-0.02f, 0.25f);
+    glVertex2f(-0.18f, 0.25f);
+    glVertex2f(0.1f, 0.02f);
+    glVertex2f(0.1f, 0.23f);
+    glVertex2f(0.1f, 0.02f);
+    glVertex2f(0.12f, 0.f);
+    glVertex2f(0.1f, 0.23f);
+    glVertex2f(0.12f, 0.25f);
+    glVertex2f(0.12f, 0.f);
+    glVertex2f(0.28f, 0.f);
+    glVertex2f(0.28f, 0.f);
+    glVertex2f(0.3f, -0.02f);
+    glVertex2f(0.3f, -0.23f);
+    glVertex2f(0.3f, -0.02f);
+    glVertex2f(0.3f, -0.23f);
+    glVertex2f(0.28f, -0.25f);
+    glVertex2f(0.1f, -0.25f);
+    glVertex2f(0.28f, -0.25f);
+    glVertex2f(0.12f, 0.25f);
+    glVertex2f(0.3f, 0.25f);
+    glVertex2f(0.4f, -0.25f);
+    glVertex2f(0.4f, 0.25f);
+    glVertex2f(0.4f, -0.25f);
+    glVertex2f(0.6f, -0.25f);
+    glVertex2f(0.4f, 0.25f);
+    glVertex2f(0.6f, 0.25f);
+    glVertex2f(0.4f, 0.f);
+    glVertex2f(0.6f, 0.f);
+    glEnd();
 }
 
 void Game::drawWinPhase()
 {
+    glLineWidth(LINE_WIDTH);
+
+    glColor3f(1.f, 1.f, 0.32f);
+
+    glBegin(GL_LINES);
+    glVertex2f(-0.45f, 0.25f);
+    glVertex2f(-0.4f, -0.25f);
+    glVertex2f(-0.4f, -0.25f);
+    glVertex2f(-0.35f, 0.25f);
+    glVertex2f(-0.35f, 0.25f);
+    glVertex2f(-0.3f, -0.25f);
+    glVertex2f(-0.3f, -0.25f);
+    glVertex2f(-0.25f, 0.25f);
+
+    glEnd();
+    glBegin(GL_LINES);
+    glVertex2f(-0.15f, -0.25f);
+    glVertex2f(0.05f, -0.25f);
+    glVertex2f(-0.15f, 0.25f);
+    glVertex2f(0.05f, 0.25f);
+    glVertex2f(-0.05f, 0.25f);
+    glVertex2f(-0.05f, -0.25f);
+    glVertex2f(0.15f, 0.25f);
+    glVertex2f(0.15f, -0.25f);
+    glVertex2f(0.15f, 0.25f);
+    glVertex2f(0.35f, -0.25f);
+    glVertex2f(0.35f, 0.25f);
+    glVertex2f(0.35f, -0.25f);
+    glVertex2f(0.45f, -0.24f);
+    glVertex2f(0.45f, -0.25f);
+    glVertex2f(0.45f, -0.2f);
+    glVertex2f(0.45f, 0.25f);
+    glEnd();
 }
 
 void Game::gamePhaseKeybordFunc(unsigned char key)
