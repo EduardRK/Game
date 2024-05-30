@@ -3,7 +3,7 @@
 #include "Game.hpp"
 #include "GlutMazeRenderer.hpp"
 
-Game::Game(Player &player, Maze &maze, std::vector<std::shared_ptr<Enemy>> &enemies, std::vector<std::shared_ptr<Item>> &items) : _player{player}, _maze{maze}, _enemies{enemies}, _items{items}, _mazeRenderer{std::make_unique<GlutMazeRenderer>(player, maze)}
+Game::Game(Player &player, Maze &maze, std::vector<std::shared_ptr<Enemy>> &enemies, std::vector<std::shared_ptr<Item>> &items) : _player{player}, _maze{maze}, _enemies{enemies}, _items{items}, _mazeRenderer{std::make_unique<GlutMazeRenderer>(player, maze)}, _exit{Exit(maze)}
 {
 }
 
@@ -31,12 +31,14 @@ void Game::useKeyboardKey(unsigned char key)
 {
     switch (_phase)
     {
-    case GAME_PHASE:
+    case GamePhase::GAME_PHASE:
         gamePhaseKeybordFunc(key);
         break;
-    case LOAD_PHASE:
-        _phase = GAME_PHASE;
+
+    case GamePhase::LOAD_PHASE:
+        _phase = GamePhase::GAME_PHASE;
         break;
+
     default:
         break;
     }
@@ -46,18 +48,22 @@ void Game::draw()
 {
     switch (_phase)
     {
-    case GAME_PHASE:
+    case GamePhase::GAME_PHASE:
         drawGamePhase();
         break;
-    case LOAD_PHASE:
+
+    case GamePhase::LOAD_PHASE:
         drawLoadPhase();
         break;
-    case DEFEAT_PHASE:
+
+    case GamePhase::DEFEAT_PHASE:
         drawDefeatPhase();
         break;
-    case WIN_PHASE:
+
+    case GamePhase::WIN_PHASE:
         drawWinPhase();
         break;
+
     default:
         break;
     }
@@ -79,6 +85,7 @@ void Game::nextTurn()
 
     damageExchange();
     itemTake();
+    winCheck();
 }
 
 bool Game::isEnemyInRadiusOfView(std::shared_ptr<Enemy> &enemy)
@@ -102,6 +109,13 @@ bool Game::isActivatingItemInRadiusOfView(std::shared_ptr<ActivatingItem> &activ
     return flagX && flagY;
 }
 
+bool Game::isExitInRadiusOfView()
+{
+    bool flagX = (_exit.position().x() <= (_player.currentPosition().x() + _player.radiusView())) && (_exit.position().x() >= (_player.currentPosition().x() - _player.radiusView()));
+    bool flagY = (_exit.position().y() <= (_player.currentPosition().y() + _player.radiusView())) && (_exit.position().y() >= (_player.currentPosition().y() - _player.radiusView()));
+    return flagX && flagY;
+}
+
 void Game::damageExchange()
 {
     for (size_t i = 0; i < _enemies.size(); ++i)
@@ -114,7 +128,7 @@ void Game::damageExchange()
 
             if (!_player.isAlive())
             {
-                _phase = DEFEAT_PHASE;
+                _phase = GamePhase::DEFEAT_PHASE;
                 return;
             }
         }
@@ -129,6 +143,14 @@ void Game::itemTake()
         {
             _items.erase(_items.begin() + i);
         }
+    }
+}
+
+void Game::winCheck()
+{
+    if (_player.currentPosition() == _exit.position() && _player.statuses().keyStatus())
+    {
+        _phase = GamePhase::WIN_PHASE;
     }
 }
 
@@ -374,6 +396,11 @@ void Game::drawGamePhase()
             item->draw();
         }
     }
+
+    if (isExitInRadiusOfView())
+    {
+        _exit.draw();
+    }
 }
 
 void Game::drawDefeatPhase()
@@ -448,7 +475,7 @@ void Game::drawWinPhase()
     glVertex2f(-0.3f, -0.25f);
     glVertex2f(-0.25f, 0.25f);
     glEnd();
-    
+
     glBegin(GL_LINES);
     glVertex2f(-0.15f, -0.25f);
     glVertex2f(0.05f, -0.25f);

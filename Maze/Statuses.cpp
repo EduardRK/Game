@@ -1,10 +1,10 @@
 #include "Statuses.hpp"
 
-Statuses::Statuses(bool fireStatus, bool torchStatus) : _fireStatus{fireStatus}, _torchStatus{torchStatus}
+Statuses::Statuses(bool fireStatus, bool torchStatus, bool keyStatus) : _fireStatus{fireStatus}, _torchStatus{torchStatus}, _keyStatus{keyStatus}
 {
 }
 
-Statuses::Statuses() : Statuses(false, false)
+Statuses::Statuses() : Statuses(false, false, false)
 {
 }
 
@@ -28,6 +28,16 @@ bool Statuses::torchStatus()
     return _torchStatus;
 }
 
+bool Statuses::keyStatus() const
+{
+    return _keyStatus;
+}
+
+bool Statuses::keyStatus()
+{
+    return _keyStatus;
+}
+
 void Statuses::addFireStatus()
 {
     _fireStatus = true;
@@ -46,4 +56,14 @@ void Statuses::addTorchStatus()
 void Statuses::removeTorchStatus()
 {
     _torchStatus = false;
+}
+
+void Statuses::addKeyStatus()
+{
+    _keyStatus = true;
+}
+
+void Statuses::removeKeyStatus()
+{
+    _keyStatus = false;
 }

@@ -7,8 +7,10 @@ private:
 
     bool _torchStatus;
 
+    bool _keyStatus;
+
 public:
-    Statuses(bool fireStatus, bool torchStatus);
+    Statuses(bool fireStatus, bool torchStatus, bool keyStatus);
     Statuses();
     ~Statuses() = default;
 
@@ -18,9 +20,15 @@ public:
     bool torchStatus() const;
     bool torchStatus();
 
+    bool keyStatus() const;
+    bool keyStatus();
+
     void addFireStatus();
     void removeFireStatus();
 
     void addTorchStatus();
     void removeTorchStatus();
+
+    void addKeyStatus();
+    void removeKeyStatus();
 };

@@ -26,6 +26,7 @@ void KeyItem::draw()
 
 void KeyItem::useItem()
 {
+    _player.statuses().addKeyStatus();
 }
 
 const Point &KeyItem::currentPosition()
