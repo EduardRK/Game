@@ -1,6 +1,7 @@
 #include <GL/glut.h>
 
 #include "TorchItem.hpp"
+#include "TorchBuff.hpp"
 
 TorchItem::TorchItem(Player &player, const Maze &maze, Point currentPosition) : _player{player}, _maze{maze}, _currentPosition{currentPosition}
 {
@@ -26,6 +27,7 @@ void TorchItem::draw()
 
 void TorchItem::useItem()
 {
+    _player.buff(std::make_shared<TorchBuff>(_player));
 }
 
 const Point &TorchItem::currentPosition()

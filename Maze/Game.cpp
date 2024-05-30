@@ -72,21 +72,33 @@ void Game::nextTurn()
         enemy->nextTurn();
     }
 
+    for (auto &&activatingItem : _atcivatingItems)
+    {
+        activatingItem->nextTurn();
+    }
+
     damageExchange();
     itemTake();
 }
 
-bool Game::isEnemyInRadiusOfView(std::shared_ptr<Enemy> enemy)
+bool Game::isEnemyInRadiusOfView(std::shared_ptr<Enemy> &enemy)
 {
     bool flagX = (enemy->currentPosition().x() <= (_player.currentPosition().x() + _player.radiusView())) && (enemy->currentPosition().x() >= (_player.currentPosition().x() - _player.radiusView()));
     bool flagY = (enemy->currentPosition().y() <= (_player.currentPosition().y() + _player.radiusView())) && (enemy->currentPosition().y() >= (_player.currentPosition().y() - _player.radiusView()));
     return flagX && flagY;
 }
 
-bool Game::isItemInRadiusOfView(std::shared_ptr<Item> item)
+bool Game::isItemInRadiusOfView(std::shared_ptr<Item> &item)
 {
     bool flagX = (item->currentPosition().x() <= (_player.currentPosition().x() + _player.radiusView())) && (item->currentPosition().x() >= (_player.currentPosition().x() - _player.radiusView()));
     bool flagY = (item->currentPosition().y() <= (_player.currentPosition().y() + _player.radiusView())) && (item->currentPosition().y() >= (_player.currentPosition().y() - _player.radiusView()));
+    return flagX && flagY;
+}
+
+bool Game::isActivatingItemInRadiusOfView(std::shared_ptr<ActivatingItem> &activatingItem)
+{
+    bool flagX = (activatingItem->currentPosition().x() <= (_player.currentPosition().x() + _player.radiusView())) && (activatingItem->currentPosition().x() >= (_player.currentPosition().x() - _player.radiusView()));
+    bool flagY = (activatingItem->currentPosition().y() <= (_player.currentPosition().y() + _player.radiusView())) && (activatingItem->currentPosition().y() >= (_player.currentPosition().y() - _player.radiusView()));
     return flagX && flagY;
 }
 
@@ -96,17 +108,9 @@ void Game::damageExchange()
     {
         if (_player.currentPosition() == _enemies.at(i)->currentPosition())
         {
-            Damage &playerDamage = _player.deal();
-            Damage &enemyDamage = _enemies.at(i)->deal();
+            Damage enemyDamage = _enemies.at(i)->deal();
 
             _player.hit(enemyDamage);
-            _enemies.at(i)->hit(playerDamage);
-
-            if (!_enemies.at(i)->isAlive())
-            {
-                _items.push_back(_enemies.at(i)->deathRattle());
-                _enemies.erase(_enemies.begin() + i);
-            }
 
             if (!_player.isAlive())
             {
@@ -125,6 +129,137 @@ void Game::itemTake()
         {
             _items.erase(_items.begin() + i);
         }
+    }
+}
+
+void Game::attack()
+{
+    Damage damage = _player.deal();
+
+    for (size_t i = 0; i < _enemies.size(); ++i)
+    {
+        if (isEnemyInRadiusOfAttack(_enemies.at(i)))
+        {
+            _enemies.at(i)->hit(damage);
+
+            if (!_enemies.at(i)->isAlive())
+            {
+                _items.push_back(_enemies.at(i)->deathRattle());
+                _enemies.erase(_enemies.begin() + i);
+            }
+        }
+    }
+
+    for (size_t i = 0; i < _atcivatingItems.size(); ++i)
+    {
+        if (isActivatingItemInRadiusOfAttack(_atcivatingItems.at(i)))
+        {
+            _atcivatingItems.at(i)->activate();
+        }
+    }
+
+    _player.attack();
+}
+
+bool Game::isEnemyInRadiusOfAttack(std::shared_ptr<Enemy> &enemy)
+{
+    bool flagX = (enemy->currentPosition().x() <= (_player.currentPosition().x() + _player.stats().radiusAttack())) && (enemy->currentPosition().x() >= (_player.currentPosition().x() - _player.stats().radiusAttack()));
+    bool flagY = (enemy->currentPosition().y() <= (_player.currentPosition().y() + _player.stats().radiusAttack())) && (enemy->currentPosition().y() >= (_player.currentPosition().y() - _player.stats().radiusAttack()));
+    return flagX && flagY;
+}
+
+bool Game::isActivatingItemInRadiusOfAttack(std::shared_ptr<ActivatingItem> &activatingItem)
+{
+    bool flagX = (activatingItem->currentPosition().x() <= (_player.currentPosition().x() + _player.stats().radiusAttack())) && (activatingItem->currentPosition().x() >= (_player.currentPosition().x() - _player.stats().radiusAttack()));
+    bool flagY = (activatingItem->currentPosition().y() <= (_player.currentPosition().y() + _player.stats().radiusAttack())) && (activatingItem->currentPosition().y() >= (_player.currentPosition().y() - _player.stats().radiusAttack()));
+    return flagX && flagY;
+}
+
+void Game::gamePhaseKeybordFunc(unsigned char key)
+{
+    switch (key)
+    {
+    case 'w':
+        _player.moveUp();
+        nextTurn();
+        break;
+
+    case 's':
+        _player.moveDown();
+        nextTurn();
+        break;
+
+    case 'a':
+        _player.moveLeft();
+        nextTurn();
+        break;
+
+    case 'd':
+        _player.moveRight();
+        nextTurn();
+        break;
+
+    case ' ':
+        nextTurn();
+        break;
+
+    case 'e':
+        attack();
+        nextTurn();
+        break;
+
+    case '1':
+        _player.useItem(0);
+        nextTurn();
+        break;
+
+    case '2':
+        _player.useItem(1);
+        nextTurn();
+        break;
+
+    case '3':
+        _player.useItem(2);
+        nextTurn();
+        break;
+
+    case '4':
+        _player.useItem(3);
+        nextTurn();
+        break;
+
+    case '5':
+        _player.useItem(4);
+        nextTurn();
+        break;
+
+    case '6':
+        _player.useItem(5);
+        nextTurn();
+        break;
+
+    case '7':
+        _player.useItem(6);
+        nextTurn();
+        break;
+
+    case '8':
+        _player.useItem(7);
+        nextTurn();
+        break;
+
+    case '9':
+        _player.useItem(8);
+        nextTurn();
+        break;
+
+    case '0':
+        _player.useItem(9);
+        nextTurn();
+        break;
+
+    default:
+        break;
     }
 }
 
@@ -312,8 +447,8 @@ void Game::drawWinPhase()
     glVertex2f(-0.3f, -0.25f);
     glVertex2f(-0.3f, -0.25f);
     glVertex2f(-0.25f, 0.25f);
-
     glEnd();
+    
     glBegin(GL_LINES);
     glVertex2f(-0.15f, -0.25f);
     glVertex2f(0.05f, -0.25f);
@@ -332,87 +467,4 @@ void Game::drawWinPhase()
     glVertex2f(0.45f, -0.2f);
     glVertex2f(0.45f, 0.25f);
     glEnd();
-}
-
-void Game::gamePhaseKeybordFunc(unsigned char key)
-{
-    switch (key)
-    {
-    case 'w':
-        _player.moveUp();
-        nextTurn();
-        break;
-
-    case 's':
-        _player.moveDown();
-        nextTurn();
-        break;
-
-    case 'a':
-        _player.moveLeft();
-        nextTurn();
-        break;
-
-    case 'd':
-        _player.moveRight();
-        nextTurn();
-        break;
-
-    case ' ':
-        nextTurn();
-        break;
-
-    case '1':
-        _player.useItem(0);
-        nextTurn();
-        break;
-
-    case '2':
-        _player.useItem(1);
-        nextTurn();
-        break;
-
-    case '3':
-        _player.useItem(2);
-        nextTurn();
-        break;
-
-    case '4':
-        _player.useItem(3);
-        nextTurn();
-        break;
-
-    case '5':
-        _player.useItem(4);
-        nextTurn();
-        break;
-
-    case '6':
-        _player.useItem(5);
-        nextTurn();
-        break;
-
-    case '7':
-        _player.useItem(6);
-        nextTurn();
-        break;
-
-    case '8':
-        _player.useItem(7);
-        nextTurn();
-        break;
-
-    case '9':
-        _player.useItem(8);
-        nextTurn();
-        break;
-
-    case '0':
-        _player.useItem(9);
-        nextTurn();
-        break;
-
-    default:
-        break;
-    }
 }

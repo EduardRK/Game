@@ -84,7 +84,7 @@ void GhostEnemy::hit(Damage damage)
     _healthPoints.decreaseHealth(damage);
 }
 
-Damage &GhostEnemy::deal()
+Damage GhostEnemy::deal()
 {
     return _damage;
 }

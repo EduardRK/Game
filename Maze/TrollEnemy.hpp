@@ -41,7 +41,7 @@ public:
     void nextTurn() override;
     Point &currentPosition() override;
     void hit(Damage damage) override;
-    Damage &deal() override;
+    Damage deal() override;
     bool isAlive() override;
     std::shared_ptr<Item> deathRattle() override;
 

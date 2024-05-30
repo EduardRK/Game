@@ -1,12 +1,13 @@
 #pragma once
 
 #include "Turnable.hpp"
-#include "Player.hpp"
+#include "Drawable.hpp"
+#include "Attacker.hpp"
 
-class Buff : public Turnable
+class Buff : public Drawable, public Turnable, public Attacker
 {
 public:
     virtual ~Buff() = default;
 
-    virtual void buffAction(Player &player) = 0;
+    virtual bool complete() = 0;
 };
