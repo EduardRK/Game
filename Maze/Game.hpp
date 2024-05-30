@@ -11,25 +11,23 @@
 #include "MazeRenderer.hpp"
 #include "Item.hpp"
 #include "ActivatingItem.hpp"
+#include "Exit.hpp"
+#include "GamePhase.hpp"
 
 class Game final : public Turnable, public Drawable
 {
 private:
     static constexpr float LINE_WIDTH = 9.f;
 
-    static constexpr int LOAD_PHASE = 1;
-    static constexpr int GAME_PHASE = 2;
-    static constexpr int WIN_PHASE = 3;
-    static constexpr int DEFEAT_PHASE = 4;
-
     Player &_player;
     Maze &_maze;
+    Exit _exit;
     std::vector<std::shared_ptr<Enemy>> _enemies;
     std::vector<std::shared_ptr<Item>> _items;
     std::vector<std::shared_ptr<ActivatingItem>> _atcivatingItems;
     std::unique_ptr<MazeRenderer> _mazeRenderer;
 
-    int _phase = LOAD_PHASE;
+    GamePhase _phase = GamePhase::LOAD_PHASE;
 
 public:
     Game(Player &player, Maze &maze, std::vector<std::shared_ptr<Enemy>> &enemy, std::vector<std::shared_ptr<Item>> &items);
@@ -50,8 +48,11 @@ private:
     bool isItemInRadiusOfView(std::shared_ptr<Item> &item);
     bool isActivatingItemInRadiusOfView(std::shared_ptr<ActivatingItem> &activatingItem);
 
+    bool isExitInRadiusOfView();
+
     void damageExchange();
     void itemTake();
+    void winCheck();
 
     void attack();
 

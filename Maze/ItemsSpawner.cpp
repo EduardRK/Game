@@ -18,7 +18,7 @@ std::vector<std::shared_ptr<Item>> ItemsSpawner::spawn(const Maze &maze)
     std::unordered_set<Point> alreadyUsePoints;
     int random = 0;
 
-    for (int i = 0; i < (maze.height() / 4); ++i)
+    for (int i = 0; i < (maze.height() / 2); ++i)
     {
         random = nextRandomInt(100);
         Point currentPosition = randomPassagePoint(maze);
@@ -30,11 +30,11 @@ std::vector<std::shared_ptr<Item>> ItemsSpawner::spawn(const Maze &maze)
 
         alreadyUsePoints.insert(currentPosition);
 
-        if (random <= 15)
+        if (random <= 20)
         {
             items.push_back(selector->seedSelect(ItemSelector::TORCH_SEED, currentPosition));
         }
-        else if (random > 15 && random <= 40)
+        else if (random > 20 && random <= 40)
         {
             items.push_back(selector->seedSelect(ItemSelector::BOMB_SEED, currentPosition));
         }
