@@ -11,6 +11,10 @@ Damage::Damage(int damageValue) : Damage(damageValue, 0.1f, 2)
 {
 }
 
+Damage::Damage(const Stats &stats) : Damage(stats.damage(), stats.critChance(), stats.critMultiplier())
+{
+}
+
 Damage::Damage() : Damage(0, 0.f, 0)
 {
 }

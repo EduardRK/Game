@@ -75,7 +75,7 @@ void TrollEnemy::hit(Damage damage)
     _healthPoints.decreaseHealth(damage);
 }
 
-Damage &TrollEnemy::deal()
+Damage TrollEnemy::deal()
 {
     return _damage;
 }

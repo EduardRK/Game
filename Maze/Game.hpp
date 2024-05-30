@@ -10,11 +10,12 @@
 #include "Enemy.hpp"
 #include "MazeRenderer.hpp"
 #include "Item.hpp"
+#include "ActivatingItem.hpp"
 
 class Game final : public Turnable, public Drawable
 {
 private:
-    static constexpr float LINE_WIDTH = 7.f;
+    static constexpr float LINE_WIDTH = 9.f;
 
     static constexpr int LOAD_PHASE = 1;
     static constexpr int GAME_PHASE = 2;
@@ -25,6 +26,7 @@ private:
     Maze &_maze;
     std::vector<std::shared_ptr<Enemy>> _enemies;
     std::vector<std::shared_ptr<Item>> _items;
+    std::vector<std::shared_ptr<ActivatingItem>> _atcivatingItems;
     std::unique_ptr<MazeRenderer> _mazeRenderer;
 
     int _phase = LOAD_PHASE;
@@ -44,16 +46,22 @@ public:
     void nextTurn() override;
 
 private:
-    bool isEnemyInRadiusOfView(std::shared_ptr<Enemy> enemy);
-    bool isItemInRadiusOfView(std::shared_ptr<Item> item);
+    bool isEnemyInRadiusOfView(std::shared_ptr<Enemy> &enemy);
+    bool isItemInRadiusOfView(std::shared_ptr<Item> &item);
+    bool isActivatingItemInRadiusOfView(std::shared_ptr<ActivatingItem> &activatingItem);
 
     void damageExchange();
     void itemTake();
+
+    void attack();
+
+    bool isEnemyInRadiusOfAttack(std::shared_ptr<Enemy> &enemy);
+    bool isActivatingItemInRadiusOfAttack(std::shared_ptr<ActivatingItem> &activatingItem);
+
+    void gamePhaseKeybordFunc(unsigned char key);
 
     void drawLoadPhase();
     void drawGamePhase();
     void drawDefeatPhase();
     void drawWinPhase();
-
-    void gamePhaseKeybordFunc(unsigned char key);
 };

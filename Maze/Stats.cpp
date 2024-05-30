@@ -1,6 +1,10 @@
 #include "Stats.hpp"
 
-Stats::Stats(int defaultDamage, int defaultCritMultiplier, float defaultCritChance, int defaultRadiusView) : _defaultDamage{defaultDamage}, _defaultCritMultiplier{defaultCritMultiplier}, _defaultCritChance{defaultCritChance}, _defaultRadiusView{defaultRadiusView}
+Stats::Stats(int defaultDamage, int defaultCritMultiplier, float defaultCritChance, int defaultRadiusView, int defaultRadiusAttack) : _defaultDamage{defaultDamage}, _defaultCritMultiplier{defaultCritMultiplier}, _defaultCritChance{defaultCritChance}, _defaultRadiusView{defaultRadiusView}, _defaultRadiusAttack{defaultRadiusAttack}
+{
+}
+
+Stats::Stats(int defaultDamage, int defaultCritMultiplier, float defaultCritChance, int defaultRadiusView) : Stats(defaultDamage, defaultCritMultiplier, defaultCritChance, defaultRadiusView, 0)
 {
 }
 
@@ -44,6 +48,16 @@ int Stats::defaultRadiusView()
     return _defaultRadiusView;
 }
 
+int Stats::defaultRadiusAttack() const
+{
+    return _defaultRadiusAttack;
+}
+
+int Stats::defaultRadiusAttack()
+{
+    return _defaultRadiusAttack;
+}
+
 int Stats::bonusDamage() const
 {
     return _bonusDamage;
@@ -82,6 +96,16 @@ int Stats::bonusRadiusView() const
 int Stats::bonusRadiusView()
 {
     return _bonusRadiusView;
+}
+
+int Stats::bonusRadiusAttack() const
+{
+    return _bonusRadiusAttack;
+}
+
+int Stats::bonusRadiusAttack()
+{
+    return _bonusRadiusAttack;
 }
 
 int Stats::damage() const
@@ -124,6 +148,16 @@ int Stats::radiusView()
     return (_defaultRadiusView + _bonusRadiusView < 0) ? 0 : (_defaultRadiusView + _bonusRadiusView);
 }
 
+int Stats::radiusAttack() const
+{
+    return (_defaultRadiusAttack + _bonusRadiusAttack < 0) ? 0 : (_defaultRadiusAttack + _bonusRadiusAttack);
+}
+
+int Stats::radiusAttack()
+{
+    return (_defaultRadiusAttack + _bonusRadiusAttack < 0) ? 0 : (_defaultRadiusAttack + _bonusRadiusAttack);
+}
+
 void Stats::addBonusDamage(int bonusDamage)
 {
     _bonusDamage += bonusDamage;
@@ -142,4 +176,34 @@ void Stats::addBonusCritChance(float bonusCritChance)
 void Stats::addBonusRadiusView(int bonusRadiusView)
 {
     _bonusRadiusView += bonusRadiusView;
+}
+
+void Stats::addBonusRadiusAttack(int bonusRadiusAttack)
+{
+    _bonusRadiusAttack += bonusRadiusAttack;
+}
+
+void Stats::removeBonusDamage(int bonusDamage)
+{
+    _bonusDamage -= bonusDamage;
+}
+
+void Stats::removeBonusCritMultiplier(int bonusCritMultiplier)
+{
+    _bonusCritMultiplier -= bonusCritMultiplier;
+}
+
+void Stats::removeBonusCritChance(float bonusCritChance)
+{
+    _bonusCritChance -= bonusCritChance;
+}
+
+void Stats::removeBonusRadiusView(int bonusRadiusView)
+{
+    _bonusRadiusView -= bonusRadiusView;
+}
+
+void Stats::removeBonusRadiusAttack(int bonusRadiusAttack)
+{
+    _bonusRadiusAttack -= bonusRadiusAttack;
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Stats.hpp"
+
 class Damage final
 {
 private:
@@ -13,6 +15,7 @@ private:
 public:
     Damage(int damageValue, float critChance, int critMultiplier);
     Damage(int damageValue);
+    Damage(const Stats &stats);
     Damage();
     ~Damage() = default;
 

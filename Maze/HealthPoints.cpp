@@ -1,3 +1,5 @@
+#include <GL/glut.h>
+
 #include "HealthPoints.hpp"
 
 HealthPoints::HealthPoints(int maxHealthPoints, int currentHealthPoints) : _maxHealthPoints{maxHealthPoints}, _healthPoints{currentHealthPoints}
@@ -56,4 +58,41 @@ int HealthPoints::maxHealthPoints() const
 int HealthPoints::maxHealthPoints()
 {
     return _maxHealthPoints;
+}
+
+void HealthPoints::draw()
+{
+    float left = -1.f;
+    float top = 1.f - GAP;
+
+    glColor3f(0.9f, 0.f, 0.f);
+
+    glLineWidth(LINE_WIDTH);
+
+    for (size_t i = 0; i < _maxHealthPoints; ++i)
+    {
+        glBegin(GL_LINE_LOOP);
+        glVertex2f(left, top);
+        glVertex2f(left, top - SIDE);
+        glVertex2f(left + SIDE, top - SIDE);
+        glVertex2f(left + SIDE, top);
+        glVertex2f(left, top);
+        glEnd();
+
+        left += (SIDE + GAP);
+    }
+
+    left = -1.f;
+
+    for (size_t i = 0; i < _healthPoints; ++i)
+    {
+        glBegin(GL_QUADS);
+        glVertex2f(left, top);
+        glVertex2f(left, top - SIDE);
+        glVertex2f(left + SIDE, top - SIDE);
+        glVertex2f(left + SIDE, top);
+        glEnd();
+
+        left += (SIDE + GAP);
+    }
 }

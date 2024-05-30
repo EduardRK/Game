@@ -6,5 +6,5 @@ class Dealer
 public:
     virtual ~Dealer() = default;
 
-    virtual T &deal() = 0;
+    virtual T deal() = 0;
 };

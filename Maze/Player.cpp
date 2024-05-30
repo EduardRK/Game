@@ -3,16 +3,13 @@
 #include "Player.hpp"
 #include "Point.hpp"
 #include "Maze.hpp"
+#include <iostream>
 
-Player::Player(const Point &startPosition, const Maze &maze) : _currentPosition{startPosition}, _maze{maze}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _damage{Damage(DEFAULT_DAMAGE, DEFAULT_CRIT_CHANCE, DEFAULT_CRIT_MULTIPLIER)}, _backpack{Backpack()}
+Player::Player(Point startPosition, const Maze &maze) : _currentPosition{startPosition}, _maze{maze}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _stats{Stats(DEFAULT_DAMAGE, DEFAULT_CRIT_MULTIPLIER, DEFAULT_CRIT_CHANCE, DEFAULT_RADIUS_OF_VIEW, DEFAULT_RADIUS_OF_ATTACK)}, _backpack{Backpack()}, _statuses{Statuses()}
 {
 }
 
-Player::Player(Point startPosition, const Maze &maze) : _currentPosition{startPosition}, _maze{maze}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _damage{Damage(DEFAULT_DAMAGE, DEFAULT_CRIT_CHANCE, DEFAULT_CRIT_MULTIPLIER)}, _backpack{Backpack()}
-{
-}
-
-Player::Player(int x, int y, const Maze &maze) : _currentPosition{Point(x, y)}, _maze{maze}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _damage{Damage(DEFAULT_DAMAGE, DEFAULT_CRIT_CHANCE, DEFAULT_CRIT_MULTIPLIER)}, _backpack{Backpack()}
+Player::Player(int x, int y, const Maze &maze) : Player(Point(x, y), maze)
 {
 }
 
@@ -50,17 +47,12 @@ void Player::moveRight()
 
 int Player::radiusView() const
 {
-    return _radiusView;
+    return _stats.radiusView();
 }
 
 int Player::radiusView()
 {
-    return _radiusView;
-}
-
-void Player::newRadiusView(unsigned int newRadiusView)
-{
-    _radiusView = newRadiusView;
+    return _stats.radiusView();
 }
 
 bool Player::peekItem(std::shared_ptr<Item> item)
@@ -83,7 +75,7 @@ void Player::decreaseMaxHealth(int bonusHealthPoints)
     _healthPoints.decreaseMaxHealth(bonusHealthPoints);
 }
 
-Point &Player::currentPosition()
+Point Player::currentPosition()
 {
     return _currentPosition;
 }
@@ -93,9 +85,31 @@ const Point &Player::currentPosition() const
     return _currentPosition;
 }
 
+Stats &Player::stats()
+{
+    return _stats;
+}
+
+const Stats &Player::stats() const
+{
+    return _stats;
+}
+
+Statuses &Player::statuses()
+{
+    return _statuses;
+}
+
+const Statuses &Player::statuses() const
+{
+    return _statuses;
+}
+
 void Player::draw()
 {
-    glColor3f(0.8f, 0.f, 0.f);
+    _healthPoints.draw();
+
+    glColor3f(0.7f, 0.f, 0.f);
 
     float width = _maze.width();
     float height = _maze.height();
@@ -113,6 +127,15 @@ void Player::draw()
 
 void Player::nextTurn()
 {
+    for (int i = 0; i < _buffs.size(); ++i)
+    {
+        _buffs.at(i)->nextTurn();
+
+        if (_buffs.at(i)->complete())
+        {
+            _buffs.erase(_buffs.begin() + i);
+        }
+    }
 }
 
 void Player::hit(Damage damage)
@@ -125,9 +148,27 @@ void Player::heal(Heal heal)
     _healthPoints.increaseHealth(heal);
 }
 
-Damage &Player::deal()
+void Player::attack()
 {
-    return _damage;
+    for (int i = 0; i < _buffs.size(); ++i)
+    {
+        _buffs.at(i)->attack();
+
+        if (_buffs.at(i)->complete())
+        {
+            _buffs.erase(_buffs.begin() + i);
+        }
+    }
+}
+
+void Player::buff(std::shared_ptr<Buff> buff)
+{
+    _buffs.push_back(buff);
+}
+
+Damage Player::deal()
+{
+    return Damage(_stats);
 }
 
 bool Player::isAlive()
