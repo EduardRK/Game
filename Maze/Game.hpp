@@ -26,6 +26,7 @@ private:
     std::vector<std::shared_ptr<Enemy>> _enemies;
     std::vector<std::shared_ptr<Item>> _items;
     std::vector<std::shared_ptr<ActivatingItem<Explosion>>> _atcivatingItems;
+    std::vector<Explosion> _explosions;
     std::unique_ptr<MazeRenderer> _mazeRenderer;
 
     GamePhase _phase = GamePhase::LOAD_PHASE;

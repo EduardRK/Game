@@ -110,6 +110,7 @@ const Statuses &Player::statuses() const
 void Player::draw()
 {
     _healthPoints.draw();
+    _backpack.draw();
 
     glColor3f(0.7f, 0.f, 0.f);
 

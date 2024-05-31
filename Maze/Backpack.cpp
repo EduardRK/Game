@@ -1,3 +1,5 @@
+#include <GL/glut.h>
+
 #include "Backpack.hpp"
 #include "EmptyItem.hpp"
 
@@ -37,6 +39,33 @@ std::shared_ptr<Item> Backpack::getItem(int index)
     }
 
     return std::make_shared<EmptyItem>();
+}
+
+void Backpack::draw()
+{
+    float left = -0.9f;
+    float top = -0.9f + GAP;
+
+    glLineWidth(LINE_WIDTH);
+
+    for (size_t i = 0; i < _capacity; ++i)
+    {
+        glColor3f(0.35f, 0.35f, 0.35f);
+
+        glBegin(GL_LINE_LOOP);
+        glVertex2f(left, top);
+        glVertex2f(left, top - SIDE);
+        glVertex2f(left + SIDE, top - SIDE);
+        glVertex2f(left + SIDE, top);
+        glVertex2f(left, top);
+        glEnd();
+
+        _backpack[i].backpackDraw(left, top, SIDE);
+
+        left += (SIDE + GAP);
+    }
+
+    left = -1.f;
 }
 
 int Backpack::findEmpty()

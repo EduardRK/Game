@@ -5,6 +5,10 @@ void EmptyItem::draw()
 {
 }
 
+void EmptyItem::backpackDraw(float left, float top, float side)
+{
+}
+
 std::shared_ptr<ActivatingItem<Explosion>> EmptyItem::getActivatingItem()
 {
    return std::make_shared<EmptyActivatingItem>();

@@ -20,9 +20,24 @@ void TorchItem::draw()
 
     glBegin(GL_QUADS);
     glVertex2f(left, top);
-    glVertex2f(left, top - SIDE / (height / 2));
-    glVertex2f(left + SIDE / (width / 2), top - SIDE / (height / 2));
-    glVertex2f(left + SIDE / (width / 2), top);
+    glVertex2f(left, top - SIDE_ON_MAP / (height / 2));
+    glVertex2f(left + SIDE_ON_MAP / (width / 2), top - SIDE_ON_MAP / (height / 2));
+    glVertex2f(left + SIDE_ON_MAP / (width / 2), top);
+    glEnd();
+}
+
+void TorchItem::backpackDraw(float left, float top, float side)
+{
+    glColor3f(1.f, 144.f / 255.f, 0.f);
+
+    float width = _maze.width();
+    float height = _maze.height();
+
+    glBegin(GL_QUADS);
+    glVertex2f(left, top);
+    glVertex2f(left, top - side);
+    glVertex2f(left + side, top - side);
+    glVertex2f(left + side, top);
     glEnd();
 }
 
