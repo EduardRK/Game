@@ -31,7 +31,7 @@ private:
     static constexpr int DEFAULT_DAMAGE = 0;
     static constexpr float DEFAULT_CRIT_CHANCE = 0.2f;
     static constexpr int DEFAULT_CRIT_MULTIPLIER = 2;
-    static constexpr int DEFAULT_RADIUS_OF_VIEW = 100;
+    static constexpr int DEFAULT_RADIUS_OF_VIEW = 3;
     static constexpr int DEFAULT_RADIUS_OF_ATTACK = 1;
 
     static constexpr int DEFAULT_MAX_HP = 4;
