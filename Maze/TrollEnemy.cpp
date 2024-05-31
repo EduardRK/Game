@@ -7,6 +7,7 @@
 #include "Selector.hpp"
 #include "ItemSelector.hpp"
 #include "Item.hpp"
+#include "Items.hpp"
 
 TrollEnemy::TrollEnemy(const Maze &maze, Point &currentPosition, Player &player) : _maze{maze}, _currentPosition{currentPosition}, _player{player}, _mazeSolver{std::make_unique<DfsMazeSolver>(maze)}, _healthPoints{HealthPoints(DEFAULT_MAX_HP)}, _damage{Damage(DEFAULT_DAMAGE, DEFAULT_CRIT_CHANCE, DEFAULT_CRIT_MULTIPLIER)}
 {
@@ -88,7 +89,7 @@ bool TrollEnemy::isAlive()
 std::shared_ptr<Item> TrollEnemy::deathRattle()
 {
     std::unique_ptr<Selector<Item>> selector = std::make_unique<ItemSelector>(_player, _maze);
-    return selector->seedSelect(ItemSelector::KEY_SEED, _currentPosition);
+    return selector->seedSelect(Items::KEY_ITEM, _currentPosition);
 }
 
 bool TrollEnemy::playerInRadiusOfView()

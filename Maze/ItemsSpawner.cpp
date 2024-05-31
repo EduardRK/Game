@@ -6,6 +6,7 @@
 #include "ItemSelector.hpp"
 #include "RandomFunctions.hpp"
 #include "PointHash.hpp"
+#include "Items.hpp"
 
 ItemsSpawner::ItemsSpawner(Player &player) : _player{player}
 {
@@ -32,19 +33,19 @@ std::vector<std::shared_ptr<Item>> ItemsSpawner::spawn(const Maze &maze)
 
         if (random <= 20)
         {
-            items.push_back(selector->seedSelect(ItemSelector::TORCH_SEED, currentPosition));
+            items.push_back(selector->seedSelect(Items::TORCH_ITEM, currentPosition));
         }
         else if (random > 20 && random <= 40)
         {
-            items.push_back(selector->seedSelect(ItemSelector::BOMB_SEED, currentPosition));
+            items.push_back(selector->seedSelect(Items::BOMB_ITEM, currentPosition));
         }
         else if (random > 40 && random <= 80)
         {
-            items.push_back(selector->seedSelect(ItemSelector::GREEN_GRASS_SEED, currentPosition));
+            items.push_back(selector->seedSelect(Items::GREEN_GRASS_ITEM, currentPosition));
         }
         else
         {
-            items.push_back(selector->seedSelect(ItemSelector::YELLOW_GRASS_SEED, currentPosition));
+            items.push_back(selector->seedSelect(Items::YELLOW_GRASS_ITEM, currentPosition));
         }
     }
 
@@ -59,12 +60,12 @@ std::shared_ptr<Item> ItemsSpawner::torchSpawn(const Maze &maze, std::unique_ptr
     if (maze.cell(1, 2).isPassage())
     {
         point = Point(1, 2);
-        return selector->seedSelect(ItemSelector::TORCH_SEED, point);
+        return selector->seedSelect(Items::TORCH_ITEM, point);
     }
     else
     {
         point = Point(2, 1);
-        return selector->seedSelect(ItemSelector::TORCH_SEED, point);
+        return selector->seedSelect(Items::TORCH_ITEM, point);
     }
 }
 

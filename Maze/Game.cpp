@@ -241,9 +241,15 @@ void Game::explosionCalculate(Explosion &explosion)
         }
     }
 
-    for (size_t i = (explosion.center().x() - explosion.radius()); i <= (explosion.center().x() + explosion.radius()); ++i)
+    int startX = (explosion.center().x() - explosion.radius()) < 0 ? 0 : (explosion.center().x() - explosion.radius());
+    int endX = (explosion.center().x() + explosion.radius()) >= _maze.height() ? (_maze.height() - 1) : (explosion.center().x() + explosion.radius());
+
+    int startY = (explosion.center().y() - explosion.radius()) < 0 ? 0 : (explosion.center().y() - explosion.radius());
+    int endY = (explosion.center().y() + explosion.radius()) >= _maze.width() ? (_maze.width() - 1) : (explosion.center().y() + explosion.radius());
+
+    for (size_t i = startX; i <= endX; ++i)
     {
-        for (size_t j = (explosion.center().y() - explosion.radius()); j <= (explosion.center().x() + explosion.radius()); ++j)
+        for (size_t j = startY; j <= endY; ++j)
         {
             if (_maze.cell(i, j).isCracked())
             {
