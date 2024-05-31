@@ -79,13 +79,11 @@ void Game::nextTurn()
         enemy->nextTurn();
     }
 
-    std::vector<Explosion> explosions;
-
     for (size_t i = 0; i < _atcivatingItems.size(); ++i)
     {
         if (_atcivatingItems.at(i)->complete())
         {
-            explosions.push_back(_atcivatingItems.at(i)->result());
+            _explosions.push_back(_atcivatingItems.at(i)->result());
             _atcivatingItems.erase(_atcivatingItems.begin() + i);
         }
         else
@@ -94,11 +92,13 @@ void Game::nextTurn()
         }
     }
 
-    for (auto &&explosion : explosions)
+    for (auto &&explosion : _explosions)
     {
         explosionCalculate(explosion);
         explosionDraw(explosion);
     }
+
+    _explosions.clear();
 
     damageExchange();
     itemTake();

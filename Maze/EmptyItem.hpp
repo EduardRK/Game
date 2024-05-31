@@ -11,6 +11,7 @@ public:
     ~EmptyItem() = default;
 
     void draw() override;
+    void backpackDraw(float left, float top, float side) override;
     std::shared_ptr<ActivatingItem<Explosion>> getActivatingItem() override;
     void useItem() override;
     Point currentPosition() override;

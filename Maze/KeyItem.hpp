@@ -9,7 +9,8 @@
 class KeyItem final : public Item
 {
 private:
-    static constexpr float SIDE = 0.5f;
+    static constexpr float SIDE_ON_MAP = 0.5f;
+    static constexpr float SIDE_ON_BACKPACK = 1.f;
 
     Player &_player;
     const Maze &_maze;
@@ -20,6 +21,7 @@ public:
     ~KeyItem() = default;
 
     void draw() override;
+    void backpackDraw(float left, float top, float side) override;
     std::shared_ptr<ActivatingItem<Explosion>> getActivatingItem() override;
     void useItem() override;
     Point currentPosition() override;

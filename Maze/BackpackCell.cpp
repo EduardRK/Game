@@ -28,3 +28,8 @@ void BackpackCell::addItem(std::shared_ptr<Item> item)
     _item = item;
     _empty = false;
 }
+
+void BackpackCell::backpackDraw(float left, float top, float side)
+{
+    _item->backpackDraw(left, top, side);
+}

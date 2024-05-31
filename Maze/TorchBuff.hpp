@@ -11,7 +11,7 @@ private:
 
     Player &_player;
 
-    int _turnsLeft = 25;
+    int _turnsLeft = 40;
 
 public:
     TorchBuff(Player &player);
