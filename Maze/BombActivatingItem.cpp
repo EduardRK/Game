@@ -14,15 +14,15 @@ void BombActivatingItem::draw()
 {
     switch (_phase)
     {
-    case 1:
+    case BombActivatingItemPhase::DEFAULT_PHASE:
         drawDefaultPhase();
         break;
 
-    case 2:
+    case BombActivatingItemPhase::ACTIVE_PHASE:
         drawActivePhase();
         break;
 
-    case 3:
+    case BombActivatingItemPhase::PRE_EXPLOSION_PHASE:
         drawPreExplosionPhase();
         break;
 
@@ -37,7 +37,7 @@ void BombActivatingItem::nextTurn()
 {
     if (_active)
     {
-        ++_phase;
+        nextPhase();
     }
 }
 
@@ -46,13 +46,13 @@ void BombActivatingItem::activate()
     if (!_active && _player.statuses().fireStatus())
     {
         _active = true;
-        ++_phase;
+        nextPhase();
     }
 }
 
 bool BombActivatingItem::complete()
 {
-    return _phase == 4;
+    return _phase == BombActivatingItemPhase::EXPLOSION_PHASE;
 }
 
 Explosion BombActivatingItem::result()
@@ -94,4 +94,25 @@ void BombActivatingItem::drawBomb()
     glVertex2f(left + SIDE / (width / 2), top - SIDE / (height / 2));
     glVertex2f(left + SIDE / (width / 2), top);
     glEnd();
+}
+
+void BombActivatingItem::nextPhase()
+{
+    switch (_phase)
+    {
+    case BombActivatingItemPhase::DEFAULT_PHASE:
+        _phase = BombActivatingItemPhase::ACTIVE_PHASE;
+        break;
+
+    case BombActivatingItemPhase::ACTIVE_PHASE:
+        _phase = BombActivatingItemPhase::PRE_EXPLOSION_PHASE;
+        break;
+
+    case BombActivatingItemPhase::PRE_EXPLOSION_PHASE:
+        _phase = BombActivatingItemPhase::EXPLOSION_PHASE;
+        break;
+
+    default:
+        break;
+    }
 }

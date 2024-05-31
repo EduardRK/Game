@@ -5,6 +5,7 @@
 #include "Maze.hpp"
 #include "Player.hpp"
 #include "Explosion.hpp"
+#include "BombActivatingItemPhase.hpp"
 
 class BombActivatingItem final : public ActivatingItem<Explosion>
 {
@@ -19,7 +20,7 @@ private:
     Point _currentPosition;
 
     bool _active = false;
-    int _phase = 1;
+    BombActivatingItemPhase _phase = BombActivatingItemPhase::DEFAULT_PHASE;
 
 public:
     BombActivatingItem(Point currentPosition, Player &player, const Maze &maze);
@@ -38,4 +39,6 @@ private:
     void drawActivePhase();
     void drawPreExplosionPhase();
     void drawBomb();
+
+    void nextPhase();
 };

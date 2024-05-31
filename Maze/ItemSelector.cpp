@@ -17,19 +17,19 @@ std::shared_ptr<Item> ItemSelector::seedSelect(int seed, Point point)
 
     switch (seed)
     {
-    case GREEN_GRASS_SEED:
+    case Items::GREEN_GRASS_ITEM:
         item = std::make_shared<GreenGrassItem>(_player, _maze, point);
         break;
-    case YELLOW_GRASS_SEED:
+    case Items::YELLOW_GRASS_ITEM:
         item = std::make_shared<YellowGrassItem>(_player, _maze, point);
         break;
-    case BOMB_SEED:
+    case Items::BOMB_ITEM:
         item = std::make_shared<BombItem>(_player, _maze, point);
         break;
-    case TORCH_SEED:
+    case Items::TORCH_ITEM:
         item = std::make_shared<TorchItem>(_player, _maze, point);
         break;
-    case KEY_SEED:
+    case Items::KEY_ITEM:
         item = std::make_shared<KeyItem>(_player, _maze, point);
         break;
     default:

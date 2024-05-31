@@ -5,20 +5,24 @@
 
 #include "Item.hpp"
 #include "ActivatingItem.hpp"
+#include "BackpackCell.hpp"
 
 class Backpack final
 {
 private:
     static constexpr int DEFAULT_CAPACITY = 10;
 
-    std::vector<std::shared_ptr<Item>> _backpack;
+    BackpackCell *_backpack;
     int _capacity;
 
 public:
     Backpack(int capacity);
     Backpack();
-    ~Backpack() = default;
+    ~Backpack();
 
     bool saveItem(std::shared_ptr<Item> item);
     std::shared_ptr<Item> getItem(int index);
+
+private:
+    int findEmpty();
 };
