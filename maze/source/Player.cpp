@@ -148,6 +148,11 @@ void Player::draw()
     _healthPoints.draw();
     _backpack.draw();
 
+    for (size_t i = 0; i < _buffs.size(); ++i)
+    {
+        _buffs.at(i)->draw(i, BUFF_SIDE);
+    }
+
     glColor3f(0.7f, 0.f, 0.f);
 
     float width = _maze.width();

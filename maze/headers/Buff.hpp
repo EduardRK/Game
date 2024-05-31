@@ -1,10 +1,10 @@
 #pragma once
 
 #include "Turnable.hpp"
-#include "Drawable.hpp"
+#include "BuffDrawable.hpp"
 #include "Attacker.hpp"
 
-class Buff : public Drawable, public Turnable, public Attacker
+class Buff : public BuffDrawable, public Turnable, public Attacker
 {
 public:
     virtual ~Buff() = default;

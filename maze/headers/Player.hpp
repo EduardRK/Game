@@ -37,6 +37,7 @@ private:
     static constexpr int DEFAULT_MAX_HP = 4;
 
     static constexpr float SIDE = 1.f;
+    static constexpr float BUFF_SIDE = 0.04f;
 
     Point _currentPosition;
     const Maze &_maze;

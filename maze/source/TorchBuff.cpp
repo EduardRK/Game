@@ -1,11 +1,24 @@
+#include <GL/glut.h>
+
 #include "TorchBuff.hpp"
 
 TorchBuff::TorchBuff(Player &player) : _player{player}
 {
 }
 
-void TorchBuff::draw()
+void TorchBuff::draw(int buffIndex, float side)
 {
+    float left = 1.f - (side + GAP) * (buffIndex + 1);
+    float top = 1.f - GAP;
+
+    glColor3f(_redColor, 0.f, 0.f);
+
+    glBegin(GL_QUADS);
+    glVertex2f(left, top);
+    glVertex2f(left, top - side);
+    glVertex2f(left + side, top - side);
+    glVertex2f(left + side, top);
+    glEnd();
 }
 
 void TorchBuff::nextTurn()
@@ -19,6 +32,7 @@ void TorchBuff::nextTurn()
     }
 
     --_turnsLeft;
+    _redColor -= COLOR_GAP;
 }
 
 void TorchBuff::attack()
@@ -32,6 +46,7 @@ void TorchBuff::attack()
     }
 
     _turnsLeft -= 5;
+    _redColor -= (COLOR_GAP * 5);
 }
 
 bool TorchBuff::complete()
