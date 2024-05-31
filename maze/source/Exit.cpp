@@ -26,7 +26,7 @@ const Point &Exit::position() const
 
 void Exit::draw()
 {
-    glColor3f(11.f / 255.f, 112.f / 255.f, 35.f / 255.f);
+    glColor3f(83.f / 55.f, 112.f / 255.f, 122.f / 255.f);
 
     float width = _maze.width();
     float height = _maze.height();
