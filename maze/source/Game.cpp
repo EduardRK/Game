@@ -40,9 +40,18 @@ void Game::useKeyboardKey(unsigned char key)
         _phase = GamePhase::GAME_PHASE;
         break;
 
+    case GamePhase::DEFEAT_PHASE:
+    case GamePhase::WIN_PHASE:
+        break;
+
     default:
         break;
     }
+}
+
+bool Game::canRestart()
+{
+    return _phase == GamePhase::DEFEAT_PHASE || _phase == GamePhase::WIN_PHASE;
 }
 
 void Game::draw()

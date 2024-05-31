@@ -39,7 +39,25 @@ void displayFunc()
 
 void keyboardFunc(unsigned char key, int x, int y)
 {
-    game->useKeyboardKey(key);
+    if (!game->canRestart())
+    {
+        game->useKeyboardKey(key);
+    }
+    else
+    {
+        if (key == 'r')
+        {
+            mazeGenerator = std::make_unique<PrimMazeGenerator>();
+            maze = mazeGenerator->generateMaze(45, 45);
+            exitPosition = std::make_unique<Exit>(*maze);
+            player = std::make_unique<Player>(1, 1, *maze, *exitPosition);
+            enemiesSpawner = std::make_unique<EnemiesSpawner>(*player);
+            enemies = enemiesSpawner->spawn(*maze);
+            itemsSpawner = std::make_unique<ItemsSpawner>(*player);
+            items = itemsSpawner->spawn(*maze);
+            game = std::make_unique<Game>(*player, *maze, enemies, items, *exitPosition);
+        }
+    }
 
     glutPostRedisplay();
 }

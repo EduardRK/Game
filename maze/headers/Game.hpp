@@ -42,6 +42,8 @@ public:
 
     void useKeyboardKey(unsigned char key);
 
+    bool canRestart();
+
     void draw() override;
     void nextTurn() override;
 
