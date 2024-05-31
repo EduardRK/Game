@@ -1,7 +1,7 @@
 #include <memory>
 
-#include "maze/GameRunner.hpp"
-#include "maze/MazeGameRunner.hpp"
+#include "maze/headers/GameRunner.hpp"
+#include "maze/headers/MazeGameRunner.hpp"
 
 int main(int argc, char **argv)
 {

@@ -8,12 +8,13 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
-                "${workspaceFolder}\\maze\\*.cpp",
+                "${workspaceFolder}/maze/source/*.cpp",
+                "-I${workspaceFolder}/maze/headers",
                 "-lfreeglut",
                 "-lopengl32",
                 "-std=c++23",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                "${fileDirname}/${fileBasenameNoExtension}.exe"
             ],
             "options": {
                 "cwd": "${fileDirname}"
